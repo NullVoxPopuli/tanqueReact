@@ -24,6 +24,7 @@ export default class extends React.Component {
       content: message,
     });
 
+    // Ensure that we re-render the child components
     this.forceUpdate();
   }
 
