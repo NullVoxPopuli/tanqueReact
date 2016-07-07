@@ -15,7 +15,7 @@ config = _.extend(config, {
 
 config.output = _.extend(config.output, {
   // app/assets/javascripts/build which enables hooking into Sprockets
-  path: path.join(config.context, 'assets', 'build'),
+  path: path.join(config.context, 'frontend', 'assets', 'build'),
   // compiled bundle filename
   filename: '[name].js',
   // Settings to better support source map file paths

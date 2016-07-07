@@ -1,7 +1,8 @@
 import React from 'react';
 import UserListRow from './user-list-row';
-import { Nav } from 'react-bootstrap';
-import store from 'js/data/store';
+import { Nav, NavItem, Row, Col } from 'react-bootstrap';
+
+import store, { defaultChat } from 'js/data/store';
 
 export default class extends React.Component {
   constructor(props) {
@@ -24,7 +25,12 @@ export default class extends React.Component {
       },
     ]);
 
-    this.users = store.getAll('user');
+    this.users = [{
+      id: defaultChat,
+      alias: 'All',
+      status: 'online',
+    },];
+    this.users = this.users.concat(store.getAll('user'));
   }
 
   // set up whispering to the clicked user
@@ -33,9 +39,15 @@ export default class extends React.Component {
     return null;
   }
 
-  render() {
-    let userList = this.users.map(user => <UserListRow user={user}></UserListRow>);
+  handleUserSelect(user) {
+    this.props.handleUserSelect(user);
+  }
 
+  render() {
+    let userList = this.users.map(user =>
+      <UserListRow
+        user={user}
+        handleUserSelect={this.handleUserSelect.bind(this, user)} />);
     return (
       <Nav bsStyle='pills' stacked onSelect={this.onSelect}>
         {userList}

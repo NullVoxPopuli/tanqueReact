@@ -22,10 +22,14 @@ export default class extends NavItem {
     return <FontAwesome name='circle-o' className='offline' />;
   }
 
+  handleUserSelect(user) {
+    this.props.handleUserSelect(user);
+  }
+
   render() {
     let status = this.onlineStatus();
     return (
-      <Row>
+      <Row onClick={this.handleUserSelect.bind(this, this.user)}>
         <Col xs={2}> {status} </Col>
         <Col xs={10}>
           {this.user.alias}

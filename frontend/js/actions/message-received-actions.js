@@ -1,0 +1,9 @@
+export const MESSAGE_CHAT = 'chat';
+export const MESSAGE_EMOTE = 'emote';
+export const MESSAGE_WHISPER = 'whisper';
+export const MESSAGE_DISCONNECT = 'disconnect';
+export const MESSAGE_NODE_LIST_HASH = 'nodelisthash';
+export const MESSAGE_NODE_LIST = 'nodelist';
+export const MESSAGE_NODE_LIST_DIFF = 'nodelistdiff';
+export const MESSAGE_PING = 'ping';
+export const MESSAGE_PING_REPLY = 'pingreply';

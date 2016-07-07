@@ -26,6 +26,7 @@
     "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
+    "actioncable": "^5.0.0",
     "autoprefixer": "^6.3.6",
     "autoprefixer-loader": "^3.2.0",
     "babel-core": "^6.9.1",
