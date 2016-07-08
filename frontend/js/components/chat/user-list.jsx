@@ -7,29 +7,23 @@ import store, { defaultChat } from 'js/data/store';
 export default class extends React.Component {
   constructor(props) {
     super(props);
-    store.add('user', [
-      {
-        id: 1,
-        alias: 'neatInternetName',
+    store.add('user', {
+        id: 'user1',
+        alias: 'TerminalClient',
         status: 'online',
-      },
-      {
-        id: 2,
+      });
+    store.add('user', {
+        id: 'user2',
         alias: 'NullVoxPopuli',
-        status: 'online',
-      },
-      {
-        id: 3,
-        alias: 'NeuroTek',
         status: 'offline',
-      },
-    ]);
+      });
 
     this.users = [{
       id: defaultChat,
       alias: 'All',
       status: 'online',
-    },];
+    }];
+
     this.users = this.users.concat(store.getAll('user'));
   }
 

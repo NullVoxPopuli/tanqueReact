@@ -1,7 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { connect } from 'react-redux';
 
-export default class extends React.Component {
+import store, { defaultChat } from 'js/data/store';
+import { OFFLINE, ONLINE } from 'js/data/models/user';
+import { sendMessageToCable, received } from 'js/actions/action-cable-actions';
+
+class TextEntry extends React.Component {
   constructor(props) {
     super(props);
 
@@ -30,7 +35,23 @@ export default class extends React.Component {
   }
 
   sendMessage() {
-    this.props.onSendMessage(this.state.messageToSend);
+    console.log('sendMessage');
+
+    if (this.currentRoomId === defaultChat) {
+      let onlineUsers = store.filter('user', {
+        status: ONLINE,
+      });
+
+      onlineUsers.forEach(user => {
+        this.props.sendMessageToCable(user.id, this.state.messageToSend);
+      });
+    } else {
+      this.props.sendMessageToCable(this.currentRoomId, this.state.messageToSend);
+    }
+
+    // call received so that we can display our own chat messages
+    // so that other people's replies have context
+    this.props.received({ uid: this.props.myAlias, message: this.state.messageToSend });
     this.setState({ messageToSend: '' });
   }
 
@@ -42,8 +63,29 @@ export default class extends React.Component {
          onKeyPress={this._onKeyPress}
          onChange={this._onChange}
         />
-        <button onClick={this.sendMessage}>Send</button>
+        <button onClick={this.sendMessage.bind(this)}>Send</button>
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    store: state.dataStore,
+    messages: state.dataStore.getAll('message'),
+    myAlias: state.config.alias,
+    lastMessageReceived: state.cable.lastMessageReceived,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    sendMessageToCable: (id, msg) => dispatch(sendMessageToCable(id, msg)),
+    received: data => dispatch(received(data)),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  { sendMessageToCable, received }
+)(TextEntry);

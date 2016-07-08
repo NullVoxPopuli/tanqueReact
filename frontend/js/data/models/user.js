@@ -1,7 +1,7 @@
 export default {
   schema: {
     properties: {
-      id: { type: 'number' },
+      id: {},
       alias: { type: 'string' },
       publicKey: { type: 'string' },
       location: { type: 'string' },

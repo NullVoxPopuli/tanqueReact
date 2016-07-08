@@ -1,8 +1,10 @@
 export default {
   schema: {
     properties: {
-      id: { type: 'string' },
-      content: { type: 'string' },
+      id: { },
+
+      // { message: xxx, uid: yyy }
+      content: { },
     },
   },
   relations: {

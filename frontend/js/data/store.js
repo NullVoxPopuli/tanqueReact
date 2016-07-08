@@ -13,10 +13,9 @@ store.defineMapper('user', User);
 store.defineMapper('chatRoom', Chat);
 store.defineMapper('message', Message);
 
-
 // There MUST be an 'all-chat'
 store.add('chatRoom', {
-  id: 'all-chat'
+  id: 'all-chat',
 });
 
 export var defaultChat = 'all-chat';

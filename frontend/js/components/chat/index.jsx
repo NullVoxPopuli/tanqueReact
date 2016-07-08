@@ -2,11 +2,13 @@ import React from 'react';
 import { render } from 'react-dom';
 import { browserHistory } from 'react-router';
 import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
 
 import { Row, Col } from 'react-bootstrap';
 
 import UserList from './user-list';
 import TextEntry from './text-entry';
+import ChatRoom from './chat-room';
 
 import store, { defaultChat } from 'js/data/store';
 
@@ -17,21 +19,6 @@ class Index extends React.Component {
     this.users         = store.getAll('user');
     this.chatRooms     = store.getAll('chatRoom');
     this.currentRoomId = defaultChat;
-  }
-
-  handleSendMessage(message) {
-    console.log(message);
-    console.log(this.currentRoomId);
-
-    // TODO: build a network message, and send to the web socket
-    store.add('message', {
-      chatRoomId: this.currentRoomId,
-      content: message,
-    });
-
-    // Ensure that we re-render the child components
-    this.forceUpdate();
-    this.props.children.props.route.component.forceUpdate();
   }
 
   handleUserSelect(user) {
@@ -49,10 +36,9 @@ class Index extends React.Component {
     return (
       <Row>
         <Col xs={9}>
-          {this.props.children}
+          <ChatRoom />
           <TextEntry
-            currentRoomId={this.currentRoomId}
-            onSendMessage={this.handleSendMessage.bind(this)}/>
+            currentRoomId={this.currentRoomId}/>
         </Col>
         <Col xs={3}>
           <UserList
@@ -70,4 +56,6 @@ Index.propTypes = {
   }).isRequired,
 };
 
-export default withRouter(Index);
+let routed = withRouter(Index);
+
+export default routed;

@@ -2,59 +2,73 @@ import React from 'react';
 import { render } from 'react-dom';
 
 import store, { defaultChat } from 'js/data/store';
+import { connect } from 'react-redux';
 
-export default class extends React.Component {
+class ChatRoom extends React.Component {
   constructor(props) {
     super(props);
     this.store = store;
     this.state = {};
-    this.updateMessages(this.props.chatRoomId);
-  }
-
-  componentWillReceiveProps(nextProps, nextState) {
-    // if (nextProps.params.chatRoomId !== this.props.params.chatRoomId) {
-    let id = nextProps.params.chatRoomId;
-    this.updateMessages(id);
-    let newState = Object.assign({}, this.state);
-    this.setState(nextState);
-
-    // }
-  }
-
-  updateMessages(roomId) {
-    this.state.id = roomId;
-    this.state.messages = this.roomFor(roomId).messages;
-  }
-
-  roomFor(id) {
-    let room = this.store.get('chatRoom', id);
-
-    // if the room doesn't yet exist, create it
-    if (room === undefined) {
-      room = this.store.add('chatRoom', {
-        id: this.chatRoomId,
-      });
-    }
-
-    return room;
   }
 
   render() {
-    let messageRecords = this.state.messages;
+    let messageRecords = this.props.messages;
 
-    let messageMarkup = 'There are no messages... yet';
+    let messageMarkup = 'There are no messages... yet.';
 
     if (messageRecords.length > 0) {
-      let messages = messageRecords.map(m => <p>{m.content}</p>);
-      messageMarkup = (<div>{messages}</div>);
+      let messages = messageRecords.map(m => {
+        let fromUser = this.props.store.get('user', m.content.uid);
+        let fromName = fromUser ? fromUser.alias : '';
+        return (
+          <tr>
+            <td>{new Date(m.id).toString()}</td>
+            <td>{m.content.uid}</td>
+            <td>{fromName}</td>
+            <td>{m.content.message}</td>
+          </tr>
+        );
+      });
+
+      console.log(messages);
+      messageMarkup = (
+        <table className='messages'>
+          <thead></thead>
+          <tbody>
+            {messages}
+          </tbody>
+        </table>
+      );
     }
+
+    let time = new Date(this.props.lastMessageReceived).toString();
 
     return (
       <div>
         <h3>{this.state.id}</h3>
+        <h4>Messages: {messageRecords.length}</h4>
+        <h4>Last Message Received: {time}</h4>
         <hr />
         {messageMarkup}
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    store: state.dataStore,
+    messages: state.dataStore.getAll('message'),
+    lastMessageReceived: state.cable.lastMessageReceived,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ChatRoom);
