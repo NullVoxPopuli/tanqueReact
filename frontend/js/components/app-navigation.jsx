@@ -24,10 +24,6 @@ export default class extends React.Component {
           <Nav pullRight>
             <ImportModal />
             <ExportModal />
-            <NavDropdown eventKey={3} title="Destructive Things" id="basic-nav-dropdown">
-              <MenuItem eventKey={3.1}>Delete Identity</MenuItem>
-              <MenuItem eventKey={3.2}>Clear User List</MenuItem>
-            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
        </Navbar>
