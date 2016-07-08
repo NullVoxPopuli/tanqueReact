@@ -1,32 +1,11 @@
 import React from 'react';
-import UserListRow from './user-list-row';
+import { connect } from 'react-redux';
 import { Nav, NavItem, Row, Col } from 'react-bootstrap';
 
+import UserListRow from './user-list-row';
 import store, { defaultChat } from 'js/data/store';
 
-export default class extends React.Component {
-  constructor(props) {
-    super(props);
-    store.add('user', {
-        id: 'user1',
-        alias: 'TerminalClient',
-        status: 'online',
-      });
-    store.add('user', {
-        id: 'user2',
-        alias: 'NullVoxPopuli',
-        status: 'offline',
-      });
-
-    this.users = [{
-      id: defaultChat,
-      alias: 'All',
-      status: 'online',
-    }];
-
-    this.users = this.users.concat(store.getAll('user'));
-  }
-
+class UserList extends React.Component {
   // set up whispering to the clicked user
   onSelect(user) {
     // TODO: write action which switches the app into whisper mode to this user
@@ -38,7 +17,7 @@ export default class extends React.Component {
   }
 
   render() {
-    let userList = this.users.map(user =>
+    let userList = this.props.users.map(user =>
       <UserListRow
         user={user}
         handleUserSelect={this.handleUserSelect.bind(this, user)} />);
@@ -49,3 +28,14 @@ export default class extends React.Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    store: state.dataStore,
+    users: state.dataStore.getAll('user'),
+  };
+}
+
+export default connect(
+  mapStateToProps, {}
+)(UserList);

@@ -46,6 +46,8 @@ export default (state = defaultConfig, action) => {
       // because:
       // - we need to update the sender's information
       // - we need to decrypt the message
+      //
+      // use this library for NaCl https://github.com/tonyg/js-nacl
       dataStore.add('message', {
         id: action.receivedAt,
         content: action.data,

@@ -7,7 +7,6 @@ import {
 
 import { Row, Col } from 'react-bootstrap';
 
-
 class Settings extends React.Component {
   constructor(props) {
     super(props);
