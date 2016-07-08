@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 
 import ImportModal from './utility/import-modal';
+import ExportModal from './utility/export-modal';
 
 export default class extends React.Component {
   render() {
@@ -22,7 +23,7 @@ export default class extends React.Component {
           </Nav>
           <Nav pullRight>
             <ImportModal />
-            <NavItem eventKey={2} href="#">Export Identity</NavItem>
+            <ExportModal />
             <NavDropdown eventKey={3} title="Destructive Things" id="basic-nav-dropdown">
               <MenuItem eventKey={3.1}>Delete Identity</MenuItem>
               <MenuItem eventKey={3.2}>Clear User List</MenuItem>
