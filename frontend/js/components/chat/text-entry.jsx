@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import store, { defaultChat } from 'js/data/store';
 import { OFFLINE, ONLINE } from 'js/data/models/user';
 import { sendMessageToCable, received } from 'js/actions/action-cable-actions';
+import { Row, Col } from 'react-bootstrap';
+
 
 class TextEntry extends React.Component {
   constructor(props) {
@@ -57,14 +59,22 @@ class TextEntry extends React.Component {
 
   render() {
     return (
-      <div>
-        <input type='text'
-         value={this.state.messageToSend}
-         onKeyPress={this._onKeyPress}
-         onChange={this._onChange}
-        />
-        <button onClick={this.sendMessage.bind(this)}>Send</button>
-      </div>
+      <Row>
+        <Col sm={10}>
+          <input
+            className='padding-10 full-width'
+            type='text'
+            value={this.state.messageToSend}
+            onKeyPress={this._onKeyPress}
+            onChange={this._onChange}
+          />
+        </Col>
+        <Col sm={2}>
+          <button
+            className='btn btn-success'
+            onClick={this.sendMessage.bind(this)}>Send</button>
+        </Col>
+      </Row>
     );
   }
 }
@@ -75,13 +85,6 @@ function mapStateToProps(state) {
     messages: state.dataStore.getAll('message'),
     myAlias: state.config.alias,
     lastMessageReceived: state.cable.lastMessageReceived,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    sendMessageToCable: (id, msg) => dispatch(sendMessageToCable(id, msg)),
-    received: data => dispatch(received(data)),
   };
 }
 

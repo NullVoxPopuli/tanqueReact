@@ -1,7 +1,6 @@
 @import 'theme';
 
 body{
-  background: #ecf0f1;
 }
 .content {
   margin-left: 20px;
@@ -19,4 +18,16 @@ table.messages{
   td {
     padding: 5px;
   }
+}
+
+.padding-5 {
+  padding: 5px;
+}
+
+.padding-10 {
+  padding: 10px;
+}
+
+.full-width {
+  width: 100%;
 }

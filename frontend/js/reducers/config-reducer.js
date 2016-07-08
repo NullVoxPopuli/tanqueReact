@@ -1,9 +1,13 @@
-import { CHANGE_ALIAS, CHANGE_KEYS, CHANGE_UID } from 'js/actions/config-actions';
+import {
+  CONFIG_CHANGE_ALIAS, CHANGE_KEYS, CHANGE_UID,
+  CONFIG_REGENERATE_UID, CONFIG_REGENERATE_KEYS,
+} from 'js/actions/config-actions';
+
 import dataStore from 'js/data/store';
 
 const defaultConfig = {
-  privateKey: undefined,
-  publicKey: undefined,
+  privateKey: 'Not Yet Generated',
+  publicKey: 'Not Yet Generated',
   alias: 'initial alias',
   uid: '123',
   url: 'ws://mesh-relay-in-us-1.herokuapp.com',
@@ -11,8 +15,8 @@ const defaultConfig = {
 
 export default (state = defaultConfig, action) => {
   switch (action.type) {
-    case CHANGE_ALIAS: {
-      state = { ...state, alias: action.payload };
+    case CONFIG_CHANGE_ALIAS: {
+      state = { ...state, alias: action.alias };
       break;
     }
 
@@ -30,14 +34,19 @@ export default (state = defaultConfig, action) => {
       break;
     }
 
-  }
+    case CONFIG_REGENERATE_UID: {
+      let newUid = Math.random().toString(16).slice(2) +
+        Math.random().toString(16).slice(2);
+      state = { ...state, uid: newUid };
+      break;
+    }
 
-  // let me = dataStore.get('user', state.uid);
-  // if (me === undefined) {
-  //   dataStore.add('user', state);
-  // } else {
-  //   dataStore.update('user', state.uid, state);
-  // }
+    case CONFIG_REGENERATE_KEYS: {
+      state = { ...state, };
+      break;
+    }
+
+  }
 
   return state;
 };
