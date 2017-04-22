@@ -1,30 +1,17 @@
-import { applyMiddleware, createStore, compose } from 'redux';
-import { browserHistory } from 'react-router';
-import { routerMiddleware } from 'react-router-redux';
-
-import { loadState, saveState } from './local-storage';
+import { applyMiddleware, createStore } from 'redux';
 
 import thunk from 'redux-thunk';
 import promise from 'redux-promise';
-import logger from 'redux-logger';
+import { createLogger } from 'redux-logger';
 
+import { loadState, saveState } from './local-storage';
 import reducers from './reducers';
 
-const logs = logger();
-
-
+const logs = createLogger();
 const persistedState = loadState();
-const initialState = {
-  clientName: 'tanqueRéact',
-  clientVersion: '0.0.1',
-};
-
 const middleware = applyMiddleware(logs, promise, thunk);
 const reduxStore = createStore(reducers, persistedState, middleware);
 export default reduxStore;
 
-reduxStore.subscribe(() => {
-  saveState({
-    config: reduxStore.getState().config,
-  });
-});
+reduxStore
+  .subscribe(() => saveState(reduxStore.getState()));

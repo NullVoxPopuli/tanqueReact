@@ -25,6 +25,8 @@ services:
 
       - ./.babelrc:/src/app/.babelrc
       - ./.bootstraprc:/src/app/.bootstraprc
+      - ./.eslintrc.js:/src/app/.eslintrc.js
+      - ./.eslintignore:/src/app/.eslintignore
 
       - ./index.ejs:/src/app/index.ejs
     environment:

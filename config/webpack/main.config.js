@@ -64,12 +64,6 @@ const plugins = [
     NODE_ENV: process.env.NODE_ENV,
     processEnv: JSON.stringify({
       CURRENT_ENV:     process.env.NODE_ENV || 'development',
-      API_HOST:        process.env.API_HOST,
-      AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
-      AUTH0_DOMAIN:    process.env.AUTH0_DOMAIN,
-      AUTH0_ENDPOINT:  process.env.AUTH0_ENDPOINT,
-      APP_HOST:        process.env.APP_HOST,
-      SOURCE_VERSION:  process.env.ROLLBAR_VERSION
     })
   }),
   new webpack.LoaderOptionsPlugin({
@@ -131,7 +125,6 @@ module.exports = {
       //       - this would be required for vendor.js to even
       //         be capable of providing an advantage
       'babel-polyfill',
-      'immutable',
       'react-dom',
       'react-redux',
       'react-router',
@@ -159,6 +152,7 @@ module.exports = {
     ],
     alias: {
       js: jsSourcePath,
+      components: path.join(jsSourcePath, 'components'),
       css: globalStylesPath,
       testHelpers: path.join(testsSourcePath, 'helpers')
     }

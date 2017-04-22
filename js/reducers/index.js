@@ -1,15 +1,19 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import configReducer from 'js/reducers/config-reducer';
-// import currentChatReducer from 'js/reducers/current-chat-reducer';
-import actionCableReducer from 'js/reducers/action-cable-reducer';
-// import dataStore, { defaultChat } from 'js/data/store';
+import data from './data';
+import identity from './identity';
+import network from './network';
+import views from './views';
 
 export default combineReducers({
   // currentChat: currentChatReducer,
-  config: configReducer,
+  // config: configReducer,
   // dataStore: dataStoreReducer,
-  cable: actionCableReducer,
-  routing: routerReducer
+  // cable: actionCableReducer,
+  routing: routerReducer,
+  data,
+  identity,
+  views,
+  network
 });

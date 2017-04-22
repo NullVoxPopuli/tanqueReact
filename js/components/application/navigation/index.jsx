@@ -1,12 +1,11 @@
 import React from 'react';
-import { render } from 'react-dom';
 import { Link } from 'react-router';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 
-import ImportModal from './utility/import-modal';
-import ExportModal from './utility/export-modal';
+import ImportModal from 'components/utility/import-modal';
+import ExportModal from 'components/utility/export-modal';
 
-export default class extends React.Component {
+export default class Navigation extends React.Component {
   render() {
     return (
       <Navbar inverse>
@@ -27,7 +26,6 @@ export default class extends React.Component {
           </Nav>
         </Navbar.Collapse>
        </Navbar>
-
     );
   }
 }

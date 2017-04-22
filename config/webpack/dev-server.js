@@ -35,12 +35,7 @@ config.plugins.push(
     filename: 'index.html',
     NODE_ENV: process.env.NODE_ENV,
     processEnv: JSON.stringify({
-      CURRENT_ENV:     process.env.NODE_ENV || 'development',
-      API_HOST:        process.env.API_HOST,
-      AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
-      AUTH0_DOMAIN:    process.env.AUTH0_DOMAIN,
-      AUTH0_ENDPOINT:  process.env.AUTH0_ENDPOINT,
-      APP_HOST:        process.env.APP_HOST,
+      CURRENT_ENV:     process.env.NODE_ENV || 'development'
     })
   })
 )
