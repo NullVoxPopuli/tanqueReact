@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavItem, Button, Modal, FormGroup, FormControl } from 'react-bootstrap';
+import _ from 'lodash';
+import { Button, Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 class ExportModal extends React.Component {
@@ -14,11 +15,11 @@ class ExportModal extends React.Component {
     this.state = { showModal: false };
   }
 
-  close() {
+  didClose() {
     this.setState({ showModal: false });
   }
 
-  open() {
+  didOpen() {
     this.setState({ showModal: true });
   }
 
@@ -31,17 +32,27 @@ class ExportModal extends React.Component {
   }
 
   render() {
+    const { config } = this.props;
+
+    // don't show the export functionality when
+    // we haven't set ourselves up yet.
+    if (_.isEmpty(config)) return null;
+
+    const { showModal } = this.state;
     const identity = this.identityAsFormattedJson();
+
+    const close = this.didClose.bind(this);
+    const open = this.didOpen.bind(this);
 
     return (
       <li>
         <a
           role='button'
-          onClick={this.open}>
+          onClick={open}>
           Export Identity
         </a>
 
-        <Modal show={this.state.showModal} onHide={this.close}>
+        <Modal show={showModal} onHide={close}>
           <Modal.Header closeButton>
             <Modal.Title>Export Identity</Modal.Title>
           </Modal.Header>
@@ -52,7 +63,7 @@ class ExportModal extends React.Component {
             </pre>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.close}>Close</Button>
+            <Button onClick={close}>Close</Button>
           </Modal.Footer>
         </Modal>
       </li>

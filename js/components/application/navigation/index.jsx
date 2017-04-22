@@ -11,7 +11,7 @@ export default class Navigation extends Component {
       <Navbar inverse>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="#">tanqueRéact</a>
+            <a href="/">tanqueRéact</a>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>

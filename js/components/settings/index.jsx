@@ -1,37 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 
-import {
-  regenerateUid, regenerateKeys, changeAlias
-} from 'js/actions/config-actions';
-
 import { mutCreator } from 'components/state-helpers';
+
+import { identity } from 'actions';
 
 class Settings extends React.Component {
   static propTypes = {
-    config: PropTypes.object.isRequired
+    config: PropTypes.object.isRequired,
+    updateAlias: PropTypes.func.isRequired
   }
 
   constructor(props) {
     super(props);
 
-    this.state = {
-      config: props.config
-    };
+    this.state = { config: props.config };
     this.mut = mutCreator(this);
   }
 
   saveAlias() {
-    this.props.changeAlias(this.state.aliasInputValue);
+    const { updateAlias } = this.props;
+    const { alias } = this.state.config;
+
+    updateAlias(alias);
   }
 
   // this is a lot of markup for so little output :-\
   // TODO: look into some sort of templating shorthand, like slim
   render() {
     const { regenerateUid, regenerateKeys, config } = this.props;
-    const { alias } = this.state;
+    const { alias } = this.state.config;
     const mut = this.mut;
 
     return (
@@ -104,21 +105,28 @@ class Settings extends React.Component {
             </div>
           </Col>
         </Row>
-        <button className='btn btn-default'>Export Settings</button>
-        <button className='btn btn-default'>Import Settings</button>
+        <div className='btn-group'>
+          <button className='btn btn-default'>Export Settings</button>
+          <button className='btn btn-default'>Import Settings</button>
+        </div>
+        <p className='padding-5'>
+          Importing previously saved settings is
+          the only way you can use the same account on multiple devices.
+        </p>
+        <br />
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  config: state.config
+  config: state.identity.config
 });
 
 const mapDispatchToProps = dispatch => ({
-  regenerateUid,
-  regenerateKeys,
-  changeAlias
+  regenerateUid: bindActionCreators(identity.config.regenerateUid, dispatch),
+  regenerateKeys: bindActionCreators(identity.config.regenerateKeys, dispatch),
+  updateAlias: bindActionCreators(identity.config.updateAlias, dispatch)
 });
 
 export default connect(

@@ -153,6 +153,7 @@ module.exports = {
     alias: {
       js: jsSourcePath,
       components: path.join(jsSourcePath, 'components'),
+      actions: path.join(jsSourcePath, 'actions'),
       css: globalStylesPath,
       testHelpers: path.join(testsSourcePath, 'helpers')
     }

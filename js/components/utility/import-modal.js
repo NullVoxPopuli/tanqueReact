@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { NavItem, Button, Modal, FormGroup, FormControl } from 'react-bootstrap';
+import { Button, Modal, FormGroup, FormControl } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { importIdentity } from 'js/actions/identity-actions';
 import { mutCreator } from 'components/state-helpers';
 
 const placeholder = `{
@@ -23,15 +22,15 @@ class ImportModal extends Component {
     this.mut = mutCreator(this);
   }
 
-  close() {
+  didClose() {
     this.setState({ showModal: false });
   }
 
-  open() {
+  didOpen() {
     this.setState({ showModal: true });
   }
 
-  importIdentity() {
+  didClickImport() {
     this.props.importIdentity(this.state.identity);
     this.close();
   }
@@ -41,15 +40,18 @@ class ImportModal extends Component {
   }
 
   render() {
-    const { importIdentity, close } = this
     const { showModal } = this.state;
     const mut = this.mut;
+
+    const close = this.didClose.bind(this);
+    const open = this.didOpen.bind(this);
+    const importIdentity = this.didClickImport.bind(this);
 
     return (
       <li>
         <a
           role='button'
-          onClick={this.open}>
+          onClick={open}>
           Import Identity
         </a>
 
@@ -88,12 +90,10 @@ class ImportModal extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-  };
-}
+const mapStateToProps = state => ({});
+const mapDispatchToProps = dispatch => ({
+  importIdentity(){}
+});
 
-export default connect(
-  mapStateToProps,
-  { importIdentity }
-)(ImportModal);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ImportModal);
