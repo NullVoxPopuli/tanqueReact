@@ -1,11 +1,10 @@
-import React from 'react';
-import { render } from 'react-dom';
+import React, { Component } from 'react';
 
-export default class extends React.Component {
-  render () {
+export default class Index extends Component {
+  render() {
     return (
       <div>
-        Welcome to the index page!
+        Welcome to tanqueRéact!
       </div>
     );
   }

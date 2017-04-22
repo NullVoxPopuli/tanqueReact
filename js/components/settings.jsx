@@ -1,24 +1,26 @@
 import React from 'react';
-import { render } from 'react-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Row, Col } from 'react-bootstrap';
+
 import {
   regenerateUid, regenerateKeys, changeAlias
 } from 'js/actions/config-actions';
 
-import { Row, Col } from 'react-bootstrap';
+import { mutCreator } from 'components/state-helpers';
 
 class Settings extends React.Component {
+  static propTypes = {
+    config: PropTypes.object.isRequired
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
-      aliasInputValue: this.props.config.alias,
+      config: props.config
     };
-  }
-
-  _onChange(e) {
-    // this.state.aliasInputValue = e.target.value;
-    this.setState({ aliasInputValue: e.target.value });
+    this.mut = mutCreator(this);
   }
 
   saveAlias() {
@@ -28,6 +30,10 @@ class Settings extends React.Component {
   // this is a lot of markup for so little output :-\
   // TODO: look into some sort of templating shorthand, like slim
   render() {
+    const { regenerateUid, regenerateKeys, config } = this.props;
+    const { alias } = this.state;
+    const mut = this.mut;
+
     return (
       <div>
         <h2>Settings</h2>
@@ -43,8 +49,8 @@ class Settings extends React.Component {
                 <input
                   className='form-control'
                   type='text'
-                  onChange={this._onChange.bind(this)}
-                  value={this.state.aliasInputValue} />
+                  onChange={mut('config.alias')}
+                  value={alias} />
               </Col>
             </Row>
             <Row>
@@ -61,10 +67,10 @@ class Settings extends React.Component {
               <Col sm={2}>
               <label className='control-label'>UID</label>
               </Col>
-              <Col sm={7}>{this.props.config.uid}</Col>
+              <Col sm={7}>{config.uid}</Col>
               <Col sm={3}>
                 <button
-                  onClick={this.props.regenerateUid}
+                  onClick={regenerateUid}
                   className='form-control btn btn-default'>Re-Generate</button>
               </Col>
             </Row>
@@ -79,16 +85,17 @@ class Settings extends React.Component {
 
             <div className='form-group'>
               <label>Public Key</label><br/>
-              <pre>{this.props.config.publicKey}</pre>
+              <pre>{config.publicKey}</pre>
               <label>Private Key Hidden</label><br />
               <button
-                onClick={this.props.regenerateKeys}
+                onClick={regenerateKeys}
                 className='btn btn-default'>Re-Generate Keys</button>
               <br />
               <br />
               <p className='bg-success padding-5'>* Uses NaCl algorithms.</p>
               <p className='bg-danger padding-5'>
-                Note that re-generating your keys will require you to be re-authorized to the network.
+                Note that re-generating your keys will require you to be
+                re-authorized to the network.
                 You will not be able to decrypt any messages sent to you until
                 re-authorization.
               </p>
@@ -104,14 +111,17 @@ class Settings extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    store: state.dataStore,
-    config: state.config,
-  };
-}
+const mapStateToProps = state => ({
+  config: state.config
+});
+
+const mapDispatchToProps = dispatch => ({
+  regenerateUid,
+  regenerateKeys,
+  changeAlias
+});
 
 export default connect(
   mapStateToProps,
-  { regenerateUid, regenerateKeys, changeAlias }
+  mapDispatchToProps
 )(Settings);

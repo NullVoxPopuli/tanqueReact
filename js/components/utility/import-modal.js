@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { NavItem, Button, Modal, FormGroup, FormControl } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { importIdentity } from 'js/actions/identity-actions';
+import { mutCreator } from 'components/state-helpers';
 
-class ImportModal extends React.Component {
+const placeholder = `{
+  "alias": "some alias",
+  "publickey": "fakeNaClpublickey",
+  "uid": "AUniqueIdentifier"
+}`;
 
-  getInitialState() {
-    return { showModal: false, identity: null, };
+class ImportModal extends Component {
+  static propTypes = {
+    importIdentity: PropTypes.func.isRequired
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = { showModal: false, identity: null };
+    this.mut = mutCreator(this);
   }
 
   close() {
@@ -27,12 +41,10 @@ class ImportModal extends React.Component {
   }
 
   render() {
-    let placeholder = `{
-  "alias": "some alias",
-  "publickey": "fakeNaClpublickey",
-  "uid": "AUniqueIdentifier"
-}
-`;
+    const { importIdentity, close } = this
+    const { showModal } = this.state;
+    const mut = this.mut;
+
     return (
       <li>
         <a
@@ -41,31 +53,34 @@ class ImportModal extends React.Component {
           Import Identity
         </a>
 
-        <Modal show={this.state.showModal} onHide={this.close}>
+        <Modal show={showModal} onHide={close}>
           <Modal.Header closeButton>
             <Modal.Title>Import Identity</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <h4>Paste Identity File Here</h4>
+
             <FormGroup controlId="formControlsTextarea">
               <FormControl
                 componentClass="textarea"
                 rows={5}
-                onChange={this._onChange}
+                onChange={mut('identity')}
                 placeholder={placeholder} />
             </FormGroup>
+
             <p>
               This should contain the keys&nbsp;
               <em><strong>alias</strong></em>,&nbsp;
               <em><strong>publickey</strong></em>, and&nbsp;
               <em><strong>uid</strong></em>
             </p>
+
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.close}>Close</Button>
+            <Button onClick={close}>Close</Button>
             <Button
               className='btn-success'
-              onClick={this.importIdentity}>Import</Button>
+              onClick={importIdentity}>Import</Button>
           </Modal.Footer>
         </Modal>
       </li>

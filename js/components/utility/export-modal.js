@@ -1,11 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { NavItem, Button, Modal, FormGroup, FormControl } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 class ExportModal extends React.Component {
+  static propTypes = {
+    config: PropTypes.object
+  }
 
-  getInitialState() {
-    return { showModal: false, identity: null, };
+  constructor(props) {
+    super(props);
+
+    this.state = { showModal: false };
   }
 
   close() {
@@ -16,12 +22,16 @@ class ExportModal extends React.Component {
     this.setState({ showModal: true });
   }
 
+  identityAsFormattedJson() {
+    const { config } = this.props;
+    const { alias, publicKey: publickey, uid } = (config || {});
+    const json = { alias, publickey, uid };
+
+    return JSON.stringify(json, null, '  ');
+  }
+
   render() {
-    let identity = `{
-  "alias": "${this.props.config.alias}",
-  "publickey": "${this.props.config.publicKey}",
-  "uid": "${this.props.config.uid}"
-}`;
+    const identity = this.identityAsFormattedJson();
 
     return (
       <li>
@@ -50,13 +60,9 @@ class ExportModal extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    config: state.config,
-  };
-}
 
-export default connect(
-  mapStateToProps,
-  { }
-)(ExportModal);
+const mapStateToProps = state => ({
+  config: state.identity.config
+});
+
+export default connect(mapStateToProps, {})(ExportModal);
