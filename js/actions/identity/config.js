@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import Promise from 'bluebird';
 
-import * as NaCl from "tweetnacl"
+import * as NaCl from "tweetnacl";
 
 export const SET_ALIAS = 'identity/config/SET_ALIAS';
 export const SET_KEYS = 'identity/config/SET_KEYS';
