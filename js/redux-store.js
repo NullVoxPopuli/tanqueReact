@@ -8,7 +8,7 @@ import { loadState, saveState } from './local-storage';
 import reducers from './reducers';
 
 const logs = createLogger();
-const persistedState = loadState();
+const persistedState = {};//loadState();
 const middleware = applyMiddleware(logs, promise, thunk);
 const reduxStore = createStore(reducers, persistedState, middleware);
 export default reduxStore;
