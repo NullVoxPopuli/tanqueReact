@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>tanqueRéact</title>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <% var CURRENT_ENV = htmlWebpackPlugin.options.NODE_ENV; %>
+    <% var isNonDevelopment = (CURRENT_ENV !== 'development'); %>
+    <% var isDevelopment = (CURRENT_ENV === 'development'); %>
+    <meta name='CURRENT_ENV' content='<%= CURRENT_ENV %>'>
+    <meta name='isNonDevelopment' content='<%= isNonDevelopment %>'>
+    <meta name='isDevelopment' content='<%= isDevelopment %>'>
+
+    <% if (isNonDevelopment) { %>
+      <!-- Rollbar reporting script -->
+      <script type='text/javascript' src='https://rawgit.com/rollbar/rollbar.js/master/dist/rollbar.umd.nojson.min.js'></script>
+    <% } %>
+
+    <!-- Environment configuration. Auth0, and Rollbar -->
+    <script type='text/javascript'>
+      var pENV = window.pENV = <%= htmlWebpackPlugin.options.processEnv %>;
+
+      <% if (isNonDevelopment) { %>
+        var _rollbarConfig = {
+           accessToken: "...",
+           captureUncaught: true,
+           payload: {
+             environment: pENV.CURRENT_ENV,
+             client: {
+               javascript: {
+                 source_map_enabled: true,
+                 code_version: pENV.SOURCE_VERSION,
+                 // Optionally have Rollbar guess which frames the error was thrown from
+                 // when the browser does not provide line and column numbers.
+                 guess_uncaught_frames: true
+               }
+             }
+           }
+         };
+
+         if (Rollbar) {
+           Rollbar.configure(_rollbarConfig);
+         }
+       <% } %>
+    </script>
+  </head>
+  <body>
+    <!-- React App gets mounted here -->
+    <div id="app"></div>
+  </body>
+</html>

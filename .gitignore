@@ -1,4 +1,30 @@
-build/
+codeclimate.html
+./node_modules/
 node_modules/
-assets/build/
-frontend/assets/build
+.env
+dist/
+tmp/
+
+*.DS_Store
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# Dependency directories
+node_modules
+
+# Optional npm cache directory
+.npm
+
+.idea
