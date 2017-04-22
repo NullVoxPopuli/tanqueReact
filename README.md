@@ -15,16 +15,11 @@ docker-compose build
 
 ## Linting
 
-Since all the packages are managed in docker's environment, you'll need to install the linter packages either globally or in-project on your system.
+Since all the packages are managed in docker's environment, you'll need to install the linter packages on your system.
 
 ```bash
-npm install -g eslint-config-airbnb-base eslint-import-resolver-webpack eslint-loader eslint-plugin-babel eslint-plugin-import eslint-plugin-jest eslint-plugin-react
-```
-
-or
-
-```bash
-yarn install
+# lazy install everything technique - also helpful for IDE's ESLint
+yarn install --pure-lockfile
 ```
 
 node_modules is already in the gitignore.
