@@ -11,7 +11,7 @@ export default class Wrapper extends Component {
     return (
       <div>
         <Navigation />
-        <div className='content'>
+        <div className='container'>
           <Route exact={true} path="/" component={Index} />
           <Route path="/settings" component={Settings} />
           <Route path="/chat" component={Chat} />

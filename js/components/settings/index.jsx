@@ -46,8 +46,6 @@ class Settings extends React.Component {
     return `data:text/json;base64,${string}`;
   }
 
-  // this is a lot of markup for so little output :-\
-  // TODO: look into some sort of templating shorthand, like slim
   render() {
     const { regenerateUid, regenerateKeys, importSettings } = this.props;
     const { alias, uid, publicKey } = this.state.config;

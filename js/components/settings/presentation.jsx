@@ -20,10 +20,33 @@ export default class SettingsPresentation extends Component {
 
     return (
       <div>
-        <h2>Settings</h2>
+        <Row className='justify-content-between align-items-start'>
+          <Col sm={2}>
+            <h2 className='mt-0'>Settings</h2>
+          </Col>
+          <Col sm={4} />
+          <Col sm={6} className='text-right'>
+            <div className='btn-group'>
+              <a
+                href={settingsDataUrl}
+                download='settings.tanqueReact'
+                target='_blank'
+                className='btn btn-default'>Export Settings</a>
+              <FileChooser
+                onChange={importSettings}
+                buttonClasses={'btn btn-default'}
+                buttonText={'Import Settings'} />
+            </div>
+            <p className='padding-5'>
+              Importing previously saved settings is
+              the only way you can use the same account on multiple devices.
+            </p>
+          </Col>
+        </Row>
         <hr />
         <Row>
-          <Col md={6}>
+          <Col />
+          <Col md={8} sm={12}>
             <h4>Safe Settings</h4>
             <Row>
               <Col sm={2}>
@@ -44,8 +67,9 @@ export default class SettingsPresentation extends Component {
                   className='pull-right btn btn-default'>Save</button>
               </Col>
             </Row>
-          </Col>
-          <Col md={6}>
+
+            <hr />
+
             <h4>Potentially Destructive Settings</h4>
             <Row>
               <Col sm={2}>
@@ -87,23 +111,8 @@ export default class SettingsPresentation extends Component {
               <hr/><br/>
             </div>
           </Col>
+          <Col />
         </Row>
-        <div className='btn-group'>
-          <a
-            href={settingsDataUrl}
-            download='settings.tanqueReact'
-            target='_blank'
-            className='btn btn-default'>Export Settings</a>
-          <FileChooser
-            onChange={importSettings}
-            buttonClasses={'btn btn-default'}
-            buttonText={'Import Settings'} />
-        </div>
-        <p className='padding-5'>
-          Importing previously saved settings is
-          the only way you can use the same account on multiple devices.
-        </p>
-        <br />
       </div>
     );
   }
