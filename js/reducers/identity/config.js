@@ -3,7 +3,8 @@ import { handleActions } from 'redux-actions';
 import {
   SET_ALIAS,
   SET_KEYS,
-  SET_UID
+  SET_UID,
+  SET_CONFIG
 } from 'actions/identity/config';
 
 const defaultConfig = {
@@ -26,5 +27,8 @@ export default handleActions({
   [SET_UID]: (state, action) => ({
     ...state,
     uid: action.payload
+  }),
+  [SET_CONFIG]: (state, action) => ({
+    ...action.payload
   })
 }, defaultConfig);
