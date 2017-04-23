@@ -1,7 +1,6 @@
 import { createAction } from 'redux-actions';
-import Promise from 'bluebird';
 
-import * as NaCl from "tweetnacl";
+import { generateNewKeys } from 'utility';
 
 export const SET_ALIAS = 'identity/config/SET_ALIAS';
 export const SET_KEYS = 'identity/config/SET_KEYS';
@@ -19,23 +18,14 @@ export function regenerateUid() {
       Math.random().toString(16).slice(2);
 
     dispatch(setUid(newUid));
-
-    return Promise.resolve();
   };
 }
 
 export function regenerateKeys() {
   return dispatch => {
-    const newKeys = NaCl.box.keyPair();
     const algorithm = 'nacl';
 
-    // convert from a Uint8Array to base64 string
-    const publicKey = btoa(String.fromCharCode.apply(null, newKeys.publicKey));
-    const privateKey = btoa(String.fromCharCode.apply(null, newKeys.secretKey));
-
-    dispatch(setKeys({ algorithm, publicKey, privateKey }));
-
-    return Promise.resolve();
+    dispatch(setKeys({ algorithm, ...generateNewKeys() }));
   };
 }
 

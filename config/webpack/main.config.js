@@ -154,6 +154,7 @@ module.exports = {
       js: jsSourcePath,
       components: path.join(jsSourcePath, 'components'),
       actions: path.join(jsSourcePath, 'actions'),
+      utility: path.join(jsSourcePath, 'utility'),
       css: globalStylesPath,
       testHelpers: path.join(testsSourcePath, 'helpers')
     }

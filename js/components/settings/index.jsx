@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 
 import { mutCreator } from 'components/state-helpers';
+import { convertObjectToBase64String } from 'utility';
 
 import { identity } from 'actions';
 
@@ -28,12 +29,20 @@ class Settings extends React.Component {
     updateAlias(alias);
   }
 
+  settingsToDataUrl() {
+    const { config } = this.props;
+    const string = convertObjectToBase64String(config);
+
+    return `data:text/json;base64,${string}`;
+  }
+
   // this is a lot of markup for so little output :-\
   // TODO: look into some sort of templating shorthand, like slim
   render() {
     const { regenerateUid, regenerateKeys, config } = this.props;
     const { alias } = this.state.config;
     const mut = this.mut;
+    const settingsDataUrl = this.settingsToDataUrl();
 
     return (
       <div>
@@ -106,7 +115,11 @@ class Settings extends React.Component {
           </Col>
         </Row>
         <div className='btn-group'>
-          <button className='btn btn-default'>Export Settings</button>
+          <a
+            href={settingsDataUrl}
+            download='settings.tanqueReact'
+            target='_blank'
+            className='btn btn-default'>Export Settings</a>
           <button className='btn btn-default'>Import Settings</button>
         </div>
         <p className='padding-5'>

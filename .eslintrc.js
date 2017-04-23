@@ -43,6 +43,7 @@ module.exports = {
     // -------------------------------
     // general rules
     // -------------------------------
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "no-use-before-define": ["error", { "functions": false, "classes": true }],
 
     // treat undefined as valid in function
