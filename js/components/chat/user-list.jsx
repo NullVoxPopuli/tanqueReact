@@ -30,8 +30,7 @@ class UserList extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    store: state.dataStore,
-    users: state.dataStore.getAll('user'),
+    users: state.data.users.records
   };
 }
 

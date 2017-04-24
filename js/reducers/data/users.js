@@ -10,7 +10,7 @@ export default (state = initialState, action) => {
 
     return {
       ...state,
-      records: hydrate(action.json)
+      records: hydrate(state.records, [action.json])
     };
   case EXPORT_USER:
     return state;

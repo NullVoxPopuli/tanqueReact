@@ -80,9 +80,8 @@ class TextEntry extends React.Component {
 function mapStateToProps(state) {
   return {
     store: state.dataStore,
-    messages: state.dataStore.getAll('message'),
-    myAlias: state.config.alias,
-    lastMessageReceived: state.cable.lastMessageReceived,
+    myAlias: state.identity.config.alias,
+    lastMessageReceived: state.network.actionCable.lastMessageReceived
   };
 }
 
