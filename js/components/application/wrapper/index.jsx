@@ -6,6 +6,8 @@ import Chat from 'components/chat/index';
 import Settings from 'components/settings';
 import Index from 'components/index';
 
+import 'bootstrap/dist/css/bootstrap.css';
+
 export default class Wrapper extends Component {
   render() {
     return (

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Modal, FormGroup, FormControl } from 'react-bootstrap';
+import { Button, Modal, FormGroup, FormControl } from 'reactstrap';
 import { connect } from 'react-redux';
+
 import { mutCreator } from 'components/state-helpers';
+import FileChooser from 'components/file-chooser';
 
 const placeholder = `{
   "alias": "some alias",
@@ -20,6 +22,11 @@ class ImportModal extends Component {
 
     this.state = { showModal: false, identity: null };
     this.mut = mutCreator(this);
+
+    this.close = this.didClose.bind(this);
+    this.open = this.didOpen.bind(this);
+    this.didClickImport = this.didClickImport.bind(this);
+    this.didSelectFile = this.didSelectFile.bind(this);
   }
 
   didClose() {
@@ -35,17 +42,19 @@ class ImportModal extends Component {
     this.close();
   }
 
-  _onChange(e) {
-    this.setState({ identity: e.target.value });
+  didSelectFile(fileString) {
+    const object = JSON.parse(fileString);
+    const prettyJson = JSON.stringify(object, null, 2);
+
+    this.setState({ identity: prettyJson });
   }
 
+  // TODO: add validation
   render() {
-    const { showModal } = this.state;
-    const mut = this.mut;
+    const { showModal, identity } = this.state;
+    const { close, open, didClickImport, didSelectFile } = this;
 
-    const close = this.didClose.bind(this);
-    const open = this.didOpen.bind(this);
-    const importIdentity = this.didClickImport.bind(this);
+    const mut = this.mut;
 
     return (
       <li>
@@ -67,6 +76,7 @@ class ImportModal extends Component {
                 componentClass="textarea"
                 rows={5}
                 onChange={mut('identity')}
+                value={identity || ''}
                 placeholder={placeholder} />
             </FormGroup>
 
@@ -80,9 +90,13 @@ class ImportModal extends Component {
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={close}>Close</Button>
+            <FileChooser
+              onChange={didSelectFile}
+              buttonClasses={'btn btn-default'}
+              buttonText={'Select Identity File'} />
             <Button
               className='btn-success'
-              onClick={importIdentity}>Import</Button>
+              onClick={didClickImport}>Import</Button>
           </Modal.Footer>
         </Modal>
       </li>

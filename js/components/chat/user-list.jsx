@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Nav, NavItem, Row, Col } from 'react-bootstrap';
+import { Nav, NavItem, Row, Col } from 'reactstrap';
 
 import UserListRow from './user-list-row';
 

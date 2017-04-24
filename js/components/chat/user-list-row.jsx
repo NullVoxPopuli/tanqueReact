@@ -1,7 +1,7 @@
 import React from 'react';
-import { NavItem } from 'react-bootstrap';
+import { NavItem } from 'reactstrap';
 import FontAwesome from 'react-fontawesome';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'reactstrap';
 
 export default class extends NavItem {
   constructor(props) {

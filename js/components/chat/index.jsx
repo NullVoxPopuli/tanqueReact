@@ -6,7 +6,7 @@ import { browserHistory } from 'react-router';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'reactstrap';
 
 import UserList from './user-list';
 import TextEntry from './text-entry';

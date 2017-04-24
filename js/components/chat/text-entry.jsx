@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { connect } from 'react-redux';
 
 import { sendMessageToCable, received } from 'js/actions/action-cable-actions';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'reactstrap';
 
 
 class TextEntry extends React.Component {
