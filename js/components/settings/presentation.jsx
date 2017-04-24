@@ -31,7 +31,7 @@ export default class SettingsPresentation extends Component {
                 href={settingsDataUrl}
                 download='settings.tanqueReact'
                 target='_blank'
-                className='btn btn-default'>Export Settings</a>
+                className='btn btn-success'>Download Settings</a>
               <FileChooser
                 onChange={importSettings}
                 buttonClasses={'btn btn-default'}
@@ -43,7 +43,7 @@ export default class SettingsPresentation extends Component {
             </p>
           </Col>
         </Row>
-        <hr />
+
         <Row className='justify-content-center'>
           <Col sm={12} umd={8}>
             <Card>
@@ -116,8 +116,9 @@ export default class SettingsPresentation extends Component {
                 </div>
               </CardBlock>
             </Card>
-            <br/><br/>
-            <hr/><br/>
+            <br/>
+            <br/>
+            <br/>
           </Col>
         </Row>
       </div>

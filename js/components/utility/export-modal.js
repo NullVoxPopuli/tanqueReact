@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { Button, Modal } from 'reactstrap';
 import { connect } from 'react-redux';
 
 import SimpleModal from 'components/-components/simple-modal';
-
-import { objectToDataURL } from 'utility';
 
 class ExportModal extends React.Component {
   static propTypes = {
@@ -45,23 +42,23 @@ class ExportModal extends React.Component {
     if (_.isEmpty(config)) return null;
 
     const identity = this.identityAsFormattedJson();
-    const filename = `${config.alias}.json`
+    const filename = `${config.alias}.json`;
     const dataUrl = this.dataUrl();
 
     return (
       <li>
         <a
-          style={{display: 'none'}}
+          style={{ display: 'none' }}
           ref='downloadIdentity'
           href={dataUrl}
           download={filename}
           target='_blank'></a>
+
         <SimpleModal
           title='Export Identity'
           buttonText='Export Identity'
           confirmText='Download'
           onConfirm={this.didClickDownload}>
-            <h4>Copy and Paste this to a file</h4>
             <pre>
               {identity}
             </pre>
