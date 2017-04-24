@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'reactstrap';
+
 
 export default class FileChooser extends Component {
   static propTypes = {
@@ -40,7 +42,7 @@ export default class FileChooser extends Component {
     const { didClickButton, didChangeSelectedFile } = this;
 
     return (
-      <button
+      <Button
         className={buttonClasses}
         onClick={didClickButton}>
         <input
@@ -49,7 +51,7 @@ export default class FileChooser extends Component {
           ref='fileChooser'
           style={{ display: 'none' }} />
           {buttonText}
-      </button>
+      </Button>
     );
   }
 }

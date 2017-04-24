@@ -4,6 +4,10 @@ import _ from 'lodash';
 import { Button, Modal } from 'reactstrap';
 import { connect } from 'react-redux';
 
+import SimpleModal from 'components/-components/simple-modal';
+
+import { objectToDataURL } from 'utility';
+
 class ExportModal extends React.Component {
   static propTypes = {
     config: PropTypes.object
@@ -13,14 +17,7 @@ class ExportModal extends React.Component {
     super(props);
 
     this.state = { showModal: false };
-  }
-
-  didClose() {
-    this.setState({ showModal: false });
-  }
-
-  didOpen() {
-    this.setState({ showModal: true });
+    this.didClickDownload = this.didClickDownload.bind(this);
   }
 
   identityAsFormattedJson() {
@@ -31,6 +28,15 @@ class ExportModal extends React.Component {
     return JSON.stringify(json, null, '  ');
   }
 
+  didClickDownload() {
+    this.refs.downloadIdentity.click();
+  }
+
+  dataUrl() {
+    const string = this.identityAsFormattedJson();
+    return `data:text/json;base64,${string}`;
+  }
+
   render() {
     const { config } = this.props;
 
@@ -38,34 +44,28 @@ class ExportModal extends React.Component {
     // we haven't set ourselves up yet.
     if (_.isEmpty(config)) return null;
 
-    const { showModal } = this.state;
     const identity = this.identityAsFormattedJson();
-
-    const close = this.didClose.bind(this);
-    const open = this.didOpen.bind(this);
+    const filename = `${config.alias}.json`
+    const dataUrl = this.dataUrl();
 
     return (
       <li>
         <a
-          role='button'
-          onClick={open}>
-          Export Identity
-        </a>
-
-        <Modal show={showModal} onHide={close}>
-          <Modal.Header closeButton>
-            <Modal.Title>Export Identity</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
+          style={{display: 'none'}}
+          ref='downloadIdentity'
+          href={dataUrl}
+          download={filename}
+          target='_blank'></a>
+        <SimpleModal
+          title='Export Identity'
+          buttonText='Export Identity'
+          confirmText='Download'
+          onConfirm={this.didClickDownload}>
             <h4>Copy and Paste this to a file</h4>
             <pre>
               {identity}
             </pre>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={close}>Close</Button>
-          </Modal.Footer>
-        </Modal>
+          </SimpleModal>
       </li>
     );
   }

@@ -29,24 +29,22 @@ toggle() {
 }
   render() {
     return (
-      <Navbar inverse fixed toggleable>
+      <Navbar inverse fixed='true' toggleable
+        className='bg-inverse navbar-toggleable-sm'>
         <NavbarToggler right onClick={this.toggle} />
         <Link className='navbar-brand' to='/'>tanqueRéact</Link>
 
-        <Collapse isOpen={this.state.isOpen}>
+        <Collapse className='' isOpen={true}>
           <Nav>
-           <li><Link to='/chat'>Chat</Link></li>
-           <li><Link to='/settings'>Settings</Link></li>
+           <NavItem><Link className='nav-link' to='/chat'>Chat</Link></NavItem>
+           <NavItem><Link className='nav-link' to='/settings'>Settings</Link></NavItem>
           </Nav>
-          <Nav right>
-          hi
-            <NavItem>Import</NavItem>
-            <NavItem>Export</NavItem>
+          <Nav className='pull-right'>
+            <ImportModal />
+            <ExportModal />
           </Nav>
         </Collapse>
        </Navbar>
     );
-    // <ImportModal />
-    // <ExportModal />
   }
 }

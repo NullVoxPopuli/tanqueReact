@@ -1,4 +1,6 @@
 @import 'theme';
+@import '~bootstrap/scss/bootstrap.scss';
+
 
 body{
 }
@@ -30,4 +32,8 @@ table.messages{
 
 .full-width {
   width: 100%;
+}
+
+pre {
+  background: $white;
 }

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { mutCreator } from 'components/state-helpers';
-import { convertObjectToBase64String } from 'utility';
+import { objectToDataURL } from 'utility';
 import { identity } from 'actions';
 
 import SettingsPresentation from './presentation';
@@ -39,19 +39,12 @@ class Settings extends React.Component {
     updateAlias(alias);
   }
 
-  settingsToDataUrl() {
-    const { config } = this.props;
-    const string = convertObjectToBase64String(config);
-
-    return `data:text/json;base64,${string}`;
-  }
-
   render() {
-    const { regenerateUid, regenerateKeys, importSettings } = this.props;
+    const { regenerateUid, regenerateKeys, importSettings, config } = this.props;
     const { alias, uid, publicKey } = this.state.config;
 
     const mut = this.mut;
-    const settingsDataUrl = this.settingsToDataUrl();
+    const settingsDataUrl = objectToDataURL(config);
 
     return (
       <SettingsPresentation
@@ -63,8 +56,7 @@ class Settings extends React.Component {
         publicKey={publicKey}
         regenerateKeys={regenerateKeys}
         settingsDataUrl={settingsDataUrl}
-        importSettings={importSettings}
-        />
+        importSettings={importSettings}/>
     );
   }
 }

@@ -28,3 +28,8 @@ export function convertBase64StringToObject(base64) {
 
   return object;
 }
+
+export function objectToDataURL(object) {
+  const string = convertObjectToBase64String(object);
+  return `data:text/json;base64,${string}`;
+}

@@ -9,7 +9,6 @@ import AppWrapper from './components/application/wrapper';
 
 import CSS from '../css/application';
 
-
 ReactDOM.render(
   <Provider store={reduxStore}>
     <Router history={browserHistory}>
