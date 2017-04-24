@@ -1,5 +1,6 @@
 @import 'theme';
 @import '~bootstrap/scss/bootstrap.scss';
+@import 'flex-center';
 
 nav.bg-inverse {
   background: $brand-success !important;
@@ -11,8 +12,11 @@ hr {
   color: $white;
   background: $white;
 }
-body{
+html, body {
+  // allows for easier vertical centering
+  height: 100%;
 }
+
 .content {
   margin-left: 20px;
 }

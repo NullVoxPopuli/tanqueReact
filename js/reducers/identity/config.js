@@ -12,7 +12,8 @@ const defaultConfig = {
   publicKey: 'Not Yet Generated',
   alias: 'initial alias',
   uid: '123',
-  url: 'ws://mesh-relay-in-us-1.herokuapp.com'
+  url: 'ws://mesh-relay-in-us-1.herokuapp.com',
+  relays: []
 };
 
 export default handleActions({

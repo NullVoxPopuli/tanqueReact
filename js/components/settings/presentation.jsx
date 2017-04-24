@@ -7,7 +7,15 @@ import FileChooser from 'components/file-chooser';
 export default class SettingsPresentation extends Component {
   static propTypes = {
     alias: PropTypes.string,
+    uid: PropTypes.string,
+    publicKey: PropTypes.string,
+    settingsDataUrl: PropTypes.string,
 
+    importSettings: PropTypes.func.isRequired,
+    onAliasChange: PropTypes.func.isRequired,
+    saveAlias: PropTypes.func.isRequired,
+    regenerateUid: PropTypes.func.isRequired,
+    regenerateKeys: PropTypes.func.isRequired
   }
 
   render() {

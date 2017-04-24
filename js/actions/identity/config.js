@@ -1,3 +1,5 @@
+import _ from 'lodash';
+import PropTypes from 'prop-types';
 import { createAction } from 'redux-actions';
 
 import { generateNewKeys } from 'utility';
@@ -27,13 +29,13 @@ export function importSettings(settings) {
 
     if (typeof settings === 'string') {
       try { settingsObject = JSON.parse(settings); }
-      catch(e) { return dispatch(importSettingsFailure(e)); }
+      catch (e) { return dispatch(importSettingsFailure(e)); }
     }
 
     dispatch(setConfig(settingsObject));
 
     dispatch(importSettingsSuccess());
-  }
+  };
 }
 
 export function regenerateUid() {
@@ -57,4 +59,19 @@ export function updateAlias(alias) {
   return dispatch => {
     dispatch(setAlias(alias));
   };
+}
+
+export const configPropTypes = {
+  alias: PropTypes.string.isRequired,
+  uid: PropTypes.string.isRequired,
+  publicKey: PropTypes.string.isRequired,
+  privateKey: PropTypes.string.isRequired,
+  relays: PropTypes.array.isRequired
+};
+
+export function isConfigValid(config) {
+  return PropTypes.checkPropTypes(
+    configPropTypes,
+    config || {}
+  );
 }
