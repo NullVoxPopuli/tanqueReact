@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormGroup, Input, Label, Row, Col, Button } from 'reactstrap';
+import { FormGroup, Card, CardBlock, CardTitle, CardHeader, CardText, Input, Label, Row, Col, Button } from 'reactstrap';
 
 import FileChooser from 'components/file-chooser';
 
@@ -44,70 +44,81 @@ export default class SettingsPresentation extends Component {
           </Col>
         </Row>
         <hr />
-        <Row>
-          <Col />
-          <Col md={8} sm={12}>
-            <h4>Safe Settings</h4>
-            <Row>
-              <Col sm={12}>
-                <Label className='control-label'>Alias</Label>
+        <Row className='justify-content-center'>
+          <Col sm={12} umd={8}>
+            <Card>
+              <CardHeader tag='h4'>Safe Settings </CardHeader>
+              <CardBlock>
+                <Row>
+                  <Col sm={12}>
+                    <FormGroup>
+                      <Label className='control-label'>Alias</Label>
+                      <Input
+                        className='form-control'
+                        type='text'
+                        onChange={onAliasChange}
+                        value={alias} />
+                    </FormGroup>
+                    <Button
+                      onClick={saveAlias}
+                      className='float-right'>Save</Button>
+                  </Col>
+                </Row>
+              </CardBlock>
+            </Card>
+
+            <br /><br /><br />
+            <Card>
+              <CardHeader tag='h4'>Potentially Destructive Settings</CardHeader>
+              <CardBlock>
+                <Row>
+                  <Col sm={4}><h4>UID</h4></Col>
+                  <Col sm={8}>
+                    <Button
+                      onClick={regenerateUid}
+                      className='float-right'>Re-Generate</Button>
+                  </Col>
+                </Row>
                 <FormGroup>
-                  <Input
-                    className='form-control'
-                    type='text'
-                    onChange={onAliasChange}
-                    value={alias} />
+                  <Label></Label>
+                  <Input type='text' disabled value={uid} />
                 </FormGroup>
-                <Button
-                  onClick={saveAlias}
-                  className='pull-right btn btn-default'>Save</Button>
-              </Col>
-            </Row>
 
-            <hr />
+                <div className='alert bg-danger'>
+                  Note that re-generating your UID will prevent people from being
+                  able to send you messages, and they will no longer be able to
+                  decrypt messages you send to them.
+                </div>
+                <br />
+                <br />
 
-            <h4>Potentially Destructive Settings</h4>
-            <Row>
-              <Col sm={2}>
-              <label className='control-label'>UID</label>
-              </Col>
-              <Col sm={7}>{uid}</Col>
-              <Col sm={3}>
-                <button
-                  onClick={regenerateUid}
-                  className='form-control btn btn-default'>Re-Generate</button>
-              </Col>
-            </Row>
-              <p className='bg-danger padding-5'>
-                Note that re-generating your UID will prevent people from being
-                able to send you messages, and they will no longer be able to
-                decrypt messages you send to them.
-              </p>
-            <br />
-            <hr />
-            <br />
-
-            <div className='form-group'>
-              <label>Public Key</label><br/>
-              <pre>{publicKey}</pre>
-              <label>Private Key Hidden</label><br />
-              <button
-                onClick={regenerateKeys}
-                className='btn btn-default'>Re-Generate Keys</button>
-              <br />
-              <br />
-              <p className='bg-success padding-5'>* Uses NaCl algorithms.</p>
-              <p className='bg-danger padding-5'>
-                Note that re-generating your keys will require you to be
-                re-authorized to the network.
-                You will not be able to decrypt any messages sent to you until
-                re-authorization.
-              </p>
-              <br/><br/>
-              <hr/><br/>
-            </div>
+                <Row>
+                  <Col sm={4}><h4>KEYS</h4></Col>
+                  <Col sm={8}>
+                    <Button
+                      onClick={regenerateKeys}
+                      className='float-right'>Re-Generate Keys</Button>
+                  </Col>
+                </Row>
+                <FormGroup>
+                  <Label>Public Key</Label>
+                  <Input type='text' disabled value={publicKey} />
+                  <br />
+                  <Label>Private Key</Label>
+                  <Input type='text' disabled value='Hidden' />
+                </FormGroup>
+                <div className='alert bg-success'>* Uses NaCl algorithms.</div>
+                <div className='alert bg-danger'>
+                  Note that re-generating your keys will require you to be
+                  re-authorized to the network.
+                  You will not be able to decrypt any messages sent to you until
+                  re-authorization.
+                </div>
+              </CardBlock>
+            </Card>
+            <br/><br/>
+            <hr/><br/>
           </Col>
-          <Col />
         </Row>
       </div>
     );

@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom';
 import {
   Collapse,
   Navbar,
-  NavbarBrand,
-  NavbarHeader,
   NavbarToggler,
   Nav,
-  NavItem, NavLink
+  NavItem
 } from 'reactstrap';
 
 import ImportModal from 'components/utility/import-modal';
@@ -15,18 +13,18 @@ import ExportModal from 'components/utility/export-modal';
 
 export default class Navigation extends Component {
   constructor(props) {
-  super(props);
+    super(props);
 
-  this.toggle = this.toggle.bind(this);
-  this.state = {
-    isOpen: false
-  };
-}
-toggle() {
-  this.setState({
-    isOpen: !this.state.isOpen
-  });
-}
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
   render() {
     return (
       <Navbar inverse fixed='true' toggleable
@@ -40,7 +38,7 @@ toggle() {
            <NavItem><Link className='nav-link' to='/settings'>Settings</Link></NavItem>
           </Nav>
           <Nav className='float-right'>
-            <ImportModal />
+            <ImportModal />&nbsp;
             <ExportModal />
           </Nav>
         </Collapse>
