@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col } from 'reactstrap';
+import { FormGroup, Input, Label, Row, Col, Button } from 'reactstrap';
 
 import FileChooser from 'components/file-chooser';
 
@@ -49,22 +49,18 @@ export default class SettingsPresentation extends Component {
           <Col md={8} sm={12}>
             <h4>Safe Settings</h4>
             <Row>
-              <Col sm={2}>
-                <label className='control-label'>Alias</label><br/>
-              </Col>
-              <Col sm={10}>
-                <input
-                  className='form-control'
-                  type='text'
-                  onChange={onAliasChange}
-                  value={alias} />
-              </Col>
-            </Row>
-            <Row>
               <Col sm={12}>
-                <button
+                <Label className='control-label'>Alias</Label>
+                <FormGroup>
+                  <Input
+                    className='form-control'
+                    type='text'
+                    onChange={onAliasChange}
+                    value={alias} />
+                </FormGroup>
+                <Button
                   onClick={saveAlias}
-                  className='pull-right btn btn-default'>Save</button>
+                  className='pull-right btn btn-default'>Save</Button>
               </Col>
             </Row>
 

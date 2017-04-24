@@ -1,7 +1,12 @@
 @import 'theme';
 @import '~bootstrap/scss/bootstrap.scss';
 
-
+nav.bg-inverse {
+  background: $brand-success !important;
+  a {
+    color: $white;
+  }
+}
 body{
 }
 .content {

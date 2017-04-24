@@ -30,16 +30,16 @@ toggle() {
   render() {
     return (
       <Navbar inverse fixed='true' toggleable
-        className='bg-inverse navbar-toggleable-sm'>
+        className='navbar-dark navbar-toggleable-md bg-inverse'>
         <NavbarToggler right onClick={this.toggle} />
         <Link className='navbar-brand' to='/'>tanqueRéact</Link>
 
-        <Collapse className='' isOpen={true}>
-          <Nav>
+        <Collapse className='navbar-collapse' isOpen={true}>
+          <Nav className='mr-auto'>
            <NavItem><Link className='nav-link' to='/chat'>Chat</Link></NavItem>
            <NavItem><Link className='nav-link' to='/settings'>Settings</Link></NavItem>
           </Nav>
-          <Nav className='pull-right'>
+          <Nav className='float-right'>
             <ImportModal />
             <ExportModal />
           </Nav>
