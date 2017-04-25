@@ -1,9 +1,8 @@
 import React from 'react';
-import { render } from 'react-dom';
 import { connect } from 'react-redux';
 
 import { sendMessageToCable, received } from 'js/actions/action-cable-actions';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, FormGroup, Input } from 'reactstrap';
 
 
 class TextEntry extends React.Component {
@@ -57,20 +56,16 @@ class TextEntry extends React.Component {
 
   render() {
     return (
-      <Row>
-        <Col sm={10}>
-          <input
-            className='padding-10 full-width'
+      <Row className='fixed-bottom p-2'>
+        <Col sm={12}>
+          <Input
+            placeholder='Send a message...'
+            className='p-2 full-width'
             type='text'
             value={this.state.messageToSend}
             onKeyPress={this._onKeyPress}
             onChange={this._onChange}
           />
-        </Col>
-        <Col sm={2}>
-          <button
-            className='btn btn-success'
-            onClick={this.sendMessage.bind(this)}>Send</button>
         </Col>
       </Row>
     );
