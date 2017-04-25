@@ -1,48 +1,89 @@
 import React from 'react';
+import moment from 'moment';
 
 import { connect } from 'react-redux';
+import MessageRow from './message-row';
 
 class ChatRoom extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+
+    this.state = { };
   }
 
   render() {
-    // let messageRecords = this.props.messages;
+    const { publicKey } = this.props;
 
     let messageMarkup = 'There are no messages... yet.';
 
-    let messages = [];
-    // messageRecords.map(m => {
-    //   let fromUser = this.props.store.get('user', m.content.uid);
-    //   let fromName = fromUser ? fromUser.alias : '';
-    //   return (
-    //     <tr>
-    //       <td>{new Date(m.id).toString()}</td>
-    //       <td>{m.content.uid}</td>
-    //       <td>{fromName}</td>
-    //       <td>{m.content.message}</td>
-    //     </tr>
-    //   );
-    // });
+    const messageRecords = [{
+      time_sent: new Date(),
+      message: 'encrypted',
+      decryptedMessage: 'decrypted',
+      sender: {
+        name: 'etk',
+        location: 'ip address',
+        uid: 'uid/public-key'
+      }
+    }, {
+      time_sent: new Date(),
+      message: 'encrypted',
+      decryptedMessage: 'decrypted',
+      sender: {
+        name: 'nvp',
+        location: 'ip address',
+        uid: publicKey
+      }
+    }, {
+      time_sent: new Date(),
+      message: 'encrypted',
+      decryptedMessage: 'decrypted',
+      sender: {
+        name: 'etk',
+        location: 'ip address',
+        uid: 'uid/public-key'
+      }
+    }, {
+      time_sent: new Date(),
+      message: 'encrypted',
+      decryptedMessage: 'decrypted',
+      sender: {
+        name: 'nvp',
+        location: 'ip address',
+        uid: publicKey
+      }
+    }, {
+      time_sent: new Date(),
+      message: 'encrypted',
+      decryptedMessage: 'decrypted',
+      sender: {
+        name: 'etk',
+        location: 'ip address',
+        uid: 'uid/public-key'
+      }
+    }];
 
-    console.log(messages);
+    const messages = messageRecords.map(m => {
+      const name = m.sender.name;
+      const date = moment(m.time_sent).format('lll');
+      const msg = m.decryptedMessage || 'could not be decrypted';
+      return <MessageRow
+          time={date}
+          name={name}
+          message={msg}
+          isMe={m.sender.uid === publicKey}
+          />;
+    });
+
     messageMarkup = (
-      <table className='messages'>
-        <thead></thead>
-        <tbody>
-          {messages}
-        </tbody>
-      </table>
+      <div className='messages'>
+        {messages}
+      </div>
     );
-
-    // let time = new Date(this.props.lastMessageReceived).toString();
 
     return (
       <div>
         <h3>{this.state.id}</h3>
-        <h4>Messages: {messages.length}</h4>
         <h4>Last Message Received</h4>
         <hr />
         {messageMarkup}
@@ -53,6 +94,7 @@ class ChatRoom extends React.Component {
 
 
 const mapStateToProps = state => ({
+  publicKey: state.identity.config.publicKey,
   messages: state.data.messages.records
 });
 

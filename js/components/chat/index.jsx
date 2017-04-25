@@ -29,6 +29,7 @@ export default class Index extends React.Component {
         <Col xs={9}>
           <ChatRoom />
           <TextEntry
+            onSendText={() => {}}
             currentRoomId={this.currentRoomId}/>
         </Col>
         <Col xs={3}>
