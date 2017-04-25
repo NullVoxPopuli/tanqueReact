@@ -56,6 +56,10 @@ export default class AutomaticStuff extends Component {
             </CardText>
           </CardBlock>
         </Card>
+        <br />
+        <Button size='lg' block color='success' onClick={next}>
+          Next
+        </Button>
       </div>
     );
   }
