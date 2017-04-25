@@ -82,9 +82,6 @@ class ChatRoom extends React.Component {
 
     return (
       <div>
-        <h3>{this.state.id}</h3>
-        <h4>Last Message Received</h4>
-        <hr />
         {messageMarkup}
       </div>
     );
