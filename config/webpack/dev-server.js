@@ -54,7 +54,7 @@ config.devServer = {
   },
   hot: true,
   host: '0.0.0.0',
-  port: 4000,
+  port: 4201,
   // opens browser
   open: false,
   historyApiFallback: true,

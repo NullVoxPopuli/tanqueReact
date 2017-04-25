@@ -32,5 +32,4 @@ services:
     environment:
       - NODE_ENV=development
     ports:
-      - "4000:4000"
-      - "8080:8080"
+      - "4201:4201"
