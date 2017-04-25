@@ -1,0 +1,14 @@
+.message {
+  .message-header {
+    display: block;
+
+    strong {
+      font-weight: 900;
+    }
+  }
+
+  .message-content {
+    font-weight: 400;
+    color: #ccc;
+  }
+}

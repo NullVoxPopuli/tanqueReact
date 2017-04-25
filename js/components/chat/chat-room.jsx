@@ -28,7 +28,7 @@ class ChatRoom extends React.Component {
     }, {
       time_sent: new Date(),
       message: 'encrypted',
-      decryptedMessage: 'decrypted',
+      decryptedMessage: 'Part of Bootstrap’s job is to provide an elegant, consistent, and simple baseline to build upon. We use Reboot, a collection of element-specific CSS changes in a single file, to kickstart that.',
       sender: {
         name: 'nvp',
         location: 'ip address',
@@ -71,7 +71,6 @@ class ChatRoom extends React.Component {
           time={date}
           name={name}
           message={msg}
-          isMe={m.sender.uid === publicKey}
           />;
     });
 

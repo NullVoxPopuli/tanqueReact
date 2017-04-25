@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { Badge } from 'reactstrap';
 
+import './style.scss';
+
 export default class MessageRow extends Component {
   static propTypes = {
     time: PropTypes.isRequired,
@@ -13,10 +15,12 @@ export default class MessageRow extends Component {
   render() {
     const { time, name, message } = this.props;
     return (
-      <div className='clearfix'>
+      <div className='message clearfix'>
         <div className={'p-2'}>
-          <strong>{name}</strong> <small>{time}</small><br />
-          {message}
+          <span className='message-header'>
+            <strong>{name}</strong> <small>{time}</small>
+          </span>
+          <span className='message-content'>{message}</span>
         </div>
       </div>
     );
