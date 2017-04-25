@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { identity } from 'actions';
 
 import { Row, Col } from 'reactstrap';
@@ -13,7 +14,7 @@ import HowToGetAuthorized from './how-to-get-authorized';
 
 class Setup extends Component {
   render() {
-    const { config, updateAlias, regenerateUid, regenerateKeys } = this.props;
+    const { config, updateAlias, regenerateUid, regenerateKeys, history } = this.props;
     const { alias, uid, publicKey, relays } = config;
 
     return (
@@ -24,17 +25,27 @@ class Setup extends Component {
             alias={alias}
             updateAlias={updateAlias}
             regenerateKeys={regenerateKeys}
-            regenerateUid={regenerateUid} />
+            regenerateUid={regenerateUid}
+            next={() => history.push('/setup/automatic-stuff')} />
         } />
 
         <Route path="/automatic-stuff"
-          render={() => <AutomaticStuff publicKey={publicKey} uid={uid} relays={relays} />} />
+          render={() => <AutomaticStuff
+            publicKey={publicKey}
+            uid={uid}
+            relays={relays}
+            next={() => history.push('/setup/how-to-authorize')}/>
+        } />
 
         <Route path="/how-to-authorize"
-          render={() => <HowToAuthorize />} />
+          render={() => <HowToAuthorize
+            next={() => history.push('/setup/how-to-get-authorized')}/>
+        } />
 
         <Route path="/how-to-get-authorized"
-          render={() => <HowToGetAuthorized />} />
+          render={() => <HowToGetAuthorized
+            next={() => history.push('/')}/>
+          } />
         </Col>
       </Row>
     );
@@ -48,9 +59,12 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   regenerateUid: bindActionCreators(identity.config.regenerateUid, dispatch),
   regenerateKeys: bindActionCreators(identity.config.regenerateKeys, dispatch),
-  updateAlias: bindActionCreators(identity.config.updateAlias, dispatch)
+  updateAlias: bindActionCreators(identity.config.updateAlias, dispatch),
+  toSummaryPage() { dispatch(push('/setup/automatic-stuff')); }
 });
 
-export default connect(
+const connected = connect(
   mapStateToProps, mapDispatchToProps
 )(Setup);
+
+export default withRouter(connected);

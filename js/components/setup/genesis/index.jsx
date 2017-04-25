@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
+import { push } from 'react-router-redux';
 
 import { FormGroup, Card, CardBlock, CardHeader, CardText, Input, Label, Row, Col, Button } from 'reactstrap';
 
@@ -12,7 +12,8 @@ export default class Genesis extends Component {
 
     updateAlias: PropTypes.func.isRequired,
     regenerateUid: PropTypes.func.isRequired,
-    regenerateKeys: PropTypes.func.isRequired
+    regenerateKeys: PropTypes.func.isRequired,
+    next: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -27,14 +28,13 @@ export default class Genesis extends Component {
   }
 
   didSubmit() {
-    const { updateAlias, regenerateKeys, regenerateUid } = this.props;
+    const { updateAlias, regenerateKeys, regenerateUid, toSummaryPage, next } = this.props;
     const { alias } = this.state;
 
     updateAlias(alias);
     regenerateUid();
     regenerateKeys();
-
-    return <Redirect to="/setup/automatic-stuff" />;
+    next();
   }
 
   render() {
