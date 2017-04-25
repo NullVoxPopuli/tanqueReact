@@ -113,6 +113,7 @@
     "react-router-dom": "^4.1.1",
     "react-router-redux": "^4.0.8",
     "react-select": "^1.0.0-rc.3",
+    "react-truncate": "^2.1.1",
     "reactstrap": "^4.5.0",
     "redux": "^3.6.0",
     "redux-actions": "^2.0.2",

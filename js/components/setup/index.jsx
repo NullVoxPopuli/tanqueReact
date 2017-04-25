@@ -19,7 +19,7 @@ class Setup extends Component {
 
     return (
       <Row className='upper-vertical-center'>
-        <Col md={{ size: 6 }} sm={12}>
+        <Col xl={6} lg={8} md={10} sm={12}>
         <Route exact={true} path="/setup/"
           render={() => <Genesis
             alias={alias}
@@ -29,7 +29,7 @@ class Setup extends Component {
             next={() => history.push('/setup/automatic-stuff')} />
         } />
 
-        <Route path="/automatic-stuff"
+        <Route path="/setup/automatic-stuff"
           render={() => <AutomaticStuff
             publicKey={publicKey}
             uid={uid}
@@ -37,12 +37,12 @@ class Setup extends Component {
             next={() => history.push('/setup/how-to-authorize')}/>
         } />
 
-        <Route path="/how-to-authorize"
+        <Route path="/setup/how-to-authorize"
           render={() => <HowToAuthorize
             next={() => history.push('/setup/how-to-get-authorized')}/>
         } />
 
-        <Route path="/how-to-get-authorized"
+        <Route path="/setup/how-to-get-authorized"
           render={() => <HowToGetAuthorized
             next={() => history.push('/')}/>
           } />

@@ -5989,6 +5989,12 @@ react-side-effect@^1.1.0:
     exenv "^1.2.1"
     shallowequal "^0.2.2"
 
+react-truncate@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/react-truncate/-/react-truncate-2.1.1.tgz#ca8bc1dbedf451cf5cef34c6ac67a82f460cfa05"
+  dependencies:
+    prop-types "^15.5.6"
+
 react@^15.5.4:
   version "15.5.4"
   resolved "https://registry.yarnpkg.com/react/-/react-15.5.4.tgz#fa83eb01506ab237cdc1c8c3b1cea8de012bf047"

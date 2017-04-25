@@ -1,6 +1,7 @@
 @import 'theme';
 @import '~bootstrap/scss/bootstrap.scss';
 @import 'flex-center';
+@import 'text';
 
 nav.bg-inverse {
   background: $brand-success !important;
@@ -8,6 +9,7 @@ nav.bg-inverse {
     color: $white;
   }
 }
+
 hr {
   color: $white;
   background: $white;
