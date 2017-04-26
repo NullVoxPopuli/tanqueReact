@@ -115,7 +115,7 @@ export default class SettingsPresentation extends Component {
                   <Label>Private Key</Label>
                   <Input type='text' disabled value='Hidden' />
                 </FormGroup>
-                <div className='alert bg-success'>* Uses NaCl algorithms.</div>
+                <div className='alert'>* Uses NaCl algorithms.</div>
                 <div className='alert bg-danger'>
                   Note that re-generating your keys will require you to be
                   re-authorized to the network.

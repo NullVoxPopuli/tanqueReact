@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
 
-import { FormGroup, Card, CardBlock, CardHeader, CardText, Input, Label, Row, Col, Button } from 'reactstrap';
+import {
+  Form, FormGroup,
+  Card, CardBlock, CardHeader, CardText,
+  Input, Label, Row, Col, Button
+} from 'reactstrap';
 
 import { mutCreator } from 'components/state-helpers';
 
@@ -47,20 +51,24 @@ export default class Genesis extends Component {
 
         <Card>
           <CardBlock>
-            <FormGroup>
-              <Label size='lg'>Your Alias</Label>
-              <Input type='text'
+            <Form onSubmit={this.didSubmit}>
+              <FormGroup>
+                <Label size='lg'>Your Alias</Label>
+                <Input type='text'
+                  size='lg'
+                  value={alias}
+                  onEnter={this.didSubmit}
+                  onChange={mut('alias')} />
+              </FormGroup>
+
+              <Button block
+                color='success'
                 size='lg'
-                value={alias}
-                onChange={mut('alias')} />
-            </FormGroup>
-            <Button block
-              color='success'
-              size='lg'
-              className='float-right'
-              onClick={this.didSubmit}>
-              Next
-            </Button>
+                className='float-right'
+                onClick={this.didSubmit}>
+                Next
+              </Button>
+            </Form>
           </CardBlock>
         </Card>
       </div>

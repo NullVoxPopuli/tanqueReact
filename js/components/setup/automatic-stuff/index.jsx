@@ -18,11 +18,18 @@ export default class AutomaticStuff extends Component {
     next: PropTypes.func.isRequired
   }
 
+  onKeyPress(target) {
+    if (target.charCode == 13) {
+      this.props.next();
+    }
+  }
+
   render() {
-    const { uid, publicKey, relays, next } = this.props;
+    const { alias, uid, publicKey, relays, next } = this.props;
     return (
       <div>
         <h1 className='display-4'>Generated for <em>You</em></h1>
+        <h5>Specific to <em>{alias}</em></h5>
         <Card>
           <CardBlock>
             <CardTitle>Public Key</CardTitle>

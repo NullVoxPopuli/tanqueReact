@@ -9,7 +9,6 @@ import { Row, Col } from 'reactstrap';
 
 import Genesis from './genesis';
 import AutomaticStuff from './automatic-stuff';
-import HowToAuthorize from './how-to-authorize';
 import HowToGetAuthorized from './how-to-get-authorized';
 
 class Setup extends Component {
@@ -33,18 +32,14 @@ class Setup extends Component {
           render={() => <AutomaticStuff
             publicKey={publicKey}
             uid={uid}
+            alias={this.props.config.alias}
             relays={relays}
-            next={() => history.push('/setup/how-to-authorize')}/>
-        } />
-
-        <Route path="/setup/how-to-authorize"
-          render={() => <HowToAuthorize
             next={() => history.push('/setup/how-to-get-authorized')}/>
         } />
 
         <Route path="/setup/how-to-get-authorized"
           render={() => <HowToGetAuthorized
-            next={() => history.push('/')}/>
+            next={() => history.push('/chat')}/>
           } />
         </Col>
       </Row>
