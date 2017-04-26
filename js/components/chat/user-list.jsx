@@ -21,7 +21,7 @@ class UserList extends React.Component {
         user={user}
         handleUserSelect={this.handleUserSelect.bind(this, user)} />);
     return (
-      <Nav bsStyle='pills' stacked onSelect={this.onSelect}>
+      <Nav onSelect={this.onSelect}>
         {userList}
       </Nav>
     );
