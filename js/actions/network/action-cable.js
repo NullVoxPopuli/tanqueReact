@@ -82,9 +82,9 @@ export function connectToCable() {
     }
     dispatch(connect());
 
-    const { publicKey, url } = state.identity.config;
+    const { uid, url } = state.identity.config;
 
-    const path = `${url}?uid=${publicKey}`;
+    const path = `${url}?uid=${uid}`;
 
     const cable = ActionCable.createConsumer(path);
     const channel = cable.subscriptions.create({ channel: RELAY_CHANNEL }, {

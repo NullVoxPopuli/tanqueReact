@@ -32,18 +32,19 @@ class ChatIndex extends React.Component {
 
   didEnterMessage(message) {
     const { config, sendMessage } = this.props;
-    const { publicKey, alias } = config;
+    const { publicKey, uid, alias } = config;
 
     const payload = {
       time_sent: new Date(),
       decryptedMessage: message,
       sender: {
         name: alias,
-        uid: publicKey
+        uid: uid,
+        publicKey: publicKey
       }
     };
 
-    sendMessage(publicKey, payload);
+    sendMessage(uid, payload);
   }
 
   render() {

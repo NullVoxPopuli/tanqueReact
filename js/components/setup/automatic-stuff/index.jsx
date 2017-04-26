@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import ReadMore from 'components/-components/read-more';
 
 import {
-  FormGroup,
-  Badge,
   Card, CardBlock, CardHeader,
   CardSubtitle, CardText, CardTitle,
-  Input, Label, Row, Col, Button } from 'reactstrap';
+  Button
+} from 'reactstrap';
 
 export default class AutomaticStuff extends Component {
   static propTypes = {
@@ -52,13 +51,14 @@ export default class AutomaticStuff extends Component {
         <br /><br />
         <Card>
           <CardBlock>
-            <CardTitle>Unique Identifier (UID) <Badge>deprecated</Badge></CardTitle>
+            <CardTitle>Unique Identifier (UID)</CardTitle>
             <CardSubtitle className='text-wrap mb-3'>{uid}</CardSubtitle>
             <CardText>
               <ReadMore lines={2}>
-                This was used for identifying members of the network in older versions of the mesh-chat protocol, but
-                since public keys <em>must</em> unique, and since public keys are known to the public (just like UIDs are),
-                public keys are now used for identifying members of the network.
+                This is used for identifying members of the network.
+                It must be unique, as it it used to lookup members of the network on each client
+                for the purposes of sending messages. It can be a hex version of the publicKey,
+                as the publicKey must also be unique per member of the network.
               </ReadMore>
             </CardText>
           </CardBlock>
