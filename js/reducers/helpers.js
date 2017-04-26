@@ -13,17 +13,17 @@ export const initialState = {
   deleting: initialAsyncState
 };
 
-export function hydrate(oldRecords, records) {
+export function hydrate(oldRecords, records, primaryKey = 'id') {
   const newRecords = [];
   const replacedIds = [];
 
   // copy over old records, and update them if we need to.
   // this persists ordering so UI stuff doesn't move around
   oldRecords.forEach(oldRecord => {
-    const existInNew = records.find(o => o.id === oldRecord.id);
+    const existInNew = records.find(o => o[primaryKey] === oldRecord[primaryKey]);
 
     if (existInNew) {
-      replacedIds.push(existInNew.id);
+      replacedIds.push(existInNew[primaryKey]);
       return newRecords.push(existInNew);
     }
 
@@ -32,7 +32,7 @@ export function hydrate(oldRecords, records) {
 
   // find the new records which haven't yet been added to the next state
   records.forEach(record => {
-    if (!replacedIds.includes(record.id)) {
+    if (!replacedIds.includes(record[primaryKey])) {
       newRecords.push(record);
     }
   });

@@ -14,4 +14,13 @@ const reduxStore = createStore(reducers, persistedState, middleware);
 export default reduxStore;
 
 reduxStore
-  .subscribe(() => saveState(reduxStore.getState()));
+  .subscribe(() => {
+    const state = reduxStore.getState();
+
+    saveState({
+      data: {
+        users: state.data.users
+      },
+      identity: state.identity
+    });
+  });

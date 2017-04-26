@@ -10,6 +10,6 @@ const initialState = {
 export default handleActions({
   [RECEIVE_MESSAGE]: (state, action) => ({
     ...state,
-    records: hydrate(state.records [action.payload.json])
+    records: hydrate(state.records, [action.payload], 'time_sent')
   })
 }, initialState);

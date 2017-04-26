@@ -31,18 +31,29 @@ class ChatIndex extends React.Component {
   }
 
   didEnterMessage(message) {
-    const { config, sendMessage, received } = this.props;
-    const { publicKey } = config;
+    const { config, sendMessage } = this.props;
+    const { publicKey, alias } = config;
 
-    sendMessage(publicKey, message);
-    received({ uid: publicKey, message });
+    const payload = {
+      time_sent: new Date(),
+      decryptedMessage: message,
+      sender: {
+        name: alias,
+        uid: publicKey
+      }
+    };
+
+    sendMessage(publicKey, payload);
   }
 
   render() {
+    const { messages } = this.props;
+
     return (
       <Row>
         <Col xs={9}>
-          <ChatRoom />
+          <ChatRoom
+            messages={messages} />
           <TextEntry
             onSendText={this.didEnterMessage}
             currentRoomId={this.currentRoomId}/>
@@ -58,12 +69,12 @@ class ChatIndex extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  config: state.identity.config
+  config: state.identity.config,
+  messages: state.data.messages.records
 });
 
 const mapDispatchToProps = dispatch => ({
   sendMessage: bindActionCreators(actionCable.send, dispatch),
-  received: actionCable.received,
   connect: bindActionCreators(actionCable.connectToCable, dispatch)
 });
 

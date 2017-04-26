@@ -12,13 +12,15 @@ import {
 
 const initialState = {
   status: ACTION_CABLE_DISCONNECTED,
-  lastMessageReceived: null
+  lastMessageReceived: null,
+  channel: null
 };
 
 export default handleActions({
   [ACTION_CABLE_CONNECTED]: (state, action) => ({
     ...state,
-    status: ACTION_CABLE_CONNECTED
+    status: ACTION_CABLE_CONNECTED,
+    channel: action.payload.subscriptions.subscriptions[0]
   }),
   [ACTION_CABLE_DISCONNECTED]: (state, action) => ({
     ...state,
