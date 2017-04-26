@@ -1,0 +1,35 @@
+version: "2"
+services:
+  # https://github.com/yarnpkg/yarn/issues/749#issuecomment-253413954
+  yarn-cache:
+    image: busybox
+    volumes:
+      - /root/.yarn-cache
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash -c "npm run dev"
+    volumes_from:
+      - yarn-cache
+    volumes:
+      - ./yarn.lock:/src/app/yarn.lock
+      - ./scripts:/src/app/scripts
+      - ./config:/src/app/config
+      - ./css:/src/app/css
+      - ./js:/src/app/js
+      - ./test:/src/app/test
+      - ./dist:/src/app/dist
+
+      - ./package.json:/src/app/package.json
+
+      - ./.babelrc:/src/app/.babelrc
+      - ./.bootstraprc:/src/app/.bootstraprc
+      - ./.eslintrc.js:/src/app/.eslintrc.js
+      - ./.eslintignore:/src/app/.eslintignore
+
+      - ./index.ejs:/src/app/index.ejs
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "4201:4201"

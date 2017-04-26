@@ -1,0 +1,3 @@
+#!/bin/bash
+./node_modules/.bin/webpack -d \
+--config ./config/webpack/development.js 

@@ -1,0 +1,23 @@
+---
+engines:
+  csslint:
+    enabled: false
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - javascript
+  eslint:
+    enabled: true
+    ignore_warnings: true
+    channel: "eslint-3"
+
+  fixme:
+    enabled: true
+ratings:
+  paths:
+  - "**.scss"
+  - "**.js"
+  - "**.jsx"
+exclude_paths:
+- node_modules/

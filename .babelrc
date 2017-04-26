@@ -1,3 +1,19 @@
 {
-  "presets" : ["es2015", "react"]
+  "presets": [
+    "react",
+    "es2017",
+    "es2016",
+    "es2015",
+    "stage-3",
+  ],
+  "plugins": [
+    "transform-react-jsx",
+    "transform-export-extensions",
+    "transform-class-properties"
+  ],
+  "env": {
+   "test": {
+     "plugins": ["transform-es2015-modules-commonjs"]
+   }
+ }
 }

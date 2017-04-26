@@ -1,0 +1,41 @@
+{
+  "moduleDirectories": [
+    "js",
+    "node_modules"
+  ],
+  "moduleFileExtensions": [
+    "js",
+    "jsx"
+  ],
+  "modulePaths": [],
+  "moduleNameMapper": {
+    "^js(.*)$": "<rootDir>/js$1",
+    "^config(.*)$": "<rootDir>/config$1",
+    "^css(.*)$": "<rootDir>/css$1",
+    "^testHelpers(.*)$": "<rootDir>/test/helpers$1"
+  },
+  "transform": {
+    "^.+\\.jsx?$": "babel-jest",
+    ".*": "./test/helpers/jest-script-preprocessor"
+  },
+  "setupTestFrameworkScriptFile": "./test/helpers/setup.js",
+  "testResultsProcessor": "./node_modules/jest-junit",
+  "collectCoverageFrom": [
+    "js/**/*.{js,jsx}",
+    "!js/**/*.spec.*"
+  ],
+  "coverageReporters": [
+    "text-summary",
+    "html",
+    "cobertura"
+  ],
+  "coverageDirectory": "<rootDir>/coverage",
+  "coverageThreshold": {
+    "global": {
+      "branches": 0,
+      "functions": 0,
+      "lines": 0,
+      "statements": 0
+    }
+  }
+}

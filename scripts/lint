@@ -1,0 +1,6 @@
+#!/bin/bash
+./node_modules/eslint/bin/eslint.js ./js \
+  --color \
+  --config ./.eslintrc.js \
+  --ignore-path ./.eslintignore \
+  $*

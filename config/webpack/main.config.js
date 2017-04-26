@@ -1,102 +1,163 @@
-'use strict';
-
-const path = require('path');
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
+const path = require('path');
+
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CssEntryPlugin = require("css-entry-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 
-let config = module.exports = {
-  // The base path for resolving entrypoints
-  context: process.cwd(),
-  node_modules: path.join(process.cwd(), 'node_modules'),
+const nodeEnv = process.env.NODE_ENV || 'development';
+const isProduction = nodeEnv === 'production';
+
+const sourcePath = process.cwd();
+const globalStylesPath = path.join(sourcePath, 'css');
+const jsSourcePath = path.join(sourcePath, 'js');
+const testsSourcePath = path.join(sourcePath, 'test');
+
+const assetPath = '/assets';
+const buildPath = path.join(sourcePath, `dist/${assetPath}`);
+const imgPath = path.join(sourcePath, 'images');
+
+const babelSettings = {
+  extends: path.join(sourcePath, '.babelrc')
 };
 
-// The entry points for the application. Each entry point
-// results in a different output (combined) JS file.
-// For now, we only have one for all of the JS on the site.
-// Eventually we might split it into "public" and "authenticated",
-// to avoid making public pages download all app JS.
-config.entry = {
-  main: './frontend/js/main.js',
-};
-
-config.output = {
-  // webpack supports code-splitting and, if enabled, this is where it'll download bundles
-  publicPath: '/assets/build',
-};
-
-config.resolve = {
-  root: [
-    config.node_modules,
-    /*
-    allow referencing application scripts witha an absolute path
-    'javascripts/utils/validation'
-    vs relative paths from current module (ie from javascripts/funds/components
-    which would require the following grossness)
-    '../../utils/validation'
-    */
-    path.resolve('./frontend'),
-  ],
-  // List of which extensions should be auto-searched when resolving modules,
-  // so that we can say `require('./foo')` instead of `require('./foo.js')`
-  extensions: ['', '.js', '.jsx', '.css', '.scss', '.sass'],
-  alias: {
-    config$: path.resolve('./frontend/js/config', process.env.NODE_ENV || 'development'),
-  },
-};
-
-config.resolveLoader = {
-  root: path.join(config.node_modules),
-  modulesDirectories: [config.node_modules],
-};
-
-// Loaders are used to pre-process code before webpack gets it,
-// for example to transpile ES6 or JSX files using Babel: https://github.com/babel/babel-loader
-config.module = {
-  loaders: [
-    {
-      test: /\.jsx?$/,
-      include: [
-        path.resolve('./frontend/js'),
+// Common plugins
+const plugins = [
+  new CopyWebpackPlugin([
+    { from: 'images', to: 'images'},
+  ]),
+  new ExtractTextPlugin({
+    filename: '[name]-[hash].css',
+    allChunks: true
+  }),
+  // new CssEntryPlugin({
+  //   entries: ['styles'],
+  //   output: {
+  //     filename: 'assets/[name]-[hash].css'
+  //   }
+  // }),
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'vendor',
+    minChunks: Infinity,
+    filename: 'vendor-[hash].js'
+  }),
+  new webpack.DefinePlugin({
+    'process.env': {
+      NODE_ENV: JSON.stringify(nodeEnv),
+    },
+  }),
+  new webpack.NamedModulesPlugin(),
+  // TODO: this HtmlWebpackPlugin is mostly for proper building.
+  //       webpack-dev-server uses another HtmlWebpackPlugin that
+  //       puts the index from ../ to ./
+  new HtmlWebpackPlugin({
+    template: path.join(sourcePath, 'index.ejs'),
+    inject: 'body',
+    path: buildPath,
+    // this needs to be up a directory, because
+    // the build directory is /assets
+    // that's fine for everything but the index.html, as
+    // index is not an asset
+    filename: '../index.html',
+    NODE_ENV: process.env.NODE_ENV,
+    processEnv: JSON.stringify({
+      CURRENT_ENV:     process.env.NODE_ENV || 'development',
+    })
+  }),
+  new webpack.LoaderOptionsPlugin({
+    options: {
+      context: sourcePath,
+      postcss: [
+        autoprefixer({
+          browsers: [
+            'last 3 version',
+            'ie >= 10',
+          ],
+        }),
       ],
-      exclude: /node_modules/,
-      loader: 'babel',
-      query: {
-        presets: ['react', 'es2015', 'stage-2'],
-      },
     },
-    {
-      test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-      // Limiting the size of the woff fonts breaks font-awesome ONLY for the extract text plugin
-      // loader: 'url?limit=10000'
-      loader: 'url',
-    },
-    {
-      test: /\.scss$/,
-      loader: ExtractTextPlugin.extract('style', 'css?sourceMap!autoprefixer!resolve-url?sourceMap&fail!sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true!import-glob-loader'),
-    },
-    {
-      test: /\.css$/,
-      loader: ExtractTextPlugin.extract('style', 'css?sourceMap!autoprefixer!resolve-url?sourceMap&fail'),
-    },
-  ],
+  }),
+];
+
+// Common rules
+const rules = [
+  {
+    // http://www.rubular.com/r/uoNoTK116U
+    test: /^\.?[a-zA-z0-9\/_-]*(?!\.spec)\.jsx?$/,
+    exclude: /node_modules/,
+    loader: 'babel-loader?' + JSON.stringify(babelSettings)
+  },
+  {
+    test: /\.(png|gif|jpg|svg|html)$/,
+    include: imgPath,
+    use: 'url-loader?limit=20480&name=assets/[name]-[hash].[ext]',
+  },
+  {
+    test: /\.scss$/,
+    exclude: /node_modules/,
+    use: ExtractTextPlugin.extract({
+      fallback: 'style-loader',
+      use: [
+        'css-loader',
+        'sass-loader'
+      ]
+    })
+  },
+  {
+    test: /\.css$/,
+    use: ['css-loader']
+  }
+];
+
+module.exports = {
+  devtool: isProduction ? 'eval' : 'source-map',
+  context: sourcePath,
+  entry: {
+    main: './js/main.js',
+    // styles: './css/application.scss',
+    vendor: [
+      // TODO: move more 3rd party libs into here
+      //       they'll likely not change very often.
+      // TODO: figure out how to get [hash] to based on
+      //       file contents, instead of whatever it is now.
+      //       - this would be required for vendor.js to even
+      //         be capable of providing an advantage
+      'babel-polyfill',
+      'react-dom',
+      'react-redux',
+      'react-router',
+      'react',
+      'redux-thunk',
+      'redux',
+      'actioncable'
+    ],
+  },
+  output: {
+    path: buildPath,
+    // publicPath between the host and file url.
+    // if assets live at the root, they should be at /
+    publicPath: `${assetPath}/`,
+    filename: '[name]-[hash].js',
+  },
+  module: {
+    rules,
+  },
+  resolve: {
+    extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx', '.css', '.scss'],
+    modules: [
+      path.resolve(sourcePath, 'node_modules'),
+      jsSourcePath,
+    ],
+    alias: {
+      js: jsSourcePath,
+      components: path.join(jsSourcePath, 'components'),
+      actions: path.join(jsSourcePath, 'actions'),
+      utility: path.join(jsSourcePath, 'utility'),
+      css: globalStylesPath,
+      testHelpers: path.join(testsSourcePath, 'helpers')
+    }
+  },
+  plugins
 };
-
-// This is where webpack plugins go
-config.plugins = [
-  // The provide plugin makes the specified module available in all modules using the
-  // specified variable name.
-  new webpack.ProvidePlugin({
-    $: 'jquery',
-    jQuery: 'jquery',
-    _: 'lodash',
-  }),
-];
-
-// CSS/SCSS
-
-config.postcss = [
-  autoprefixer({
-    browsers: ['last 2 versions'],
-  }),
-];
