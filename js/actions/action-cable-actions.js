@@ -13,13 +13,13 @@ function connect(uid, url) {
   return {
     type: ACTION_CABLE_CONNECT,
     uid: uid,
-    url: url,
+    url: url
   };
 }
 
 function disconnect() {
   return {
-    type: ACTION_CABLE_DISCONNECT,
+    type: ACTION_CABLE_DISCONNECT
   };
 }
 
@@ -28,7 +28,7 @@ function connected(cable, channel) {
     type: ACTION_CABLE_CONNECTED,
     cable: cable,
     channel: channel,
-    connectedAt: Date.now(),
+    connectedAt: Date.now()
   };
 }
 
@@ -36,7 +36,7 @@ function disconnected(data) {
   return {
     type: ACTION_CABLE_DISCONNECTED,
     data: data,
-    disconnectedAt: Date.now(),
+    disconnectedAt: Date.now()
   };
 }
 
@@ -44,7 +44,7 @@ function rejected(data) {
   return {
     type: ACTION_CABLE_REJECTED,
     data: data,
-    rejectedAt: Date.now(),
+    rejectedAt: Date.now()
   };
 }
 
@@ -52,7 +52,7 @@ export function received(data) {
   return {
     type: ACTION_CABLE_RECEIVED,
     data: data,
-    receivedAt: Date.now(),
+    receivedAt: Date.now()
   };
 }
 
@@ -61,20 +61,20 @@ export function sendMessageToCable(to, msg) {
     type: ACTION_CABLE_SEND_MESSAGE,
     to: to,
     msg: msg,
-    sentAt: Date.now(),
+    sentAt: Date.now()
   };
 }
 
 export function connectToCable() {
   return (dispatch, getState) => {
     let state = getState();
-    if (state.cable.status === ACTION_CABLE_CONNECTED) {
+    if (state.network.actionCable.status === ACTION_CABLE_CONNECTED) {
       return;
     }
 
-    let { uid, url } = state.config;
+    let { publicKey, url } = state.identity.config;
 
-    let path = `${url}?uid=${uid}`;
+    let path = `${url}?uid=${publicKey}`;
 
     let cable = ActionCable.createConsumer(path);
     let channel = cable.subscriptions.create({ channel: 'MeshRelayChannel', }, {

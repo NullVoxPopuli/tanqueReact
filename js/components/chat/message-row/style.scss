@@ -11,4 +11,9 @@
     font-weight: 400;
     color: #ccc;
   }
+
+  &:hover {
+    // #222 is $brand-inverse
+    background: lighten(#222, 5%);
+  }
 }

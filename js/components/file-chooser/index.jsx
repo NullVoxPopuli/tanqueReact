@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 
-
 export default class FileChooser extends Component {
   static propTypes = {
     buttonText: PropTypes.string.isRequired,

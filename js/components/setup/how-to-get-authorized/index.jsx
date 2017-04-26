@@ -50,6 +50,8 @@ export default class HowToGetAuthorized extends Component {
             <Button block size='lg' color='success' onClick={next}>Done! Let's chat!</Button>
           </CardBlock>
         </Card>
+        <br /><br /><br />
+
       </div>
     );
   }

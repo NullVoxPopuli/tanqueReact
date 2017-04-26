@@ -13,14 +13,15 @@ export default class SettingsPresentation extends Component {
 
     importSettings: PropTypes.func.isRequired,
     onAliasChange: PropTypes.func.isRequired,
-    saveAlias: PropTypes.func.isRequired,
+    saveSafeSettings: PropTypes.func.isRequired,
     regenerateUid: PropTypes.func.isRequired,
     regenerateKeys: PropTypes.func.isRequired
   }
 
   render() {
     const {
-      alias, onAliasChange, saveAlias,
+      alias, onAliasChange, saveSafeSettings,
+      url, onUrlChange,
       uid, regenerateUid,
       publicKey, regenerateKeys,
       settingsDataUrl, importSettings
@@ -67,8 +68,18 @@ export default class SettingsPresentation extends Component {
                         onChange={onAliasChange}
                         value={alias} />
                     </FormGroup>
+
+                    <FormGroup>
+                      <Label className='control-label'>Alias</Label>
+                      <Input
+                        className='form-control'
+                        type='text'
+                        onChange={onUrlChange}
+                        value={url} />
+                    </FormGroup>
+
                     <Button
-                      onClick={saveAlias}
+                      onClick={saveSafeSettings}
                       className='float-right'>Save</Button>
                   </Col>
                 </Row>

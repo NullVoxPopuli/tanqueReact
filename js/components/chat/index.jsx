@@ -1,18 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import { Row, Col } from 'reactstrap';
 
 import UserList from './user-list';
-import TextEntry from './text-entry';
+import TextEntry from './entry';
 import ChatRoom from './chat-room';
 
-export default class Index extends React.Component {
+import * as actionCable from 'js/actions/action-cable-actions';
+
+class ChatIndex extends React.Component {
   static propTypes = {
   }
 
   constructor(props) {
     super(props);
+
+    this.props.connect();
+    this.didEnterMessage = this.didEnterMessage.bind(this);
   }
 
   handleUserSelect(user) {
@@ -23,13 +30,21 @@ export default class Index extends React.Component {
     // this.props.router.push(path);
   }
 
+  didEnterMessage(message) {
+    const { config, sendMessage, received } = this.props;
+    const { publicKey } = config;
+
+    sendMessage(publicKey, message);
+    received({ uid: publicKey, message });
+  }
+
   render() {
     return (
       <Row>
         <Col xs={9}>
           <ChatRoom />
           <TextEntry
-            onSendText={() => {}}
+            onSendText={this.didEnterMessage}
             currentRoomId={this.currentRoomId}/>
         </Col>
         <Col xs={3}>
@@ -41,3 +56,18 @@ export default class Index extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  config: state.identity.config
+});
+
+const mapDispatchToProps = dispatch => ({
+  sendMessage: bindActionCreators(actionCable.sendMessageToCable, dispatch),
+  received: actionCable.received,
+  connect: bindActionCreators(actionCable.connectToCable, dispatch)
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ChatIndex)

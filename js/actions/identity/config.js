@@ -5,6 +5,7 @@ import { createAction } from 'redux-actions';
 import { generateNewKeys } from 'utility';
 
 export const SET_ALIAS = 'identity/config/SET_ALIAS';
+export const SET_URL = 'identity/config/SET_URL';
 export const SET_KEYS = 'identity/config/SET_KEYS';
 export const SET_UID = 'identity/config/SET_UID';
 export const SET_CONFIG = 'identity/config/SET_CONFIG';
@@ -15,6 +16,7 @@ export const IMPORT_SETTINGS_SUCCESS = 'identity/config/IMPORT_SETTINGS_SUCCESS'
 export const IMPORT_SETTINGS_FAILURE = 'identity/config/IMPORT_SETTINGS_FAILURE';
 
 export const setAlias = createAction(SET_ALIAS);
+export const setUrl = createAction(SET_URL);
 export const setKeys = createAction(SET_KEYS);
 export const setUid = createAction(SET_UID);
 export const setConfig = createAction(SET_CONFIG);
@@ -58,6 +60,19 @@ export function regenerateKeys() {
 export function updateAlias(alias) {
   return dispatch => {
     dispatch(setAlias(alias));
+  };
+}
+
+export function updateUrl(url) {
+  return dispatch => {
+    dispatch(setUrl(url));
+  };
+}
+
+export function updateSafeSettings(settings) {
+  return dispatch => {
+    dispatch(setAlias(settings.alias));
+    dispatch(setUrl(settings.url));
   };
 }
 

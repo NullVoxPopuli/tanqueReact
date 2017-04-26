@@ -25,23 +25,23 @@ class Settings extends React.Component {
     this.state = { config: props.config };
     this.mut = mutCreator(this);
 
-    this.saveAlias = this.saveAlias.bind(this);
+    this.saveSafeSettings = this.saveSafeSettings.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ config: nextProps.config });
   }
 
-  saveAlias() {
-    const { updateAlias } = this.props;
-    const { alias } = this.state.config;
+  saveSafeSettings() {
+    const { updateSafeSettings } = this.props;
+    const { alias, url } = this.state.config;
 
-    updateAlias(alias);
+    updateSafeSettings({ alias, url });
   }
 
   render() {
     const { regenerateUid, regenerateKeys, importSettings, config } = this.props;
-    const { alias, uid, publicKey } = this.state.config;
+    const { alias, url, uid, publicKey } = this.state.config;
 
     const mut = this.mut;
     const settingsDataUrl = objectToDataURL(config);
@@ -50,7 +50,9 @@ class Settings extends React.Component {
       <SettingsPresentation
         alias={alias}
         onAliasChange={mut('config.alias')}
-        saveAlias={this.saveAlias}
+        saveSafeSettings={this.saveSafeSettings}
+        url={url}
+        onUrlChange={mut('config.url')}
         uid={uid}
         regenerateUid={regenerateUid}
         publicKey={publicKey}
@@ -70,7 +72,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   regenerateUid: bindActionCreators(identity.config.regenerateUid, dispatch),
   regenerateKeys: bindActionCreators(identity.config.regenerateKeys, dispatch),
-  updateAlias: bindActionCreators(identity.config.updateAlias, dispatch),
+  updateSafeSettings: bindActionCreators(identity.config.updateSafeSettings, dispatch),
   importSettings: bindActionCreators(identity.config.importSettings, dispatch)
 });
 
