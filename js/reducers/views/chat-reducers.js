@@ -1,5 +1,5 @@
 import { CHAT_SEND_MESSAGE } from 'js/actions/chat-actions';
-import { sendMessageToCable } from 'js/actions/action-cable-actions';
+import { sendMessageToCable } from 'js/actions/network/action-cable';
 import dataStore, { defaultChat } from 'js/data/store';
 
 export default (state, action) => {

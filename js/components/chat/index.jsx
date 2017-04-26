@@ -9,7 +9,7 @@ import UserList from './user-list';
 import TextEntry from './entry';
 import ChatRoom from './chat-room';
 
-import * as actionCable from 'js/actions/action-cable-actions';
+import * as actionCable from 'js/actions/network/action-cable';
 
 class ChatIndex extends React.Component {
   static propTypes = {
@@ -62,7 +62,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  sendMessage: bindActionCreators(actionCable.sendMessageToCable, dispatch),
+  sendMessage: bindActionCreators(actionCable.send, dispatch),
   received: actionCable.received,
   connect: bindActionCreators(actionCable.connectToCable, dispatch)
 });

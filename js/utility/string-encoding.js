@@ -33,3 +33,17 @@ export function objectToDataURL(object) {
   const string = convertObjectToBase64String(object);
   return `data:text/json;base64,${string}`;
 }
+
+// http://stackoverflow.com/a/39460727
+export function base64ToHex(base64) {
+  // convert to binary, than to hex
+  const raw = atob(base64);
+  let hex = '';
+
+  for (let i = 0; i < raw.length; i++ ) {
+    let _hex = raw.charCodeAt(i).toString(16)
+    hex += (_hex.length === 2 ?_hex:'0'+_hex);
+  }
+
+  return hex.toUpperCase();
+}
