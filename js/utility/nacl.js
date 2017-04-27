@@ -1,8 +1,14 @@
 import * as NaCl from 'tweetnacl';
-// TODO: switch to https://www.npmjs.com/package/secure-random
-import * as randomBytes from 'random-bytes';
+const secureRandom = require('secure-random');
 
-import { convertUint8ArrayToBase64String } from 'utility';
+// import * as secureRandom from 'secure-random';
+
+import {
+  convertUint8ArrayToBase64String,
+  convertBase64StringToUint8Array,
+  convertStringToUint8Array,
+  convertUint8ArrayToString
+} from 'utility';
 
 export function generateNewKeys() {
   const newKeys = NaCl.box.keyPair();
@@ -15,23 +21,45 @@ export function generateNewKeys() {
 }
 
 export function encryptFor(messageWithoutNonce, theirPublicKey, mySecretKey) {
-  const nonce = newNonce();
-  const message = `${nonce}${messageWithoutNonce}`;
-  const box = NaCl.box(message, nonce, theirPublicKey, mySecretKey);
+  const theirPublicKeyUint8Array = convertBase64StringToUint8Array(theirPublicKey);
+  const mySecretKeyUint8Array = convertBase64StringToUint8Array(mySecretKey);
 
-  return box;
+  const nonce = newNonce();
+  const message = convertStringToUint8Array(messageWithoutNonce);
+  const box = NaCl.box(
+    message,
+    nonce,
+    theirPublicKeyUint8Array,
+    mySecretKeyUint8Array);
+
+  const fullMessage = new Uint8Array(nonce.length + box.length);
+  fullMessage.set(nonce);
+  fullMessage.set(message, nonce.length);
+
+  const base64FullMessage = convertUint8ArrayToBase64String(fullMessage);
+  return base64FullMessage;
 }
 
 export function decryptFrom(messageWithNonce, theirPublicKey, mySecretKey) {
-  const nonce = 0;
-  const message = messageWithNonce; // TODO: break out the prepended nonce
+  const theirPublicKeyUint8Array = convertBase64StringToUint8Array(theirPublicKey);
+  const mySecretKeyUint8Array = convertBase64StringToUint8Array(mySecretKey)
+  const messageWithNonceAsUint8Array = convertBase64StringToUint8Array(messageWithNonce);
+  const nonce = messageWithNonceAsUint8Array.slice(0, 24);
+  const message = messageWithNonceAsUint8Array.slice(24, messageWithNonce.length);
 
-  const box = NaCl.box(message, nonce, theirPublicKey, mySecretKey);
-  const decrypted = NaCl.box.open(box, nonce, theirPublicKey, mySecretKey);
+  const box = NaCl.box(message, nonce, theirPublicKeyUint8Array, mySecretKeyUint8Array);
+  const decrypted = NaCl.box.open(box, nonce, theirPublicKeyUint8Array, mySecretKeyUint8Array);
 
-  return decrypted;
+  const base64DecryptedMessage = convertUint8ArrayToString(decrypted);
+  return base64DecryptedMessage;
 }
 
 export function newNonce() {
-  return randomBytes.sync(24);
+  // optionally takes a second parameter
+  // { type: 'Type' }
+  // where 'Type' could be any of
+  // - 'Array'
+  // - 'Buffer'
+  // - 'Uint8Array'
+  return secureRandom(24, { type: 'Uint8Array' });
 }

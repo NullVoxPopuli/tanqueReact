@@ -1,18 +1,33 @@
+const naclUtil = require('tweetnacl-util');
+
 export function convertUint8ArrayToBase64String(array) {
-  const string = String.fromCharCode.apply(null, array);
-  return btoa(string);
+  return naclUtil.encodeBase64(array);
+
+  // const string = String.fromCharCode.apply(null, array);
+  // return btoa(string);
 }
 
 export function convertBase64StringToUint8Array(base64) {
-  const string = atob(base64);
-  const buffer = new ArrayBuffer(string.length); // one byte per char, cause only UTF8
-  const array = new Uint8Array(buffer);
+  return naclUtil.decodeBase64(base64);
+  // const string = atob(base64);
+  // const buffer = new ArrayBuffer(string.length); // one byte per char, cause only UTF8
+  // const array = new Uint8Array(buffer);
+  //
+  // for (let i = 0, strLen = string.length; i < strLen; i++) {
+  //   array[i] = string.charCodeAt(i);
+  // }
+  //
+  // return array;
+}
 
-  for (let i = 0, strLen = string.length; i < strLen; i++) {
-    array[i] = string.charCodeAt(i);
-  }
+export function convertStringToUint8Array(string) {
+  const base64 = btoa(string);
+  return naclUtil.decodeBase64(base64);
+}
 
-  return array;
+export function convertUint8ArrayToString(array) {
+  const base64 = convertUint8ArrayToBase64String(array);
+  return atob(base64);
 }
 
 export function convertObjectToBase64String(object) {

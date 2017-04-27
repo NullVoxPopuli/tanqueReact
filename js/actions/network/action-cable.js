@@ -1,7 +1,8 @@
 import { createAction } from 'redux-actions';
 import * as ActionCable from 'actioncable/lib/assets/compiled/action_cable';
 
-import { receiveMessage, } from 'js/actions/data/messages';
+import { receiveMessage } from 'js/actions/data/messages';
+import { processMessage } from './message-processor';
 
 export const ACTION_CABLE_CONNECT = 'ACTION_CABLE_CONNECT';
 export const ACTION_CABLE_DISCONNECT = 'ACTION_CABLE_DISCONNECT';
@@ -51,14 +52,11 @@ function cableReceived(dispatch) {
     const message = data.message;
     dispatch(received(message));
 
-    // TODO: handle the message types here, or pass off
-    if (data.error) {
-
-    }
-    dispatch(receiveMessage(message));
+    dispatch(processMessage(message));
   };
 }
 
+// data should already be encrypted
 export function send(to, data) {
   return (dispatch, getState) => {
     dispatch(sendMessage(to, data));
@@ -69,8 +67,6 @@ export function send(to, data) {
     channel.send({
       to, message: data, action: 'chat'
     });
-
-    dispatch(receiveMessage(data));
   };
 }
 
