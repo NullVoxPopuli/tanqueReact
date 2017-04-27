@@ -1,4 +1,5 @@
 import * as NaCl from 'tweetnacl';
+// TODO: switch to https://www.npmjs.com/package/secure-random
 import * as randomBytes from 'random-bytes';
 
 import { convertUint8ArrayToBase64String } from 'utility';
