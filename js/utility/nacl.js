@@ -1,4 +1,5 @@
 import * as NaCl from 'tweetnacl';
+import * as randomBytes from 'random-bytes';
 
 import { convertUint8ArrayToBase64String } from 'utility';
 
@@ -12,20 +13,24 @@ export function generateNewKeys() {
   return { publicKey, privateKey };
 }
 
-export function boxFor(message, theirPublicKey, mySecretKey) {
-  const nonce = 0;
-  return NaCl.box(message, nonce, theirPublicKey, mySecretKey);
-}
+export function encryptFor(messageWithoutNonce, theirPublicKey, mySecretKey) {
+  const nonce = newNonce();
+  const message = `${nonce}${messageWithoutNonce}`;
+  const box = NaCl.box(message, nonce, theirPublicKey, mySecretKey);
 
-export function encryptFor(message, theirPublicKey, mySecretKey) {
-  const box = boxFor(message, theirPublicKey, mySecretKey);
   return box;
 }
 
-export function decryptFrom(message, theirPublicKey, mySecretKey) {
+export function decryptFrom(messageWithNonce, theirPublicKey, mySecretKey) {
   const nonce = 0;
-  const box = boxFor(message, theirPublicKey, mySecretKey);
+  const message = messageWithNonce; // TODO: break out the prepended nonce
+
+  const box = NaCl.box(message, nonce, theirPublicKey, mySecretKey);
   const decrypted = NaCl.box.open(box, nonce, theirPublicKey, mySecretKey);
 
   return decrypted;
+}
+
+export function newNonce() {
+  return randomBytes.sync(24);
 }
