@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import { identity } from 'actions';
 
 import { Row, Col } from 'reactstrap';
@@ -13,7 +12,7 @@ import HowToGetAuthorized from './how-to-get-authorized';
 
 class Setup extends Component {
   render() {
-    const { config, updateAlias, regenerateUid, regenerateKeys, history } = this.props;
+    const { config, updateAlias, setUid, regenerateKeys, history } = this.props;
     const { alias, uid, publicKey, relays } = config;
 
     return (
@@ -24,7 +23,7 @@ class Setup extends Component {
             alias={alias}
             updateAlias={updateAlias}
             regenerateKeys={regenerateKeys}
-            regenerateUid={regenerateUid}
+            setUid={setUid}
             next={() => history.push('/setup/automatic-stuff')} />
         } />
 
@@ -52,10 +51,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  regenerateUid: bindActionCreators(identity.config.regenerateUid, dispatch),
+  setUid: uid => dispatch(identity.config.setUid(uid)),
   regenerateKeys: bindActionCreators(identity.config.regenerateKeys, dispatch),
-  updateAlias: bindActionCreators(identity.config.updateAlias, dispatch),
-  toSummaryPage() { dispatch(push('/setup/automatic-stuff')); }
+  updateAlias: bindActionCreators(identity.config.updateAlias, dispatch)
 });
 
 const connected = connect(

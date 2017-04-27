@@ -12,5 +12,20 @@ export function generateNewKeys() {
   return { publicKey, privateKey };
 }
 
-export function encryptFor() {}
-export function decryptFrom() {}
+export function boxFor(message, theirPublicKey, mySecretKey) {
+  const nonce = 0;
+  return NaCl.box(message, nonce, theirPublicKey, mySecretKey);
+}
+
+export function encryptFor(message, theirPublicKey, mySecretKey) {
+  const box = boxFor(message, theirPublicKey, mySecretKey);
+  return box;
+}
+
+export function decryptFrom(message, theirPublicKey, mySecretKey) {
+  const nonce = 0;
+  const box = boxFor(message, theirPublicKey, mySecretKey);
+  const decrypted = NaCl.box.open(box, nonce, theirPublicKey, mySecretKey);
+
+  return decrypted;
+}

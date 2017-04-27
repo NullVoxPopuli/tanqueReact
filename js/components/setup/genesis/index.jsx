@@ -8,6 +8,8 @@ import {
   Input, Label, Row, Col, Button
 } from 'reactstrap';
 
+import { base64ToHex } from 'utility';
+
 import { mutCreator } from 'components/state-helpers';
 
 export default class Genesis extends Component {
@@ -15,7 +17,7 @@ export default class Genesis extends Component {
     alias: PropTypes.string,
 
     updateAlias: PropTypes.func.isRequired,
-    regenerateUid: PropTypes.func.isRequired,
+    setUid: PropTypes.func.isRequired,
     regenerateKeys: PropTypes.func.isRequired,
     next: PropTypes.func.isRequired
   }
@@ -32,12 +34,15 @@ export default class Genesis extends Component {
   }
 
   didSubmit() {
-    const { updateAlias, regenerateKeys, regenerateUid, toSummaryPage, next } = this.props;
+    const { updateAlias, regenerateKeys, setUid, next } = this.props;
     const { alias } = this.state;
 
     updateAlias(alias);
-    regenerateUid();
-    regenerateKeys();
+
+    const keys = regenerateKeys();
+    const uid = base64ToHex(keys.publicKey);
+    setUid(uid);
+
     next();
   }
 

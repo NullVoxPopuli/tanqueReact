@@ -52,8 +52,11 @@ export function regenerateUid() {
 export function regenerateKeys() {
   return dispatch => {
     const algorithm = 'nacl';
+    const keys = generateNewKeys();
 
-    dispatch(setKeys({ algorithm, ...generateNewKeys() }));
+    dispatch(setKeys({ algorithm, ...keys }));
+
+    return keys;
   };
 }
 

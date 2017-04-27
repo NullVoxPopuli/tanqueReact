@@ -36,6 +36,8 @@ export function objectToDataURL(object) {
 
 // http://stackoverflow.com/a/39460727
 export function base64ToHex(base64) {
+  if (base64 === undefined) return undefined;
+
   // convert to binary, than to hex
   const raw = atob(base64);
   let hex = '';
