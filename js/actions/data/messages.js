@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
 
-export const RECEIVE_MESSAGE = 'data/messages/RECEIVE_MESSAGE';
+export const APPEND_MESSAGE = 'data/messages/APPEND_MESSAGE';
 
-export const receiveMessage = createAction(RECEIVE_MESSAGE);
+export const appendMessage = createAction(APPEND_MESSAGE);

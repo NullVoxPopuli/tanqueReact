@@ -1,7 +1,6 @@
 import { createAction } from 'redux-actions';
 import * as ActionCable from 'actioncable/lib/assets/compiled/action_cable';
 
-import { receiveMessage } from 'js/actions/data/messages';
 import { processMessage } from './message-processor';
 
 export const ACTION_CABLE_CONNECT = 'ACTION_CABLE_CONNECT';

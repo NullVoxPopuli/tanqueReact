@@ -7,7 +7,7 @@ import './style.scss';
 
 export default class MessageRow extends Component {
   static propTypes = {
-    time: PropTypes.isRequired,
+    time: PropTypes.any.isRequired,
     name: PropTypes.string.isRequired,
     message: PropTypes.string.isRequired
   }

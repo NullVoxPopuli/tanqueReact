@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 import { decryptFrom } from 'utility/nacl';
-import { receiveMessage } from 'js/actions/data/messages';
+import { appendMessage } from 'js/actions/data/messages';
 
 
 export const DECRYPTING_MESSAGE = 'message-processor/DECRYPTING_MESSAGE';
@@ -35,7 +35,7 @@ export function processMessage(messagePayload) {
     dispatch(decryptionComplete(decrypted));
 
     // tell the UI that a message has been received
-    dispatch(receiveMessage(decrypted));
+    dispatch(appendMessage(decrypted));
 
     return decrypted;
   };

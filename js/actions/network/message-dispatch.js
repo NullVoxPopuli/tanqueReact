@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 import { send } from './action-cable';
 
 import { encryptFor } from 'utility/nacl';
-import { receiveMessage } from 'js/actions/data/messages';
+import { appendMessage } from 'js/actions/data/messages';
 
 export const MESSAGE_DISPATCH = 'message-dispatch/MESSAGE_DISPATCH';
 export const ENCRYPTING_MESSAGE = 'message-dispatch/ENCRYPTING_MESSAGE';
@@ -40,7 +40,7 @@ export function sendTo(theirUid, unencryptedString, type = 'chat') {
     };
 
     // we want to view our own messages
-    dispatch(receiveMessage({
+    dispatch(appendMessage({
       ...payload,
       decryptedMessage: unencryptedString
     }));
