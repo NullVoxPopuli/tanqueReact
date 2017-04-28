@@ -14,11 +14,9 @@ export default class Index extends Component {
         <br />
         <h3>TODO</h3>
         Check for valid config <br />
-         - if one doesn't exist, show a welcoming thing asking to guide through that process. <br />
          - if one does exist, present a card showing the user, with a button saying "Start Chatting" <br />
         File Uploads <br />
          - over chat <br />
-         - for importing users <br />
         Inline Images <br />
         Expanding Image links <br />
       </div>
