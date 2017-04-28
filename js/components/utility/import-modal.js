@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { FormGroup, Input } from 'reactstrap';
 import { connect } from 'react-redux';
 
 import { mutCreator } from 'components/state-helpers';
 import FileChooser from 'components/file-chooser';
 import SimpleModal from 'components/-components/simple-modal';
+
+import { data } from 'js/actions';
 
 const placeholder = `{
   "alias": "some alias",
@@ -15,7 +18,7 @@ const placeholder = `{
 
 class ImportModal extends Component {
   static propTypes = {
-    importIdentity: PropTypes.func.isRequired
+    importUser: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -29,7 +32,7 @@ class ImportModal extends Component {
   }
 
   didClickImport() {
-    this.props.importIdentity(this.state.identity);
+    this.props.importUser(this.state.identity);
   }
 
   didSelectFile(fileString) {
@@ -83,7 +86,7 @@ class ImportModal extends Component {
 
 const mapStateToProps = state => ({});
 const mapDispatchToProps = dispatch => ({
-  importIdentity(){}
+  importUser: bindActionCreators(data.users.importUser, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ImportModal);
