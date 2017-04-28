@@ -18,7 +18,7 @@ class UserList extends Component {
   render() {
     const { users } = this.props;
     const userList = users.map(user =>
-      <NavItem>
+      <NavItem key={user}>
         <UserListRow
           user={user}
           handleUserSelect={this.handleUserSelect.bind(this, user)} />

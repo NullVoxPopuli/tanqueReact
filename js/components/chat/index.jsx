@@ -31,10 +31,9 @@ class ChatIndex extends React.Component {
   }
 
   didEnterMessage(message) {
-    const { config, sendMessage, sendToAll } = this.props;
+    const { config, sendToAll } = this.props;
 
     sendToAll(message, 'chat');
-    // sendMessage(user.uid, message, 'chat');
   }
 
   render() {
@@ -65,7 +64,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  sendMessage: bindActionCreators(messageDispatch.sendTo, dispatch),
   sendToAll: bindActionCreators(messageDispatch.sendToAll, dispatch),
   connect: bindActionCreators(actionCable.connectToCable, dispatch)
 });

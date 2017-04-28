@@ -25,7 +25,7 @@ export function sendToAll(unencryptedString, type = 'chat') {
     sendToSelf(payload, unencryptedString, dispatch);
 
     users.forEach(user => {
-      dispatch(sendTo(user.uid, payload, unencryptedString, config, dispatch));
+      sendTo(user.uid, payload, unencryptedString, config, dispatch);
     });
   };
 }
@@ -64,6 +64,10 @@ export function sendToOne(theirUid, unencryptedString, type = 'chat') {
 }
 
 export function sendTo(theirUid, payload, unencryptedString, config, dispatch) {
+  // TODO: consider making a regular action
+  // return (dispatch, getState) => {
+  //
+  // }
   dispatch(messageDispatch({ theirUid, unencryptedString }));
 
   const { publicKey, privateKey } = config;

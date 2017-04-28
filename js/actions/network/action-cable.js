@@ -58,7 +58,7 @@ function cableReceived(dispatch) {
 // data should already be encrypted
 export function send(to, data) {
   return (dispatch, getState) => {
-    dispatch(sendMessage(to, data));
+    dispatch(sendMessage({ to, data }));
 
     const state = getState();
     const { channel } = state.network.actionCable;

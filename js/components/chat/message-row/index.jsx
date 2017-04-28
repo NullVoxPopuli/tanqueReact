@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Badge } from 'reactstrap';
-
 import './style.scss';
 
 export default class MessageRow extends Component {
