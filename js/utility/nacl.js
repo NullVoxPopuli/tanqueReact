@@ -42,7 +42,7 @@ export function encryptFor(messageWithoutNonce, theirPublicKey, mySecretKey) {
 
 export function decryptFrom(messageWithNonce, theirPublicKey, mySecretKey) {
   const theirPublicKeyUint8Array = convertBase64StringToUint8Array(theirPublicKey);
-  const mySecretKeyUint8Array = convertBase64StringToUint8Array(mySecretKey)
+  const mySecretKeyUint8Array = convertBase64StringToUint8Array(mySecretKey);
   const messageWithNonceAsUint8Array = convertBase64StringToUint8Array(messageWithNonce);
   const nonce = messageWithNonceAsUint8Array.slice(0, 24);
   const message = messageWithNonceAsUint8Array.slice(24, messageWithNonce.length);
