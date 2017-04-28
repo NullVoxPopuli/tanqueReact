@@ -64,6 +64,9 @@ module.exports = {
     // Allow singleline if blocks
     // http://eslint.org/docs/rules/curly
     'curly': ["error", "multi-line"],
+    // Linter was incorrectly assuming that a method that didn't use `this` was a class method
+    // http://eslint.org/docs/rules/class-methods-use-this
+    'class-methods-use-this': ["off"],
     // In Ember, everything is a dev dep, cause we deploy compiled version
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md
     "import/no-extraneous-dependencies": [

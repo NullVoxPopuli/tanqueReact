@@ -8,20 +8,18 @@ import {
 export default class SimpleModal extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    buttonText: PropTypes.string.isRequired,
+    open: PropTypes.bool,
     // children: PropTypes.any.isRequired,
     additionalFooterButtons: PropTypes.any,
-    confirmText: PropTypes.string.isRequired,
-    cancelText: PropTypes.string,
-    onConfirm: PropTypes.func.isRequired
+    proceedButtonText: PropTypes.string.isRequired,
+    takeMeBackText: PropTypes.string,
+    onAbort: PropTypes.func.isRequired
   }
 
 
   constructor(props) {
     super(props);
-    this.state = {
-      modal: false
-    };
+    this.state = { modal: props.open };
 
     this.toggle = this.toggle.bind(this);
     this.didClose = this.didClose.bind(this);
@@ -37,6 +35,7 @@ export default class SimpleModal extends Component {
 
   didClose() {
     this.toggle();
+    this.props.onAbort();
   }
 
   didOpen() {
@@ -44,35 +43,31 @@ export default class SimpleModal extends Component {
   }
 
   didConfirm() {
-    this.props.onConfirm();
     this.toggle();
   }
 
   render() {
     const {
-      title, buttonText, children,
+      title, children,
       additionalFooterButtons,
-      confirmText, cancelText
+      proceedButtonText, takeMeBackText
     } = this.props;
 
     return (
       <div>
-        <Button onClick={this.didOpen}>
-          {buttonText}
-        </Button>
         <Modal
           isOpen={this.state.modal}
           toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>{title}</ModalHeader>
+          <ModalHeader className='bg-danger' toggle={this.toggle}>{title}</ModalHeader>
           <ModalBody>
             {children}
           </ModalBody>
           <ModalFooter>
-            <Button onClick={this.didClose}>{cancelText || 'Cancel'}</Button>
-            {additionalFooterButtons}
-            <Button color="success" onClick={this.didConfirm}>
-              {confirmText}
+            <Button color="danger" onClick={this.didConfirm}>
+              {proceedButtonText}
             </Button>
+            {additionalFooterButtons}
+            <Button color='success' onClick={this.didClose}>{takeMeBackText || 'Take Me Back!'}</Button>
           </ModalFooter>
         </Modal>
       </div>

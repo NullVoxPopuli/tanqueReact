@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { createAction } from 'redux-actions';
+import _ from 'lodash';
 
 import { generateNewKeys } from 'utility';
 import { loadState } from 'js/local-storage';
@@ -88,19 +89,21 @@ export const configPropTypes = {
 };
 
 export function isConfigValid(config) {
-  const result = PropTypes.checkPropTypes(
-    configPropTypes,
-    config || {}
+  const result = !(
+    _.isEmpty(config.alias) ||
+    _.isEmpty(config.uid) ||
+    _.isEmpty(config.publicKey) ||
+    _.isEmpty(config.privateKey) ||
+    _.isEmpty(config.relays)
   );
 
-  console.log(result);
   return result;
 }
 
 export function isStoredConfigValid() {
   const state = loadState() || {};
   const identity = state.identity || {};
-  const config = identity || {};
+  const config = identity.config || {};
 
   return isConfigValid(config);
 }

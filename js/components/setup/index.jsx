@@ -24,6 +24,7 @@ class Setup extends Component {
             updateAlias={updateAlias}
             regenerateKeys={regenerateKeys}
             setUid={setUid}
+            abort={() => history.push('/')}
             next={() => history.push('/setup/automatic-stuff')} />
         } />
 
