@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Nav, NavItem, Row, Col } from 'reactstrap';
 
 import UserListRow from './user-list-row';
 
-class UserList extends React.Component {
+class UserList extends Component {
   // set up whispering to the clicked user
   onSelect(user) {
     // TODO: write action which switches the app into whisper mode to this user
@@ -12,18 +12,24 @@ class UserList extends React.Component {
   }
 
   handleUserSelect(user) {
-    this.props.handleUserSelect(user);
+    // this.props.handleUserSelect(user);
   }
 
   render() {
-    let userList = this.props.users.map(user =>
-      <UserListRow
-        user={user}
-        handleUserSelect={this.handleUserSelect.bind(this, user)} />);
+    const { users } = this.props;
+    const userList = users.map(user =>
+      <NavItem>
+        <UserListRow
+          user={user}
+          handleUserSelect={this.handleUserSelect.bind(this, user)} />
+      </NavItem>);
     return (
-      <Nav onSelect={this.onSelect}>
-        {userList}
-      </Nav>
+      <div>
+        <h5>Member List</h5>
+        <Nav onSelect={this.onSelect}>
+          {userList}
+        </Nav>
+      </div>
     );
   }
 }

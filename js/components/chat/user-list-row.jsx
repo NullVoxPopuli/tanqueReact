@@ -1,24 +1,24 @@
-import React from 'react';
-import { NavItem } from 'reactstrap';
-import FontAwesome from 'react-fontawesome';
+import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
+import { FontAwesome as Icon } from 'react-fontawesome';
 
-export default class extends NavItem {
+export default class UserListRow extends Component {
   constructor(props) {
     super(props);
     this.user = props.user;
   }
 
   isOnline() {
-    return this.user.status === ONLINE;
+    return this.user.status === 'ONLINE';
   }
 
   onlineStatus() {
-    if (this.isOnline()) {
-      return <FontAwesome name='circle' className='online'/>;
-    }
-
-    return <FontAwesome name='circle-o' className='offline' />;
+    return null;
+    // if (this.isOnline()) {
+    //   return <Icon name='circle' />;
+    // }
+    //
+    // return <Icon name='circle-o' />;
   }
 
   handleUserSelect(user) {
@@ -26,7 +26,7 @@ export default class extends NavItem {
   }
 
   render() {
-    let status = this.onlineStatus();
+    const status = this.onlineStatus();
     return (
       <Row onClick={this.handleUserSelect.bind(this, this.user)}>
         <Col xs={2}> {status} </Col>

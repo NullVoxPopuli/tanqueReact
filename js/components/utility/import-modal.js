@@ -24,7 +24,7 @@ class ImportModal extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { showModal: false, identity: null };
+    this.state = { identity: null };
     this.mut = mutCreator(this);
 
     this.didClickImport = this.didClickImport.bind(this);
@@ -32,7 +32,10 @@ class ImportModal extends Component {
   }
 
   didClickImport() {
-    this.props.importUser(this.state.identity);
+    const identityToImport = this.state.identity;
+    const identityJson = JSON.parse(identityToImport);
+
+    this.props.importUser(identityJson);
   }
 
   didSelectFile(fileString) {
@@ -44,7 +47,7 @@ class ImportModal extends Component {
 
   // TODO: add validation
   render() {
-    const { showModal, identity } = this.state;
+    const { identity } = this.state;
     const { didClickImport, didSelectFile } = this;
 
     const mut = this.mut;

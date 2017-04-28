@@ -1,23 +1,17 @@
 const naclUtil = require('tweetnacl-util');
+// this package offers a ton of encoding / decoding options.
+// We can probably slim this back down to UTF-*
+import { TextDecoder, TextEncoder } from 'text-encoding';
+
+const defaultEncoding = 'utf-8';
+const utf8Decoder = new TextDecoder(defaultEncoding);
 
 export function convertUint8ArrayToBase64String(array) {
   return naclUtil.encodeBase64(array);
-
-  // const string = String.fromCharCode.apply(null, array);
-  // return btoa(string);
 }
 
 export function convertBase64StringToUint8Array(base64) {
   return naclUtil.decodeBase64(base64);
-  // const string = atob(base64);
-  // const buffer = new ArrayBuffer(string.length); // one byte per char, cause only UTF8
-  // const array = new Uint8Array(buffer);
-  //
-  // for (let i = 0, strLen = string.length; i < strLen; i++) {
-  //   array[i] = string.charCodeAt(i);
-  // }
-  //
-  // return array;
 }
 
 export function convertStringToUint8Array(string) {
@@ -26,8 +20,12 @@ export function convertStringToUint8Array(string) {
 }
 
 export function convertUint8ArrayToString(array) {
-  const base64 = convertUint8ArrayToBase64String(array);
-  return atob(base64);
+  const string = utf8Decoder.decode(array);
+  // string includes control characters, such as null
+  // which is common if the string is shorter than a block
+  const trimmed = string.replace(/^\0+/, '').replace(/\0+$/, '');
+
+  return trimmed;
 }
 
 export function convertObjectToBase64String(object) {

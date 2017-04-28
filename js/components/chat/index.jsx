@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
 import { Row, Col } from 'reactstrap';
+
 
 import UserList from './user-list';
 import TextEntry from './entry';
@@ -31,10 +31,10 @@ class ChatIndex extends React.Component {
   }
 
   didEnterMessage(message) {
-    const { config, sendMessage } = this.props;
-    const { publicKey, uid, alias } = config;
+    const { config, sendMessage, sendToAll } = this.props;
 
-    sendMessage(uid, message, 'chat');
+    sendToAll(message, 'chat');
+    // sendMessage(user.uid, message, 'chat');
   }
 
   render() {
@@ -66,10 +66,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   sendMessage: bindActionCreators(messageDispatch.sendTo, dispatch),
+  sendToAll: bindActionCreators(messageDispatch.sendToAll, dispatch),
   connect: bindActionCreators(actionCable.connectToCable, dispatch)
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ChatIndex)
+)(ChatIndex);

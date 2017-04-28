@@ -81,7 +81,6 @@ class ExportModal extends React.Component {
                   Copied!
                 </Tooltip>
               </Button>
-
             </CopyToClipboard>
           }
           onConfirm={this.didClickDownload}>

@@ -15,10 +15,21 @@ export const encryptionComplete = createAction(ENCRYPTION_COMPLETE);
 export const APP_NAME = 'tanqueRéact';
 export const APP_VERSION = '0.1';
 
+export function sendToAll(unencryptedString, type = 'chat') {
+  return (dispatch, getState) => {
+    const state = getState();
+    const users = state.data.users.records;
+
+    users.forEach(user => {
+      dispatch(sendTo(user.uid, unencryptedString, type));
+    });
+  };
+}
+
 export function sendTo(theirUid, unencryptedString, type = 'chat') {
   return (dispatch, getState) => {
-
     dispatch(messageDispatch({ theirUid, unencryptedString }));
+
     const state = getState();
     const config = state.identity.config;
     const users = state.data.users;
