@@ -64,6 +64,7 @@ const plugins = [
     NODE_ENV: process.env.NODE_ENV,
     processEnv: JSON.stringify({
       CURRENT_ENV:     process.env.NODE_ENV || 'development',
+      ROUTER_BASE_PATH: process.env.ROUTER_BASE_PATH || ''
     })
   }),
   new webpack.LoaderOptionsPlugin({

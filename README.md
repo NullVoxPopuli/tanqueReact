@@ -1,6 +1,9 @@
 # tanqueRéact
 React Chat
 
+## [Live Site](https://nullvoxpopuli.github.io/tanqueReact/)
+The only storage is local storage, so your information is never shared with anyone.
+
 ### Initial Setup
 
 ```bash

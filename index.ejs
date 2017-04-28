@@ -24,6 +24,7 @@
     <!-- Environment configuration. Auth0, and Rollbar -->
     <script type='text/javascript'>
       var pENV = window.pENV = <%= htmlWebpackPlugin.options.processEnv %>;
+      window.ROUTER_BASE_PATH  = window.pENV.ROUTER_BASE_PATH;
 
       <% if (isNonDevelopment) { %>
         var _rollbarConfig = {

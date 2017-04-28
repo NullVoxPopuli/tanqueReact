@@ -9,9 +9,11 @@ import AppWrapper from './components/application/wrapper';
 
 import CSS from '../css/application';
 
+const basePath = `/${window.ROUTER_BASE_PATH || ''}`;
+
 ReactDOM.render(
   <Provider store={reduxStore}>
-    <Router history={browserHistory}>
+    <Router basename={basePath} history={browserHistory}>
       <AppWrapper />
     </Router>
   </Provider>,
