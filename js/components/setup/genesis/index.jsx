@@ -62,7 +62,6 @@ export default class Genesis extends Component {
                 <Input type='text'
                   size='lg'
                   value={alias}
-                  onEnter={this.didSubmit}
                   onChange={mut('alias')} />
               </FormGroup>
 

@@ -1,8 +1,8 @@
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { createAction } from 'redux-actions';
 
 import { generateNewKeys } from 'utility';
+import { loadState } from 'js/local-storage';
 
 export const SET_ALIAS = 'identity/config/SET_ALIAS';
 export const SET_URL = 'identity/config/SET_URL';
@@ -88,8 +88,19 @@ export const configPropTypes = {
 };
 
 export function isConfigValid(config) {
-  return PropTypes.checkPropTypes(
+  const result = PropTypes.checkPropTypes(
     configPropTypes,
     config || {}
   );
+
+  console.log(result);
+  return result;
+}
+
+export function isStoredConfigValid() {
+  const state = loadState() || {};
+  const identity = state.identity || {};
+  const config = identity || {};
+
+  return isConfigValid(config);
 }

@@ -19,51 +19,62 @@ export function sendToAll(unencryptedString, type = 'chat') {
   return (dispatch, getState) => {
     const state = getState();
     const users = state.data.users.records;
+    const config = state.identity.config;
+
+    const payload = buildPayload(config, type);
+    sendToSelf(payload, unencryptedString, dispatch);
 
     users.forEach(user => {
-      dispatch(sendTo(user.uid, unencryptedString, type));
+      dispatch(sendTo(user.uid, payload, unencryptedString, config, dispatch));
     });
   };
 }
 
-export function sendTo(theirUid, unencryptedString, type = 'chat') {
-  return (dispatch, getState) => {
-    dispatch(messageDispatch({ theirUid, unencryptedString }));
+function sendToSelf(payload, unencryptedString, dispatch) {
+  dispatch(appendMessage({
+    ...payload,
+    decryptedMessage: unencryptedString
+  }));
+}
 
-    const state = getState();
-    const config = state.identity.config;
-    const users = state.data.users;
+function buildPayload(config, type = 'chat') {
+  const { alias, uid, publicKey } = config;
 
-    const { alias, uid, publicKey, privateKey } = config;
-
-    const payload = {
-      type,
-      client: APP_NAME,
-      client_version: APP_VERSION,
-      time_sent: new Date(),
-      message: null,
-      sender: {
-        name: alias,
-        location: 'web',
-        uid,
-        public_key: publicKey
-      }
-    };
-
-    // we want to view our own messages
-    dispatch(appendMessage({
-      ...payload,
-      decryptedMessage: unencryptedString
-    }));
-
-    dispatch(encryptingMessage({ preMessage: payload }));
-
-    // change to be for the target
-    const encryptedMessage = encryptFor(unencryptedString, publicKey, privateKey);
-    payload.message = encryptedMessage;
-
-    dispatch(encryptionComplete({ encryptedMessage: payload }));
-
-    dispatch(send(theirUid, payload));
+  const payload = {
+    type,
+    client: APP_NAME,
+    client_version: APP_VERSION,
+    time_sent: new Date(),
+    message: null,
+    sender: {
+      name: alias,
+      location: 'web',
+      uid,
+      public_key: publicKey
+    }
   };
+
+  return payload;
+}
+
+export function sendToOne(theirUid, unencryptedString, type = 'chat') {
+  return (dispatch, getState) => {
+    // TODO: needed?
+  };
+}
+
+export function sendTo(theirUid, payload, unencryptedString, config, dispatch) {
+  dispatch(messageDispatch({ theirUid, unencryptedString }));
+
+  const { publicKey, privateKey } = config;
+
+  dispatch(encryptingMessage({ preMessage: payload }));
+
+  // change to be for the target
+  const encryptedMessage = encryptFor(unencryptedString, publicKey, privateKey);
+  payload.message = encryptedMessage;
+
+  dispatch(encryptionComplete({ encryptedMessage: payload }));
+
+  dispatch(send(theirUid, payload));
 }

@@ -7,7 +7,7 @@ import Settings from 'components/settings';
 import Index from 'components/index';
 import Setup from 'components/setup';
 
-import { isConfigValid } from 'actions/identity/config';
+import { isStoredConfigValid } from 'actions/identity/config';
 
 export default class Wrapper extends Component {
   render() {
@@ -17,7 +17,8 @@ export default class Wrapper extends Component {
         <br />
         <div className='container'>
           <Route exact={true} path="/" render={() => (
-            isConfigValid() ? (<Redirect to="/setup" />) : <Index />
+            !isStoredConfigValid() ? (
+              <Redirect to="/setup" />) : <Index />
         )} />
 
           <Route path='/setup' component={Setup} />
