@@ -1,0 +1,20 @@
+#app, #app-wrapper, #index-page {
+  height: 100%;
+}
+
+#index-page-inner {
+  position: fixed;
+  top: 0;
+  flex: 1;
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+
+  #wrap {
+    flex: 1;
+  }
+
+  footer {
+    margin-top: 40px;
+  }
+}

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'reactstrap';
+import { Button, Row, Col, Nav, NavItem, NavLink } from 'reactstrap';
+
+import './footer.scss';
 
 export default class Index extends Component {
   static propTypes = {
@@ -11,7 +13,8 @@ export default class Index extends Component {
     const { toChat } = this.props;
 
     return (
-      <div>
+      <div id='index-page-inner'>
+        <div id='wrap'>
         <h3 className='hidden-sm-down text-center'>Welcome to tanqueRéact!</h3>
         <h4 className='hidden-md-up text-center'>Welcome to tanqueRéact!</h4>
         <br />
@@ -30,6 +33,49 @@ export default class Index extends Component {
             Begin Chatting
           </Button>
         </div>
+      </div>
+
+        <footer className='w-100 bg-faded p-3'>
+          <div className='container'>
+            <Row>
+              <Col>
+                <Nav vertical>
+                  <NavItem><h5>Github Projects</h5></NavItem>
+                  <NavItem>
+                    <NavLink href='https://github.com/NullVoxPopuli/tanqueReact/'>This Project</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href='https://github.com/NullVoxPopuli/mesh-relay/'>The Mesh Relay</NavLink>
+                  </NavItem>
+                </Nav>
+              </Col>
+              <Col>
+                <Nav vertical>
+                  <NavItem><h5>CLI-Based Clients</h5></NavItem>
+                  <NavItem>
+                    <NavLink href='https://github.com/etkirsch/pyna-colada'>PyÑa Colada</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <span className='nav-link'>
+                      <a href='https://github.com/NullVoxPopuli/spiced_rumby'>Spiced Rumby</a>
+                      &nbsp;via&nbsp;
+                      <a href='https://github.com/NullVoxPopuli/meshchat-core'>MeshChat Core</a>
+                    </span>
+                  </NavItem>
+                </Nav>
+
+              </Col>
+              <Col>
+                <Nav vertical>
+                  <NavItem><h5></h5></NavItem>
+                  <NavItem>
+                    <NavLink href='https://github.com/neuravion/mesh-chat-protocol'>Want to build your own?</NavLink>
+                  </NavItem>
+                </Nav>
+              </Col>
+            </Row>
+          </div>
+        </footer>
       </div>
     );
   }

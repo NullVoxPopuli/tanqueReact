@@ -25,7 +25,7 @@ class Wrapper extends Component {
   render() {
     const { history } = this.props;
     return (
-      <div>
+      <div id='app-wrapper'>
         <Navigation />
         <ToastContainer
           className='toast-container'
@@ -33,14 +33,14 @@ class Wrapper extends Component {
           position='top-center'
         />
         <br />
-        <div className='container'>
-          <Route
-            exact={true}
-            path="/"
-            render={requireConfig(Index, {
-              toChat: () => history.push('/chat')
-            })} />
+        <Route
+          exact={true}
+          path="/"
+          render={requireConfig(Index, {
+            toChat: () => history.push('/chat')
+          })} />
 
+        <div className='container'>
           <Route path='/setup' component={Setup} />
           <Route path="/settings" render={requireConfig(Settings)} />
           <Route path="/chat" render={requireConfig(Chat)} />
