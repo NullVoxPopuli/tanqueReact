@@ -7,7 +7,7 @@ tanqueRéact is a p2p* encrypted chat client. Only the intended recipient(s) may
 <img
   style='margin: 0 auto; width: 300px; display: block'
   src='./docs/images/chat.png'
-  / >
+  />
 
 
 <span style='font-size: 9px; line-height: 10px;'>\* this isn't actually p2p, as there are servers involved, but it's designed to not be reliant on one server, but to utilize redundancy. The server, or 'relays', are [open sourced here](https://github.com/NullVoxPopuli/mesh-relay).
