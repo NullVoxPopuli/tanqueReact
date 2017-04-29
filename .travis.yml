@@ -21,3 +21,6 @@ script:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
       ./scripts/ci/deploy.sh;
     fi
+
+notifications:
+  email: false

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
+import { push as Menu } from 'react-burger-menu'
 
 
 import UserList from './user-list';
@@ -48,13 +49,15 @@ class ChatIndex extends React.Component {
       <div>
         <Row className='mb-5'>
           {/* <Col xs={9}> */}
-            <ChatRoom
-              messages={messages} />
+          <Menu>
+            <UserList
+              users={this.users}
+              handleUserSelect={this.handleUserSelect.bind(this)}/>
+          </Menu>
+          <ChatRoom
+            messages={messages} />
           {/* </Col> */}
           {/* <Col xs={3}> */}
-            {/* <UserList
-              users={this.users}
-              handleUserSelect={this.handleUserSelect.bind(this)}/> */}
           {/* </Col> */}
         </Row>
         <TextEntry

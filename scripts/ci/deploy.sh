@@ -15,8 +15,8 @@ cd dist \
   && git remote add github git@github.com:NullVoxPopuli/tanqueReact.git
 
   # already in dist
-  git checkout --orphan gh-pages
-  git checkout gh-pages
+  git checkout --orphan gh-pages || true
+  git checkout gh-pages || true
 
   # already in dist, and already on gh-pages
   git add . \
