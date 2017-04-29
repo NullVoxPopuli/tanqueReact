@@ -1,14 +1,11 @@
-#app, #app-wrapper, #index-page {
-  height: 100%;
-}
-
 #index-page-inner {
   position: fixed;
-  top: 0;
+  top: 100px;
   flex: 1;
   display: flex;
-  min-height: 100%;
   flex-direction: column;
+  width: 100%;
+  bottom: 0px;
 
   #wrap {
     flex: 1;
