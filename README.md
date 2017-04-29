@@ -1,5 +1,8 @@
 # tanqueRéact
-React Chat
+[![Build Status](https://travis-ci.org/NullVoxPopuli/tanqueReact.svg?branch=master)](https://travis-ci.org/NullVoxPopuli/tanqueReact)
+[![Code Climate](https://codeclimate.com/github/NullVoxPopuli/tanqueReact/badges/gpa.svg)](https://codeclimate.com/github/NullVoxPopuli/tanqueReact)
+
+tanqueRéact is a p2p encrypted chat client. Only the intended recipient(s) may read what you send (messages, images, etc)
 
 ## [Live Site](https://nullvoxpopuli.github.io/tanqueReact/)
 The only storage is local storage, so your information is never shared with anyone.

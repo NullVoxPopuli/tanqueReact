@@ -9,12 +9,13 @@ services:
 
 env:
   DOCKER_COMPOSE_VERSION=1.9.0
+  CODECLIMATE_COVERAGE_TOKEN=5d3001a1c2c5a1ac5b11693ce797b8e790aa3b4455b3cc2671b0a94984c26f51
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
-  - sudo mv docker-composie /usr/local/bin
+  - sudo mv docker-compose /usr/local/bin
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
