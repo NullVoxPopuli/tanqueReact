@@ -19,5 +19,5 @@ before_install:
 
 script:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
-      ./scripts/ci/deploy.sh
+      ./scripts/ci/deploy.sh;
     fi
