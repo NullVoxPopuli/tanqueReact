@@ -161,7 +161,8 @@ module.exports = {
       actions: path.join(jsSourcePath, 'actions'),
       utility: path.join(jsSourcePath, 'utility'),
       css: globalStylesPath,
-      testHelpers: path.join(testsSourcePath, 'helpers')
+      testHelpers: path.join(testsSourcePath, 'helpers'),
+      cheerio: 'cheerio/lib/cheerio'
     }
   },
   plugins

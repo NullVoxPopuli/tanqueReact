@@ -17,6 +17,10 @@
     "dev": "./scripts/dev-server"
   },
   "author": "NullVoxPopuli",
+  "browser": {
+    "fs": false,
+    "tls": false
+  },
   "devDependencies": {
     "autoprefixer": "^6.3.6",
     "babel-cli": "^6.24.0",
@@ -98,6 +102,7 @@
     "font-awesome": "^4.7.0",
     "font-awesome-loader": "^1.0.2",
     "font-awesome-webpack2": "^0.0.6",
+    "metascraper": "^1.0.6",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-addons-css-transition-group": "^15.5.2",

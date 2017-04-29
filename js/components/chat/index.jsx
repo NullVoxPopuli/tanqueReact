@@ -45,20 +45,22 @@ class ChatIndex extends React.Component {
     const { messages } = this.props;
 
     return (
-      <Row>
-        <Col xs={9}>
-          <ChatRoom
-            messages={messages} />
-          <TextEntry
-            onSendText={this.didEnterMessage}
-            currentRoomId={this.currentRoomId}/>
-        </Col>
-        <Col xs={3}>
-          <UserList
-            users={this.users}
-            handleUserSelect={this.handleUserSelect.bind(this)}/>
-        </Col>
-      </Row>
+      <div>
+        <Row className='mb-5'>
+          <Col xs={9}>
+            <ChatRoom
+              messages={messages} />
+          </Col>
+          <Col xs={3}>
+            <UserList
+              users={this.users}
+              handleUserSelect={this.handleUserSelect.bind(this)}/>
+          </Col>
+        </Row>
+        <TextEntry
+          onSendText={this.didEnterMessage}
+          currentRoomId={this.currentRoomId}/>
+      </div>
     );
   }
 }

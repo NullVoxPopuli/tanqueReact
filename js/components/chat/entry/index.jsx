@@ -33,6 +33,7 @@ export default class TextEntry extends React.Component {
 
     onSendText(messageToSend);
     this.setState({ messageToSend: '' });
+    window.scrollTo(0, document.body.scrollHeight);
   }
 
   render() {
