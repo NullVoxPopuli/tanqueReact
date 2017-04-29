@@ -26,8 +26,14 @@ class UserList extends Component {
           handleUserSelect={this.handleUserSelect.bind(this, user)} />
       </NavItem>);
     return (
-      <div>
-        <h5>Member List</h5>
+      <div style={{
+        flex: 1,
+        padding: '15px',
+        borderLeft: '1px solid black',
+        background: '#353535',
+        color: 'white',
+        boxShadow: '-10px 0 15px rgba(0,0,0,0.25)' }} >
+        <h5 className='mt-5'>Members</h5>
         <Nav onSelect={this.onSelect}>
           {userList}
         </Nav>

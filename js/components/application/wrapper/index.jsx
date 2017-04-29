@@ -32,7 +32,6 @@ class Wrapper extends Component {
           autoClose={4000}
           position='top-center'
         />
-        <br />
         <Route
           exact={true}
           path="/"
@@ -40,10 +39,13 @@ class Wrapper extends Component {
             toChat: () => history.push('/chat')
           })} />
 
-        <div className='container'>
+        <Route path="/chat" render={requireConfig(Chat)} />
+
+        <div id='app-container' className='container'>
+          <br />
+
           <Route path='/setup' component={Setup} />
           <Route path="/settings" render={requireConfig(Settings)} />
-          <Route path="/chat" render={requireConfig(Chat)} />
         </div>
       </div>
     );

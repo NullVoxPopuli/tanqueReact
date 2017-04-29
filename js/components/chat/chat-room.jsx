@@ -38,7 +38,9 @@ class ChatRoom extends Component {
     );
 
     return (
-      <div>
+      <div
+        style={{ flex: '1' }}
+        className='flex-grow'>
         {messageMarkup}
       </div>
     );

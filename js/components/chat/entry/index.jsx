@@ -44,7 +44,8 @@ export default class TextEntry extends React.Component {
     const mut = this.mut;
 
     return (
-      <div className='fixed-bottom p-2 d-flex justify-content-starts'>
+      <div
+        className='p-2 d-flex justify-content-starts'>
         <Input
           placeholder='Send a message...'
           className='p-3 full-width'

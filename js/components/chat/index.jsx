@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
-import { push as Menu } from 'react-burger-menu'
-
 
 import UserList from './user-list';
 import TextEntry from './entry';
 import ChatRoom from './chat-room';
 
 import { actionCable, messageDispatch } from 'js/actions/network';
+
+import './off-canvas-styles.scss';
 
 class ChatIndex extends React.Component {
   static propTypes = {
@@ -24,8 +24,10 @@ class ChatIndex extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = { showUsers: false };
     this.props.connect();
     this.didEnterMessage = this.didEnterMessage.bind(this);
+    this.didClickShowUsers = this.didClickShowUsers.bind(this);
   }
 
   handleUserSelect(user) {
@@ -42,28 +44,49 @@ class ChatIndex extends React.Component {
     sendToAll(message, 'chat');
   }
 
+  didClickShowUsers() {
+    this.setState({ showUsers: !this.state.showUsers });
+  }
+
   render() {
     const { messages } = this.props;
+    const { showUsers } = this.state;
 
     return (
-      <div>
-        <Row className='mb-5'>
-          {/* <Col xs={9}> */}
-          <Menu>
-            <UserList
-              users={this.users}
-              handleUserSelect={this.handleUserSelect.bind(this)}/>
-          </Menu>
-          <ChatRoom
-            messages={messages} />
-          {/* </Col> */}
-          {/* <Col xs={3}> */}
-          {/* </Col> */}
-        </Row>
-        <TextEntry
-          onSendText={this.didEnterMessage}
-          currentRoomId={this.currentRoomId}/>
-      </div>
+      <Row style={{
+        position: 'fixed',
+        bottom: '0px',
+        top: '70px',
+        left: '0px',
+        right: '0px'
+      }}>
+        <a
+          onClick={this.didClickShowUsers}
+          className='off-canvas-open-button'>
+          <i className='fa fa-bars'></i>
+        </a>
+        <Col className='d-flex h-100 flex-column mr-0'>
+          <div
+            id='chat-wrapper'
+            className='h-100 d-flex flex-column'>
+            <ChatRoom
+              messages={messages} />
+            <TextEntry
+              onSendText={this.didEnterMessage}
+              currentRoomId={this.currentRoomId}/>
+          </div>
+        </Col>
+        <Col
+          className='h-100 pl-0'
+          style={{
+            display: showUsers ? 'flex' : 'none',
+            maxWidth: '300px'
+          }}>
+          <UserList
+            users={this.users}
+            handleUserSelect={this.handleUserSelect.bind(this)}/>
+        </Col>
+      </Row>
     );
   }
 }
