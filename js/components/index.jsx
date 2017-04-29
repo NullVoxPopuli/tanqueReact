@@ -1,32 +1,38 @@
 import React, { Component } from 'react';
-import {
-  Button,
-  Card, CardBlock
-} from 'reactstrap';
+import PropTypes from 'prop-types';
+import { Button } from 'reactstrap';
 
 export default class Index extends Component {
+  static propTypes = {
+    toChat: PropTypes.func.isRequired
+  }
+
   render() {
+    const { toChat } = this.props;
+
     return (
       <div>
-        <h3 className='display-3'>Welcome to tanqueRéact!</h3>
-        <Card>
-          <CardBlock>
-            Welcome.
-            <Button onClick={() => {}}>
-              Chat
-            </Button>
-          </CardBlock>
-        </Card>
-        <h5>
+        <h3 className='display-3 text-center'>Welcome to tanqueRéact!</h3>
+        <br />
+        <hr style={{ width: '50%' }} />
+        <br />
+        <p className='text-center' style={{ fontSize: '1.3em' }}>
           The <em>open source</em> p2p encrypted chat client that operates over <br />
           <em>open source</em> mesh nodes on free-tier cloud services. <br />
           Deploy your own 'members-only' chat in minutes!
-        </h5>
+        </p>
+
+        <div className='mx-auto mt-5' style={{ display: 'table' }}>
+          <Button
+            size='lg'
+            color='success'
+            onClick={toChat}>
+            Begin Chatting
+          </Button>
+        </div>
 
         <br />
         <h3>TODO</h3>
-        Check for valid config <br />
-         - if one does exist, present a card showing the user, with a button saying "Start Chatting" <br />
         File Uploads <br />
          - over chat <br />
         Inline Images <br />

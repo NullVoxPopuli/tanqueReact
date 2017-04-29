@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router';
+import PropTypes from 'prop-types';
+import { Route, Redirect, withRouter } from 'react-router';
 import { ToastContainer } from 'react-toastify';
 
 import Navigation from 'components/application/navigation';
@@ -10,14 +11,19 @@ import Setup from 'components/setup';
 
 import { isStoredConfigValid } from 'actions/identity/config';
 
-const requireConfig = Route => () => {
-  if (isStoredConfigValid()) return <Route />;
+const requireConfig = (Comp, props = {}) => () => {
+  if (isStoredConfigValid()) return <Comp { ...props } />;
 
   return <Redirect to="/setup" />;
 };
 
-export default class Wrapper extends Component {
+class Wrapper extends Component {
+  static propTypes = {
+    history: PropTypes.any.isRequired
+  }
+
   render() {
+    const { history } = this.props;
     return (
       <div>
         <Navigation />
@@ -28,7 +34,12 @@ export default class Wrapper extends Component {
         />
         <br />
         <div className='container'>
-          <Route exact={true} path="/" render={requireConfig(Index)} />
+          <Route
+            exact={true}
+            path="/"
+            render={requireConfig(Index, {
+              toChat: () => history.push('/chat')
+            })} />
 
           <Route path='/setup' component={Setup} />
           <Route path="/settings" render={requireConfig(Settings)} />
@@ -38,3 +49,5 @@ export default class Wrapper extends Component {
     );
   }
 }
+
+export default withRouter(Wrapper)
