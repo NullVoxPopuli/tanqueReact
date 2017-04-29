@@ -17,7 +17,7 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
-after_success:
+script:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
       ./scripts/ci/deploy.sh
     fi
