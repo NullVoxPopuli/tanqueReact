@@ -12,6 +12,7 @@ env:
   CODECLIMATE_COVERAGE_TOKEN=5d3001a1c2c5a1ac5b11693ce797b8e790aa3b4455b3cc2671b0a94984c26f51
 
 before_install:
+  - echo $id_rsa_enc > travis-id_rsa.enc
   - openssl aes-256-cbc -K $encrypted_bee6fd901ba1_key -iv $encrypted_bee6fd901ba1_iv -in travis-id_rsa.enc -out travis-id_rsa -d
   - chmod 600 travis-id_rsa
   - cp travis-id_rsa $HOME/.ssh/id_rsa
