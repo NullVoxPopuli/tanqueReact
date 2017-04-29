@@ -1,0 +1,22 @@
+sudo: required
+
+language: node_js
+node_js:
+  - stable
+
+services:
+  - docker
+
+env:
+  DOCKER_COMPOSE_VERSION=1.9.0
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-composie /usr/local/bin
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+      ./scripts/ci/deploy.sh
+    fi
