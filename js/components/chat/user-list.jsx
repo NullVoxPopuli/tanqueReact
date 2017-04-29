@@ -15,6 +15,8 @@ class UserList extends Component {
     // this.props.handleUserSelect(user);
   }
 
+  // maybbe use this
+  // https://github.com/mango/slideout
   render() {
     const { users } = this.props;
     const userList = users.map(user =>

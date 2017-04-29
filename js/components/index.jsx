@@ -12,11 +12,10 @@ export default class Index extends Component {
 
     return (
       <div>
-        <h3 className='hidden-sm-down display-3 text-center'>Welcome to tanqueRéact!</h3>
-        <h4 className='hidden-md-up display-4 text-center'>Welcome to tanqueRéact!</h4>
+        <h3 className='hidden-sm-down text-center'>Welcome to tanqueRéact!</h3>
+        <h4 className='hidden-md-up text-center'>Welcome to tanqueRéact!</h4>
         <br />
         <hr style={{ width: '50%' }} />
-        <br />
         <p className='text-center mx-auto' style={{ fontSize: '1.3em', maxWidth: '450px' }}>
           The <em>open source</em> p2p encrypted chat client that operates over
           <em>open source</em> mesh nodes on free-tier cloud services. <br />
@@ -31,13 +30,6 @@ export default class Index extends Component {
             Begin Chatting
           </Button>
         </div>
-
-        <br />
-        <h3>TODO</h3>
-        File Uploads <br />
-         - over chat <br />
-        Inline Images <br />
-        Expanding Image links <br />
       </div>
     );
   }
