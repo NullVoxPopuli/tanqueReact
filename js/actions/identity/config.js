@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { createAction } from 'redux-actions';
 import _ from 'lodash';
+import Promise from 'bluebird';
 
 import { generateNewKeys } from 'utility';
 import { loadState } from 'js/local-storage';
@@ -31,13 +32,20 @@ export function importSettings(settings) {
     let settingsObject = settings;
 
     if (typeof settings === 'string') {
-      try { settingsObject = JSON.parse(settings); }
-      catch (e) { return dispatch(importSettingsFailure(e)); }
+      try {
+        settingsObject = JSON.parse(settings);
+      } catch (e) {
+        dispatch(importSettingsFailure(e));
+
+        return Promise.reject(e.message);
+      }
     }
 
     dispatch(setConfig(settingsObject));
 
     dispatch(importSettingsSuccess());
+
+    return Promise.resolve();
   };
 }
 
@@ -47,6 +55,7 @@ export function regenerateUid() {
       Math.random().toString(16).slice(2);
 
     dispatch(setUid(newUid));
+    return Promise.resolve();
   };
 }
 
@@ -57,7 +66,7 @@ export function regenerateKeys() {
 
     dispatch(setKeys({ algorithm, ...keys }));
 
-    return keys;
+    return Promise.resolve(keys);
   };
 }
 
@@ -77,6 +86,8 @@ export function updateSafeSettings(settings) {
   return dispatch => {
     dispatch(setAlias(settings.alias));
     dispatch(setUrl(settings.url));
+
+    return Promise.resolve();
   };
 }
 

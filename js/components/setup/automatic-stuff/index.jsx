@@ -18,7 +18,7 @@ export default class AutomaticStuff extends Component {
   }
 
   onKeyPress(target) {
-    if (target.charCode == 13) {
+    if (target.charCode === 13) {
       this.props.next();
     }
   }

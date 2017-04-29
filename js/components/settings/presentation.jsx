@@ -70,7 +70,7 @@ export default class SettingsPresentation extends Component {
                     </FormGroup>
 
                     <FormGroup>
-                      <Label className='control-label'>Alias</Label>
+                      <Label className='control-label'>Preferred Relay</Label>
                       <Input
                         className='form-control'
                         type='text'

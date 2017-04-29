@@ -8,16 +8,19 @@ import {
   SET_CONFIG
 } from 'actions/identity/config';
 
+const DEFAULT_RELAYS = [
+  'wss://mesh-relay-in-us-1.herokuapp.com',
+  'wss://mesh-relay-in-us-2.herokuapp.com'
+];
+
 const defaultConfig = {
   privateKey: 'Not Yet Generated',
   publicKey: 'Not Yet Generated',
-  alias: 'initial alias',
-  uid: '123',
-  url: 'ws://localhost:3000',
-  relays: [
-    'ws://mesh-relay-in-us-1.herokuapp.com',
-    'ws://mesh-relay-in-us-2.herokuapp.com'
-  ]
+  alias: '',
+  uid: '',
+  url: DEFAULT_RELAYS[0],
+  // TODO: support multiple relays
+  relays: DEFAULT_RELAYS
 };
 
 export default handleActions({

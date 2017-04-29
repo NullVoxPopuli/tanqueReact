@@ -67,6 +67,7 @@ class ExportModal extends React.Component {
           title='Export Identity'
           buttonText='Export Identity'
           confirmText='Download'
+          cancelText='Close'
           additionalFooterButtons={
             <CopyToClipboard
               text={formattedJson}

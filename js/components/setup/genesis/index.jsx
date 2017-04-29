@@ -42,11 +42,14 @@ export default class Genesis extends Component {
 
     updateAlias(alias);
 
-    const keys = regenerateKeys();
-    const uid = base64ToHex(keys.publicKey);
-    setUid(uid);
+    regenerateKeys().then(keys => {
+      const longUid = base64ToHex(keys.publicKey);
+      const uid = longUid.slice(0, 32);
 
-    next();
+      setUid(uid);
+
+      next();
+    });
   }
 
   render() {
@@ -78,6 +81,7 @@ export default class Genesis extends Component {
                 <Input type='text'
                   size='lg'
                   value={alias}
+                  placeholder='e.g.: Captain Jack Harkness'
                   onChange={mut('alias')} />
               </FormGroup>
 

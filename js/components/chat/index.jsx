@@ -13,6 +13,11 @@ import { actionCable, messageDispatch } from 'js/actions/network';
 
 class ChatIndex extends React.Component {
   static propTypes = {
+    config: PropTypes.object.isRequired,
+    messages: PropTypes.array.isRequired,
+
+    sendToAll: PropTypes.func.isRequired,
+    connect: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -31,7 +36,7 @@ class ChatIndex extends React.Component {
   }
 
   didEnterMessage(message) {
-    const { config, sendToAll } = this.props;
+    const { sendToAll } = this.props;
 
     sendToAll(message, 'chat');
   }

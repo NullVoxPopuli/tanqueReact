@@ -8,7 +8,10 @@ import { mutCreator } from 'components/state-helpers';
 import FileChooser from 'components/file-chooser';
 import SimpleModal from 'components/-components/simple-modal';
 
+import { toastSuccess, toastError } from 'utility/toast';
+
 import { data } from 'js/actions';
+import { isUserIdentityValid } from 'js/actions/data/users';
 
 const placeholder = `{
   "alias": "some alias",
@@ -24,7 +27,7 @@ class ImportModal extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { identity: null };
+    this.state = { identity: null, importDisabled: true };
     this.mut = mutCreator(this);
 
     this.didClickImport = this.didClickImport.bind(this);
@@ -36,18 +39,21 @@ class ImportModal extends Component {
     const identityJson = JSON.parse(identityToImport);
 
     this.props.importUser(identityJson);
+    // TODO: make a .then of a promise
+    toastSuccess(`${identityJson.alias} has been imported.`);
   }
 
   didSelectFile(fileString) {
     const object = JSON.parse(fileString);
     const prettyJson = JSON.stringify(object, null, 2);
+    const importDisabled = !isUserIdentityValid(object);
 
-    this.setState({ identity: prettyJson });
+    this.setState({ identity: prettyJson, importDisabled });
   }
 
   // TODO: add validation
   render() {
-    const { identity } = this.state;
+    const { identity, importDisabled } = this.state;
     const { didClickImport, didSelectFile } = this;
 
     const mut = this.mut;
@@ -59,6 +65,7 @@ class ImportModal extends Component {
           buttonText='Import Identity'
           onConfirm={didClickImport}
           confirmText='Import'
+          confirmDisabled={importDisabled}
           additionalFooterButtons={
             <FileChooser
               onChange={didSelectFile}

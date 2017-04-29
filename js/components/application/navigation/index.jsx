@@ -26,18 +26,22 @@ export default class Navigation extends Component {
     });
   }
   render() {
+    const { isOpen } = this.state;
+
+    const navStyle = isOpen ? { display: 'block' } : {};
     return (
       <Navbar inverse fixed='true' toggleable
-        className='navbar-dark navbar-toggleable-md bg-inverse'>
+        className='sticky-top navbar-dark navbar-toggleable-md bg-inverse'>
         <NavbarToggler right onClick={this.toggle} />
         <Link className='navbar-brand' to='/'>tanqueRéact</Link>
 
-        <Collapse className='navbar-collapse' isOpen={true}>
-          <Nav className='mr-auto'>
+        <Collapse className='navbar-collapse' isOpen={isOpen}>
+          <Nav style={navStyle} className='mr-auto'>
            <NavItem><Link className='nav-link' to='/chat'>Chat</Link></NavItem>
            <NavItem><Link className='nav-link' to='/settings'>Settings</Link></NavItem>
           </Nav>
-          <Nav className='float-right'>
+          <br className="hidden-md"></br>
+          <Nav style={navStyle} className='float-md-right'>
             <ImportModal />&nbsp;
             <ExportModal />
           </Nav>

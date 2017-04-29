@@ -12,6 +12,7 @@ export default class SimpleModal extends Component {
     // children: PropTypes.any.isRequired,
     additionalFooterButtons: PropTypes.any,
     confirmText: PropTypes.string.isRequired,
+    confirmDisabled: PropTypes.bool,
     cancelText: PropTypes.string,
     onConfirm: PropTypes.func.isRequired
   }
@@ -52,6 +53,7 @@ export default class SimpleModal extends Component {
     const {
       title, buttonText, children,
       additionalFooterButtons,
+      confirmDisabled,
       confirmText, cancelText
     } = this.props;
 
@@ -70,7 +72,10 @@ export default class SimpleModal extends Component {
           <ModalFooter>
             <Button onClick={this.didClose}>{cancelText || 'Cancel'}</Button>
             {additionalFooterButtons}
-            <Button color="success" onClick={this.didConfirm}>
+            <Button
+              color="success"
+              disabled={confirmDisabled || false}
+              onClick={this.didConfirm}>
               {confirmText}
             </Button>
           </ModalFooter>

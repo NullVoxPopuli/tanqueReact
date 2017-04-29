@@ -4,7 +4,7 @@ import Truncate from 'react-truncate';
 
 export default class ReadMore extends Component {
   static propTypes = {
-    children: PropTypes.isRequired,
+    children: PropTypes.any.isRequired,
     lines: PropTypes.number
   }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { toastSuccess, toastError } from 'utility/toast';
 
 import { mutCreator } from 'components/state-helpers';
 import { objectToDataURL } from 'utility';
@@ -12,7 +13,7 @@ import SettingsPresentation from './presentation';
 class Settings extends React.Component {
   static propTypes = {
     config: PropTypes.object.isRequired,
-    updateAlias: PropTypes.func.isRequired,
+    updateSafeSettings: PropTypes.func.isRequired,
 
     regenerateUid: PropTypes.func.isRequired,
     regenerateKeys: PropTypes.func.isRequired,
@@ -26,21 +27,41 @@ class Settings extends React.Component {
     this.mut = mutCreator(this);
 
     this.saveSafeSettings = this.saveSafeSettings.bind(this);
+    this.importSettings = this.importSettings.bind(this);
+    this.regenerateKeys = this.regenerateKeys.bind(this);
+    this.regenerateUid = this.regenerateUid.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ config: nextProps.config });
   }
 
+  importSettings(data) {
+    this.props.importSettings(data)
+      .then(() => toastSuccess('Settings have been imported.'))
+      .catch(toastError);
+  }
+
+  regenerateKeys() {
+    this.props.regenerateKeys()
+      .then(() => toastSuccess('Keys have been regenerated. Please Re-Authorize to a network.'));
+  }
+
+  regenerateUid() {
+    this.props.regenerateUid()
+      .then(() => toastSuccess('UID has been regenerated.'));
+  }
+
   saveSafeSettings() {
     const { updateSafeSettings } = this.props;
     const { alias, url } = this.state.config;
 
-    updateSafeSettings({ alias, url });
+    updateSafeSettings({ alias, url })
+      .then(() => toastSuccess('Settings have been saved!'));
   }
 
   render() {
-    const { regenerateUid, regenerateKeys, importSettings, config } = this.props;
+    const { config } = this.props;
     const { alias, url, uid, publicKey } = this.state.config;
 
     const mut = this.mut;
@@ -54,11 +75,11 @@ class Settings extends React.Component {
         url={url}
         onUrlChange={mut('config.url')}
         uid={uid}
-        regenerateUid={regenerateUid}
+        regenerateUid={this.regenerateUid}
         publicKey={publicKey}
-        regenerateKeys={regenerateKeys}
+        regenerateKeys={this.regenerateKeys}
         settingsDataUrl={settingsDataUrl}
-        importSettings={importSettings}/>
+        importSettings={this.importSettings} />
     );
   }
 }

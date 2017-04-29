@@ -1,0 +1,47 @@
+
+// Try to make something look decent...
+$toast-success-bg: lighten($brand-success, 2%);
+$toast-success-border: darken($brand-success, 10%);
+$toast-success-text: darken($brand-success, 30%);
+$toast-error-bg: lighten($brand-danger, 2%);
+$toast-error-border: darken($brand-danger, 10%);
+$toast-error-text: darken($brand-danger, 50%);
+
+.toast-container {
+  top: 3em;
+  z-index: 2000;
+
+  .toastify-content {
+    min-height: auto;
+    padding: 10px;
+    box-shadow: 0 15px 15px 0px rgba(0,0,0,0.25);
+    border-width: 1px;
+    border-left-width: 10px;
+
+    &.toastify-content--success {
+      font-weight: bold;
+      color: $toast-success-text;
+      background: $toast-success-bg;
+      border-color: $toast-success-border;
+    }
+
+    &.toastify-content--error {
+      color: $toast-error-text;
+      background: $toast-error-bg;
+      border-color: $toast-error-border;
+    }
+
+    .toastify__body {
+      font-size: 1.2rem;
+    }
+
+    .toastify__close {
+      color: black;
+
+      &:hover {
+        background: none;
+        text-shadow: 0 4px 4px rgba(0,0,0,0.25);
+      }
+    }
+  }
+}

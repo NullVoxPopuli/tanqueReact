@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export const IMPORT_USER = 'data/users/IMPORT_USER';
 export const EXPORT_USER = 'data/users/EXPORT_USER';
 
@@ -13,4 +15,15 @@ export function getUserForUid(uid) {
 
     return user;
   };
+}
+
+export function isUserIdentityValid(identityObject) {
+  const config = identityObject || {};
+  const result = !(
+    _.isEmpty(config.alias) ||
+    _.isEmpty(config.uid) ||
+    _.isEmpty(config.publickey)
+  );
+
+  return result;
 }
