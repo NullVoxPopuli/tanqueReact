@@ -22,6 +22,7 @@ class UserList extends Component {
     const userList = users.map(user =>
       <NavItem key={user}>
         <UserListRow
+          key={user.uid}
           user={user}
           handleUserSelect={this.handleUserSelect.bind(this, user)} />
       </NavItem>);
