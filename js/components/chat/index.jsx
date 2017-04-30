@@ -8,7 +8,8 @@ import UserList from './user-list';
 import TextEntry from './entry';
 import ChatRoom from './chat-room';
 
-import { actionCable, messageDispatch } from 'js/actions/network';
+import { actionCable } from 'js/actions/network';
+import { inputHandler } from 'js/actions/views';
 
 import './off-canvas-styles.scss';
 
@@ -17,7 +18,7 @@ class ChatIndex extends React.Component {
     config: PropTypes.object.isRequired,
     messages: PropTypes.array.isRequired,
 
-    sendToAll: PropTypes.func.isRequired,
+    handleInput: PropTypes.func.isRequired,
     connect: PropTypes.func.isRequired
   }
 
@@ -39,9 +40,9 @@ class ChatIndex extends React.Component {
   }
 
   didEnterMessage(message) {
-    const { sendToAll } = this.props;
+    const { handleInput } = this.props;
 
-    sendToAll(message, 'chat');
+    handleInput(message);
   }
 
   didClickShowUsers() {
@@ -97,7 +98,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  sendToAll: bindActionCreators(messageDispatch.sendToAll, dispatch),
+  handleInput: bindActionCreators(inputHandler.handleInput, dispatch),
   connect: bindActionCreators(actionCable.connectToCable, dispatch)
 });
 

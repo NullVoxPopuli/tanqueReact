@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Row, Col, FormGroup, Input, Button } from 'reactstrap';
+import { Input, Button } from 'reactstrap';
 
 import { mutCreator } from 'components/state-helpers';
 

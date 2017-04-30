@@ -32,6 +32,7 @@ class ImportModal extends Component {
 
     this.didClickImport = this.didClickImport.bind(this);
     this.didSelectFile = this.didSelectFile.bind(this);
+    this.identityChanged = this.identityChanged.bind(this);
   }
 
   didClickImport() {
@@ -41,6 +42,16 @@ class ImportModal extends Component {
     this.props.importUser(identityJson);
     // TODO: make a .then of a promise
     toastSuccess(`${identityJson.alias} has been imported.`);
+  }
+
+  identityChanged(e) {
+    try {
+      const json = this.mut('identity')(e);
+      const object = JSON.parse(json);
+      const importDisabled = !isUserIdentityValid(object);
+
+      this.setState({ importDisabled });
+    } catch (err) {}
   }
 
   didSelectFile(fileString) {
@@ -54,9 +65,7 @@ class ImportModal extends Component {
   // TODO: add validation
   render() {
     const { identity, importDisabled } = this.state;
-    const { didClickImport, didSelectFile } = this;
-
-    const mut = this.mut;
+    const { didClickImport, didSelectFile, identityChanged } = this;
 
     return (
       <li>
@@ -76,7 +85,7 @@ class ImportModal extends Component {
             <Input
               type='textarea'
               rows={5}
-              onChange={mut('identity')}
+              onChange={identityChanged}
               value={identity || ''}
               placeholder={placeholder} />
           </FormGroup>

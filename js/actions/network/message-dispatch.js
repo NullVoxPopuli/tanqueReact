@@ -1,8 +1,15 @@
 import { createAction } from 'redux-actions';
 import { send } from './action-cable';
 
+
+import redux from 'js/redux-store';
 import { encryptFor } from 'utility/nacl';
 import { appendMessage } from 'js/actions/data/messages';
+
+import {
+  WHISPER,
+  PING
+} from 'actions/data/messages';
 
 export const MESSAGE_DISPATCH = 'message-dispatch/MESSAGE_DISPATCH';
 export const ENCRYPTING_MESSAGE = 'message-dispatch/ENCRYPTING_MESSAGE';
@@ -15,6 +22,36 @@ export const encryptionComplete = createAction(ENCRYPTION_COMPLETE);
 export const APP_NAME = 'tanqueRéact';
 export const APP_VERSION = '0.1';
 
+
+export function whisper(userString, message) {
+  return (dispatch, getState) => {
+    const state = getState();
+    const users = state.data.users.records;
+    const user = findUser(userString, users);
+
+    dispatch(sendToUser(user, message, WHISPER));
+  };
+}
+
+export function ping(userString) {
+  return (dispatch, getState) => {
+    const state = getState();
+    const users = state.data.users.records;
+    const user = findUser(userString, users);
+    dispatch(sendToUser(user, '', PING));
+  };
+}
+
+export function pingAll() {
+  return dispatch => {
+    dispatch(sendToAll('', PING));
+  };
+}
+
+function findUser(str, users) {
+  return users.find(u => (u.uid === str || u.alias === str));
+}
+
 export function sendToAll(unencryptedString, type = 'chat') {
   return (dispatch, getState) => {
     const state = getState();
@@ -25,7 +62,7 @@ export function sendToAll(unencryptedString, type = 'chat') {
     sendToSelf(payload, unencryptedString, dispatch);
 
     users.forEach(user => {
-      sendTo(user.uid, payload, unencryptedString, config, dispatch);
+      sendTo(user.uid, payload, unencryptedString, config);
     });
   };
 }
@@ -57,28 +94,28 @@ function buildPayload(config, type = 'chat') {
   return payload;
 }
 
-export function sendToOne(theirUid, unencryptedString, type = 'chat') {
+export function sendToUser(user, message, type) {
   return (dispatch, getState) => {
-    // TODO: needed?
+    const state = getState();
+    const config = state.identity.config;
+    const payload = buildPayload(config, type);
+
+    sendTo(user.uid, payload, message, config);
   };
 }
 
-export function sendTo(theirUid, payload, unencryptedString, config, dispatch) {
-  // TODO: consider making a regular action
-  // return (dispatch, getState) => {
-  //
-  // }
-  dispatch(messageDispatch({ theirUid, unencryptedString }));
+export function sendTo(theirUid, payload, unencryptedString, config) {
+  redux.dispatch(messageDispatch({ theirUid, unencryptedString }));
 
   const { publicKey, privateKey } = config;
 
-  dispatch(encryptingMessage({ preMessage: payload }));
+  redux.dispatch(encryptingMessage({ preMessage: payload }));
 
   // change to be for the target
   const encryptedMessage = encryptFor(unencryptedString, publicKey, privateKey);
   payload.message = encryptedMessage;
 
-  dispatch(encryptionComplete({ encryptedMessage: payload }));
+  redux.dispatch(encryptionComplete({ encryptedMessage: payload }));
 
-  dispatch(send(theirUid, payload));
+  redux.dispatch(send(theirUid, payload));
 }
