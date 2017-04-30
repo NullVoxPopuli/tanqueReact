@@ -6,6 +6,8 @@ import Promise from 'bluebird';
 import { generateNewKeys } from 'utility';
 import { loadState } from 'js/local-storage';
 
+import { importUsers } from 'actions/data/users';
+
 export const SET_ALIAS = 'identity/config/SET_ALIAS';
 export const SET_URL = 'identity/config/SET_URL';
 export const SET_KEYS = 'identity/config/SET_KEYS';
@@ -41,7 +43,8 @@ export function importSettings(settings) {
       }
     }
 
-    dispatch(setConfig(settingsObject));
+    dispatch(setConfig(settingsObject.config));
+    dispatch(importUsers(settingsObject.members || []));
 
     dispatch(importSettingsSuccess());
 

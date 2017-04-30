@@ -25,9 +25,13 @@ const beginHandleInput = createAction(BEGIN_HANDLE_INPUT);
 const beginHandleCommand = createAction(BEGIN_HANDLE_COMMAND);
 
 
-export const handleInput = input => dispatch => {
+export const handleInput = input => (dispatch, getState) => {
   dispatch(beginHandleInput(input));
   if (input.startsWith(COMMAND)) return dispatch(handleCommand(input));
+  const state = getState();
+  const to = state.data.users.whisperingToUser;
+  // if in a direct user-user chat (rather than global one off whisper)
+  if (to && to.uid) return handleWhisper(`/w ${to.uid} ${input}`);
 
   dispatch(sendToAll(input, CHAT));
 };

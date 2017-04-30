@@ -12,7 +12,11 @@ import HowToGetAuthorized from './how-to-get-authorized';
 
 class Setup extends Component {
   render() {
-    const { config, updateAlias, setUid, regenerateKeys, history } = this.props;
+    const {
+      config, updateAlias, setUid,
+      regenerateKeys, importSettings,
+      history
+     } = this.props;
     const { alias, uid, publicKey, relays } = config;
 
     return (
@@ -23,7 +27,9 @@ class Setup extends Component {
             alias={alias}
             updateAlias={updateAlias}
             regenerateKeys={regenerateKeys}
+            importSettings={importSettings}
             setUid={setUid}
+            didImportSettings={() => history.push('/chat')}
             abort={() => history.push('/')}
             next={() => history.push('/setup/automatic-stuff')} />
         } />
@@ -54,7 +60,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setUid: uid => dispatch(identity.config.setUid(uid)),
   regenerateKeys: bindActionCreators(identity.config.regenerateKeys, dispatch),
-  updateAlias: bindActionCreators(identity.config.updateAlias, dispatch)
+  updateAlias: bindActionCreators(identity.config.updateAlias, dispatch),
+  importSettings: bindActionCreators(identity.config.importSettings, dispatch)
 });
 
 const connected = connect(

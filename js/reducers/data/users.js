@@ -1,4 +1,4 @@
-import { IMPORT_USER, SET_WHISPER_TO_USER } from 'js/actions/data/users';
+import { IMPORT_USER, IMPORT_USERS, SET_WHISPER_TO_USER } from 'js/actions/data/users';
 import { initialState, hydrate } from './../helpers';
 
 export default (state = initialState, action) => {
@@ -12,6 +12,11 @@ export default (state = initialState, action) => {
       ...state,
       records: hydrate(state.records, [action.json])
     };
+  case IMPORT_USERS:
+    return {
+      ...state,
+      records: hydrate(state.records, action.users)
+    }
   case SET_WHISPER_TO_USER:
     return {
       ...state,

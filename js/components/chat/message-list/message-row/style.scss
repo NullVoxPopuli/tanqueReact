@@ -16,4 +16,13 @@
     // #222 is $brand-inverse
     background: lighten(#222, 5%);
   }
+
+  &.whisper {
+    .message-header {
+      color: lightgray;
+      strong {
+        font-style: italic;
+      }
+    }
+  }
 }

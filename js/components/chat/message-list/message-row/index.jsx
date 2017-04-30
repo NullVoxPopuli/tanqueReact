@@ -9,13 +9,14 @@ export default class MessageRow extends Component {
   static propTypes = {
     time: PropTypes.any.isRequired,
     name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
     message: PropTypes.string.isRequired,
     sameMemberAsPrevious: PropTypes.bool
   }
 
   render() {
     const {
-      time, name, message, sameMemberAsPrevious
+      time, type, name, message, sameMemberAsPrevious
     } = this.props;
 
     let messageHeader = '';
@@ -29,7 +30,7 @@ export default class MessageRow extends Component {
     }
 
     return (
-      <div className='message clearfix'>
+      <div className={`message clearfix ${type}`}>
         <div className={'p-2'}>
           {messageHeader}
 

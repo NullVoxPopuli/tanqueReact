@@ -61,11 +61,16 @@ class Settings extends React.Component {
   }
 
   render() {
-    const { config } = this.props;
+    const { config, users } = this.props;
     const { alias, url, uid, publicKey } = this.state.config;
 
+    const settingsForDownload = {
+      config,
+      members: users
+    };
+
     const mut = this.mut;
-    const settingsDataUrl = objectToDataURL(config);
+    const settingsDataUrl = objectToDataURL(settingsForDownload);
 
     return (
       <SettingsPresentation
@@ -85,6 +90,7 @@ class Settings extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  users: state.data.users.records,
   config: state.identity.config,
   importFailure: state.identity.config.importSettingsFailure,
   importSuccess: state.identity.config.importSettingsSuccess

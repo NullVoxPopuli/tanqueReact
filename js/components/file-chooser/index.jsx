@@ -6,6 +6,7 @@ export default class FileChooser extends Component {
   static propTypes = {
     buttonText: PropTypes.string.isRequired,
     buttonClasses: PropTypes.string,
+    buttonTag: PropTypes.string,
     onChange: PropTypes.func.isRequired
   }
 
@@ -37,11 +38,14 @@ export default class FileChooser extends Component {
   }
 
   render() {
-    const { buttonText, buttonClasses } = this.props;
+    const { buttonTag, buttonText, buttonClasses } = this.props;
     const { didClickButton, didChangeSelectedFile } = this;
 
+    const Tag = buttonTag || Button;
+
     return (
-      <Button
+      <Tag
+        role='button'
         className={buttonClasses}
         onClick={didClickButton}>
         <input
@@ -50,7 +54,7 @@ export default class FileChooser extends Component {
           ref='fileChooser'
           style={{ display: 'none' }} />
           {buttonText}
-      </Button>
+      </Tag>
     );
   }
 }

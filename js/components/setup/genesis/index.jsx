@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import {
   Form, FormGroup,
@@ -11,16 +12,22 @@ import { base64ToHex } from 'utility';
 import { isStoredConfigValid } from 'actions/identity/config';
 import { mutCreator } from 'components/state-helpers';
 import DangerModal from 'components/-components/danger-modal';
+import FileChooser from 'components/file-chooser';
+
+import { toastSuccess, toastError } from 'utility/toast';
 
 export default class Genesis extends Component {
   static propTypes = {
     alias: PropTypes.string,
 
     abort: PropTypes.func.isRequired,
-    updateAlias: PropTypes.func.isRequired,
     setUid: PropTypes.func.isRequired,
+    next: PropTypes.func.isRequired,
+
+    updateAlias: PropTypes.func.isRequired,
     regenerateKeys: PropTypes.func.isRequired,
-    next: PropTypes.func.isRequired
+    importSettings: PropTypes.func.isRequired,
+    didImportSettings: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -28,12 +35,25 @@ export default class Genesis extends Component {
     const alreadyValid = isStoredConfigValid();
 
     this.state = { alias: props.alias, alreadyValid };
-    this.didSubmit = this.didSubmit.bind(this);
     this.mut = mutCreator(this);
+
+    this.didSubmit = this.didSubmit.bind(this);
+    this.importSettings = this.importSettings.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ alias: nextProps.alias });
+  }
+
+  importSettings(data) {
+    const { importSettings, didImportSettings } = this.props;
+
+    importSettings(data)
+      .then(() => {
+        toastSuccess('Settings have been imported.');
+        didImportSettings();
+      })
+      .catch(toastError);
   }
 
   didSubmit() {
@@ -56,6 +76,8 @@ export default class Genesis extends Component {
     const { abort } = this.props;
     const { alias, alreadyValid } = this.state;
     const mut = this.mut;
+
+    const aliasMissing = _.isEmpty(alias);
 
     return (
       <div>
@@ -86,15 +108,20 @@ export default class Genesis extends Component {
               </FormGroup>
 
               <Button block
+                disabled={aliasMissing}
                 color='success'
                 size='lg'
-                className='float-right'
                 onClick={this.didSubmit}>
                 Next
               </Button>
             </Form>
           </CardBlock>
         </Card>
+        <FileChooser
+          onChange={this.importSettings}
+          buttonTag={'a'}
+          buttonClasses={'mt-3 float-right'}
+          buttonText={'Import Settings'} />
       </div>
     );
   }

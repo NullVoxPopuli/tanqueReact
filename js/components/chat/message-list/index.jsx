@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import { connect } from 'react-redux';
 import MessageRow from './message-row';
 
-class ChatRoom extends Component {
+export default class MessageList extends Component {
   static propTypes = {
     messages: PropTypes.array.isRequired
   }
@@ -26,18 +25,19 @@ class ChatRoom extends Component {
       const name = m.sender.name;
       const date = moment(m.time_sent).format('lll');
       const msg = m.decryptedMessage || 'could not be decrypted';
+      const previous = pastMessages[i - i] || {};
+      const previousSender = previous.sender || {};
+
       const sameMemberAsPrevious = (
-        m.sender.uid === (
-          ((pastMessages[i - 1] || {})
-            .sender || {})
-            .uid
-        )
+        m.sender.uid === previousSender.uid &&
+        m.type === previous.type
       );
 
       pastMessages.push(m);
       messages.push(
         <MessageRow
           sameMemberAsPrevious={sameMemberAsPrevious}
+          type={m.type}
           time={date}
           name={name}
           message={msg}
@@ -55,16 +55,3 @@ class ChatRoom extends Component {
     );
   }
 }
-
-
-const mapStateToProps = state => ({
-  publicKey: state.identity.config.publicKey,
-  messages: state.data.messages.records
-});
-
-const mapDispatchToProps = dispatch => ({});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ChatRoom);

@@ -6,11 +6,12 @@ import { Row, Col } from 'reactstrap';
 
 import UserList from './user-list';
 import TextEntry from './entry';
-import ChatRoom from './chat-room';
+import MessageList from './message-list';
 
 import { actionCable } from 'js/actions/network';
 import { inputHandler } from 'js/actions/views';
 import { setWhisperToUser } from 'actions/data/users';
+import { WHISPER } from 'actions/data/messages';
 
 import './off-canvas-styles.scss';
 
@@ -49,9 +50,30 @@ class ChatIndex extends React.Component {
     this.setState({ showUsers: !this.state.showUsers });
   }
 
+  relevantMessages() {
+    const { messages, config, whisperingToUser: to } = this.props;
+    const myUid = config.uid;
+
+    // we only filter on whispers
+    console.log(to && to.uid);
+    if (to && to.uid) {
+      return messages.filter(m => {
+        console.log(m.type);
+        return (
+          m.type === WHISPER &&
+          // from the to, or to the to
+          (m.sender.uid === to.uid || m.sender.uid === myUid)
+        )
+      });
+    }
+
+    return messages;
+  }
+
   render() {
-    const { messages, users, whisperingToUser } = this.props;
+    const { users, whisperingToUser } = this.props;
     const { showUsers } = this.state;
+    const messages = this.relevantMessages();
 
     return (
       <Row style={{
@@ -85,7 +107,7 @@ class ChatIndex extends React.Component {
           <div
             id='chat-wrapper'
             className='h-100 d-flex flex-column'>
-            <ChatRoom
+            <MessageList
               messages={messages} />
             <TextEntry
               whisperingToUser={whisperingToUser}
