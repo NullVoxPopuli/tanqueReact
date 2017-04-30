@@ -2,7 +2,7 @@
 // Try to make something look decent...
 $toast-success-bg: lighten($brand-success, 2%);
 $toast-success-border: darken($brand-success, 10%);
-$toast-success-text: darken($brand-success, 30%);
+$toast-success-text: white; //darken($brand-success, 30%);
 $toast-error-bg: lighten($brand-danger, 2%);
 $toast-error-border: darken($brand-danger, 10%);
 $toast-error-text: darken($brand-danger, 50%);

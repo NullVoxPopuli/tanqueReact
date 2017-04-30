@@ -8,7 +8,7 @@ import UserListRow from './user-list-row';
 export default class UserList extends Component {
   static propTypes = {
     users: PropTypes.array.isRequired,
-    whisperingToUser: PropTypes.any.isRequired,
+    whisperingToUser: PropTypes.any,
     didCloseList: PropTypes.func.isRequired,
     handleUserSelect: PropTypes.func.isRequired
   }
@@ -20,17 +20,17 @@ export default class UserList extends Component {
   // maybbe use this
   // https://github.com/mango/slideout
   render() {
-    const { users, didCloseList, whisperingToUser } = this.props;
+    const { users, didCloseList, whisperingToUser: to } = this.props;
     const userList = users.map(user =>
       <NavItem key={user.uid}>
         <UserListRow
-          active={user.uid === whisperingToUser.uid}
+          active={user.uid === (to && to.uid)}
           user={user}
           handleUserSelect={this.handleUserSelect.bind(this, user)} />
       </NavItem>);
 
     // TODO: implement Channels
-    const isWhispering = !_.isEmpty(whisperingToUser);
+    const isWhispering = !_.isEmpty(to);
 
     return (
       <div style={{
