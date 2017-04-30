@@ -7,7 +7,7 @@ import { mutCreator } from 'components/state-helpers';
 
 export default class TextEntry extends React.Component {
   static propTypes = {
-    whisperingToUser: PropTypes.any.isRequired
+    whisperingToUser: PropTypes.any
   }
 
   constructor(props) {
@@ -46,10 +46,10 @@ export default class TextEntry extends React.Component {
   }
 
   render() {
-    const { whisperingToUser } = this.props;
+    const { whisperingToUser: to } = this.props;
     const mut = this.mut;
 
-    const who = whisperingToUser.alias || 'everyone';
+    const who = to && to.alias || 'everyone';
     return (
       <div
         className='p-2 d-flex justify-content-starts'>

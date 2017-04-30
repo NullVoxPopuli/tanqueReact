@@ -10,6 +10,7 @@ $fa-font-path: "~font-awesome/fonts";
 
 nav.bg-inverse {
   background: $brand-success !important;
+  box-shadow: 0 15px 15px rgba(0,0,0,0.25);
   a {
     color: $white;
   }

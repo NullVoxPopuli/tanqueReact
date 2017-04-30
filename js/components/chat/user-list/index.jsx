@@ -39,7 +39,7 @@ export default class UserList extends Component {
         borderLeft: '1px solid black',
         background: '#353535',
         color: 'white',
-        boxShadow: '-10px 0 15px rgba(0,0,0,0.25)' }} >
+        boxShadow: '10px 0 15px rgba(0,0,0,0.25)' }} >
         <a
           onClick={didCloseList}
           style={{
