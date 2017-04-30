@@ -51,7 +51,9 @@ class ImportModal extends Component {
       const importDisabled = !isUserIdentityValid(object);
 
       this.setState({ importDisabled });
-    } catch (err) {}
+    } catch (err) {
+      console.error(e.message);
+    }
   }
 
   didSelectFile(fileString) {

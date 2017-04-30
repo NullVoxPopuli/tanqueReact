@@ -62,11 +62,25 @@ class ChatIndex extends React.Component {
         right: '0px'
       }}>
         <a
+          style={{ display: showUsers ? 'none' : 'block' }}
           onClick={this.didClickShowUsers}
           className='off-canvas-open-button'>
           <i className='fa fa-bars'></i>
         </a>
-        <Col className='d-flex h-100 flex-column mr-0'>
+        <Col
+          className='h-100 pr-0'
+          style={{
+            display: 'flex',
+            transition: 'max-width 0.1s ease-in-out',
+            maxWidth: showUsers ? '300px' : '40px'
+          }}>
+          {showUsers &&
+            <UserList
+              didCloseList={this.didClickShowUsers}
+              users={this.users}
+              handleUserSelect={this.handleUserSelect.bind(this)}/>}
+        </Col>
+        <Col className='d-flex h-100 flex-column pl-0'>
           <div
             id='chat-wrapper'
             className='h-100 d-flex flex-column'>
@@ -76,16 +90,6 @@ class ChatIndex extends React.Component {
               onSendText={this.didEnterMessage}
               currentRoomId={this.currentRoomId}/>
           </div>
-        </Col>
-        <Col
-          className='h-100 pl-0'
-          style={{
-            display: showUsers ? 'flex' : 'none',
-            maxWidth: '300px'
-          }}>
-          <UserList
-            users={this.users}
-            handleUserSelect={this.handleUserSelect.bind(this)}/>
         </Col>
       </Row>
     );

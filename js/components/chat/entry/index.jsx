@@ -43,11 +43,12 @@ export default class TextEntry extends React.Component {
   render() {
     const mut = this.mut;
 
+    const who = 'everyone';
     return (
       <div
         className='p-2 d-flex justify-content-starts'>
         <Input
-          placeholder='Send a message...'
+          placeholder={`Send a message to ${who}...`}
           className='p-3 full-width'
           type='text'
           value={this.state.messageToSend}

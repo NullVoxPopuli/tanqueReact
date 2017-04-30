@@ -1,15 +1,17 @@
 import { createAction } from 'redux-actions';
-import { send } from './action-cable';
-
+import { toastError } from 'utility/toast';
+import _ from 'lodash';
 
 import redux from 'js/redux-store';
 import { encryptFor } from 'utility/nacl';
-import { appendMessage } from 'js/actions/data/messages';
 
 import {
   WHISPER,
-  PING
+  PING,
+  appendMessage
 } from 'actions/data/messages';
+
+import { send } from './action-cable';
 
 export const MESSAGE_DISPATCH = 'message-dispatch/MESSAGE_DISPATCH';
 export const ENCRYPTING_MESSAGE = 'message-dispatch/ENCRYPTING_MESSAGE';
@@ -22,25 +24,23 @@ export const encryptionComplete = createAction(ENCRYPTION_COMPLETE);
 export const APP_NAME = 'tanqueRéact';
 export const APP_VERSION = '0.1';
 
+export const whisper = (userString, message) => (dispatch, getState) => {
+  const state = getState();
+  const users = state.data.users.records;
+  const user = findUser(userString, users);
 
-export function whisper(userString, message) {
-  return (dispatch, getState) => {
-    const state = getState();
-    const users = state.data.users.records;
-    const user = findUser(userString, users);
+  if (_.isEmpty(user)) return toastError('Member not found.');
+  dispatch(sendToUser(user, message, WHISPER));
+};
 
-    dispatch(sendToUser(user, message, WHISPER));
-  };
-}
+export const ping = userString => (dispatch, getState) => {
+  const state = getState();
+  const users = state.data.users.records;
+  const user = findUser(userString, users);
 
-export function ping(userString) {
-  return (dispatch, getState) => {
-    const state = getState();
-    const users = state.data.users.records;
-    const user = findUser(userString, users);
-    dispatch(sendToUser(user, '', PING));
-  };
-}
+  if (_.isEmpty(user)) return toastError('Member not found.');
+  dispatch(sendToUser(user, '', PING));
+};
 
 export function pingAll() {
   return dispatch => {
