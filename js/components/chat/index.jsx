@@ -55,10 +55,8 @@ class ChatIndex extends React.Component {
     const myUid = config.uid;
 
     // we only filter on whispers
-    console.log(to && to.uid);
     if (to && to.uid) {
       return messages.filter(m => {
-        console.log(m.type);
         return (
           m.type === WHISPER &&
           // from the to, or to the to

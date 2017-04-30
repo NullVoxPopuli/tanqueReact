@@ -19,9 +19,12 @@
 
   &.whisper {
     .message-header {
-      color: lightgray;
+      color: gray;
       strong {
         font-style: italic;
+      }
+      .message-content {
+        color: gray;
       }
     }
   }

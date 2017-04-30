@@ -31,3 +31,7 @@ export function isUserIdentityValid(identityObject) {
 
   return result;
 }
+
+export function findUser(str, users) {
+  return users.find(u => (u.uid === str || u.alias === str));
+}

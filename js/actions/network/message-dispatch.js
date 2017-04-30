@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 import redux from 'js/redux-store';
 import { encryptFor } from 'utility/nacl';
+import { findUser } from 'actions/data/users';
 
 import {
   WHISPER,
@@ -48,10 +49,6 @@ export function pingAll() {
   };
 }
 
-function findUser(str, users) {
-  return users.find(u => (u.uid === str || u.alias === str));
-}
-
 export function sendToAll(unencryptedString, type = 'chat') {
   return (dispatch, getState) => {
     const state = getState();
@@ -62,14 +59,18 @@ export function sendToAll(unencryptedString, type = 'chat') {
     sendToSelf(payload, unencryptedString, dispatch);
 
     users.forEach(user => {
-      sendTo(user.uid, payload, unencryptedString, config);
+      sendTo(user, payload, unencryptedString, config);
     });
   };
 }
 
-function sendToSelf(payload, unencryptedString, dispatch) {
+// the to field is for filtering whispers later.
+// we need to know what whispers _we_ send in order to group them
+// in to the appropriate whisper channel chat.
+function sendToSelf(payload, unencryptedString, dispatch, to = '') {
   dispatch(appendMessage({
     ...payload,
+    to,
     decryptedMessage: unencryptedString
   }));
 }
@@ -94,25 +95,33 @@ function buildPayload(config, type = 'chat') {
   return payload;
 }
 
+// Only for sending to a single, targeted user.
+// Not for sendToAll or any batch sending.
+// as this function also appends our own message
+// to the message array. (So we can see what we said)
 export function sendToUser(user, message, type) {
   return (dispatch, getState) => {
     const state = getState();
     const config = state.identity.config;
     const payload = buildPayload(config, type);
 
-    sendTo(user.uid, payload, message, config);
+    // send to ourselves, so we know what we whispered
+    sendToSelf(payload, message, dispatch, user.uid);
+    // actually send to the other person
+    sendTo(user, payload, message, config);
   };
 }
 
-export function sendTo(theirUid, payload, unencryptedString, config) {
+export function sendTo(user, payload, unencryptedString, config) {
+  const { uid: theirUid, publickey: theirPublicKey } = user
   redux.dispatch(messageDispatch({ theirUid, unencryptedString }));
 
-  const { publicKey, privateKey } = config;
+  const { privateKey } = config;
 
   redux.dispatch(encryptingMessage({ preMessage: payload }));
 
   // change to be for the target
-  const encryptedMessage = encryptFor(unencryptedString, publicKey, privateKey);
+  const encryptedMessage = encryptFor(unencryptedString, theirPublicKey, privateKey);
   payload.message = encryptedMessage;
 
   redux.dispatch(encryptionComplete({ encryptedMessage: payload }));

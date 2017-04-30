@@ -24,7 +24,7 @@ export default class MessageRow extends Component {
     if (!sameMemberAsPrevious) {
       messageHeader = (
         <span className='message-header'>
-          <strong>{name}</strong> <small>{time}</small>
+          <strong>{name}</strong> <small className='float-right'>{time}</small>
         </span>
       );
     }
