@@ -16,7 +16,7 @@ const COMMAND_EMOTE = '/me';
 const COMMAND_WHISPER = '/w';
 const COMMAND_PING = '/p';
 const COMMAND_PING_ALL = '/pa';
-const WHISPER_REGEX = /\/(\w+) (\w+|"(.+)") (.+)$/;
+const WHISPER_REGEX = /\/(\w+) (.+|"(.+)") (.+)$/;
 const SELF_REGEX = /\/(\w+) (.+)$/;
 
 const BEGIN_HANDLE_INPUT = 'input-handler/BEGIN_HANDLE_INPUT';
@@ -55,6 +55,7 @@ function handleEmote(input) {
 
 function handleWhisper(input) {
   const matches = input.match(WHISPER_REGEX);
+  console.log(matches);
   // the first entry in matches is the input
   const userString = matches[3] || matches[2];
   const message = matches[4];

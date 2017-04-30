@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import MessageContent from './message-content';
 
@@ -7,24 +8,29 @@ import './style.scss';
 
 export default class MessageRow extends Component {
   static propTypes = {
-    time: PropTypes.any.isRequired,
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
+    message: PropTypes.object.isRequired,
+    toUser: PropTypes.object,
     sameMemberAsPrevious: PropTypes.bool
   }
 
   render() {
-    const {
-      time, type, name, message, sameMemberAsPrevious
-    } = this.props;
+    const { message, sameMemberAsPrevious } = this.props;
+    const { to, toName, type, time_sent: timeSent, sender, decryptedMessage } = message;
+    const name = sender.name;
+    const toSomeoneElse = (to !== undefined && to && to !== sender.uid);
+    const time = moment(timeSent).format('lll');
+    const msg = decryptedMessage || 'could not be decrypted';
 
     let messageHeader = '';
 
     if (!sameMemberAsPrevious) {
+      let names = name;
+      if (toSomeoneElse) {
+        names = `${name} → ${toName}`;
+      }
       messageHeader = (
         <span className='message-header'>
-          <strong>{name}</strong> <small className='float-right'>{time}</small>
+          <strong>{names}</strong> <small className='float-right'>{time}</small>
         </span>
       );
     }
@@ -35,7 +41,7 @@ export default class MessageRow extends Component {
           {messageHeader}
 
           <MessageContent
-            message={message}
+            message={msg}
             className='message-content' />
         </div>
       </div>

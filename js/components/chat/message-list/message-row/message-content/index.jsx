@@ -17,7 +17,8 @@ const videoTester = new RegExp(IS_VIDEO_REGEX);
 
 export default class MessageContent extends Component {
   static propTypes = {
-    message: PropTypes.string.isRequired
+    message: PropTypes.string.isRequired,
+    className: PropTypes.string
   }
 
   constructor(props) {
@@ -63,7 +64,7 @@ export default class MessageContent extends Component {
   }
 
   render() {
-    const { message } = this.props;
+    const { message, className } = this.props;
     const { firstUrl, isVideo, isImage, tags, hasTags } = this.state;
 
     const hasExtraContent = !_.isEmpty(firstUrl);
@@ -81,7 +82,7 @@ export default class MessageContent extends Component {
     }
 
     return (
-      <span>
+      <span className={className}>
         {message}
         {extraContent}
       </span>

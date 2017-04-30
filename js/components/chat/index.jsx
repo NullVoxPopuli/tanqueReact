@@ -56,13 +56,11 @@ class ChatIndex extends React.Component {
 
     // we only filter on whispers
     if (to && to.uid) {
-      return messages.filter(m => {
-        return (
-          m.type === WHISPER &&
-          // from the to, or to the to
-          (m.sender.uid === to.uid || m.sender.uid === myUid)
-        )
-      });
+      return messages.filter(m => (
+        m.type === WHISPER &&
+        // from the to, or to the to
+        (m.sender.uid === to.uid || m.sender.uid === myUid)
+      ));
     }
 
     return messages;

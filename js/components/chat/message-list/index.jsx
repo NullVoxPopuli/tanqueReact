@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 
 import MessageRow from './message-row';
 
@@ -22,9 +21,6 @@ export default class MessageList extends Component {
     const numberOfMessages = messageRecords.length;
     for (let i = 0; i < numberOfMessages; i++) {
       const m = messageRecords[i];
-      const name = m.sender.name;
-      const date = moment(m.time_sent).format('lll');
-      const msg = m.decryptedMessage || 'could not be decrypted';
       const previous = pastMessages[i - i] || {};
       const previousSender = previous.sender || {};
 
@@ -37,10 +33,7 @@ export default class MessageList extends Component {
       messages.push(
         <MessageRow
           sameMemberAsPrevious={sameMemberAsPrevious}
-          type={m.type}
-          time={date}
-          name={name}
-          message={msg}
+          message={m}
         />);
     }
 

@@ -30,7 +30,7 @@ export const whisper = (userString, message) => (dispatch, getState) => {
   const users = state.data.users.records;
   const user = findUser(userString, users);
 
-  if (_.isEmpty(user)) return toastError('Member not found.');
+  if (_.isEmpty(user)) return toastError(`Member not found for ${userString}.`);
   dispatch(sendToUser(user, message, WHISPER));
 };
 
@@ -39,7 +39,7 @@ export const ping = userString => (dispatch, getState) => {
   const users = state.data.users.records;
   const user = findUser(userString, users);
 
-  if (_.isEmpty(user)) return toastError('Member not found.');
+  if (_.isEmpty(user)) return toastError(`Member not found for ${userString}.`);
   dispatch(sendToUser(user, '', PING));
 };
 
@@ -67,10 +67,11 @@ export function sendToAll(unencryptedString, type = 'chat') {
 // the to field is for filtering whispers later.
 // we need to know what whispers _we_ send in order to group them
 // in to the appropriate whisper channel chat.
-function sendToSelf(payload, unencryptedString, dispatch, to = '') {
+function sendToSelf(payload, unencryptedString, dispatch, toUser = '') {
   dispatch(appendMessage({
     ...payload,
-    to,
+    to: toUser && toUser.uid,
+    toName: toUser.alias,
     decryptedMessage: unencryptedString
   }));
 }
@@ -106,7 +107,7 @@ export function sendToUser(user, message, type) {
     const payload = buildPayload(config, type);
 
     // send to ourselves, so we know what we whispered
-    sendToSelf(payload, message, dispatch, user.uid);
+    sendToSelf(payload, message, dispatch, user);
     // actually send to the other person
     sendTo(user, payload, message, config);
   };
