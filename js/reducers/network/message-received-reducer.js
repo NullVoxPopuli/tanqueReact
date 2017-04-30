@@ -1,4 +1,3 @@
-import store from 'js/data/store';
 import {
   MESSAGE_CHAT,
   MESSAGE_EMOTE,
@@ -8,46 +7,46 @@ import {
   MESSAGE_NODE_LIST,
   MESSAGE_NODE_LIST_DIFF,
   MESSAGE_PING,
-  MESSAGE_PING_REPLY,
+  MESSAGE_PING_REPLY
 } from 'js/actions/message-received-actions';
 
-export default (state = store, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
-    case MESSAGE_CHAT: {
-      break;
-    }
+  case MESSAGE_CHAT: {
+    break;
+  }
 
-    case MESSAGE_EMOTE: {
-      break;
-    }
+  case MESSAGE_EMOTE: {
+    break;
+  }
 
-    case MESSAGE_WHISPER: {
-      break;
-    }
+  case MESSAGE_WHISPER: {
+    break;
+  }
 
-    case MESSAGE_DISCONNECT: {
-      break;
-    }
+  case MESSAGE_DISCONNECT: {
+    break;
+  }
 
-    case MESSAGE_NODE_LIST_HASH: {
-      break;
-    }
+  case MESSAGE_NODE_LIST_HASH: {
+    break;
+  }
 
-    case MESSAGE_NODE_LIST: {
-      break;
-    }
+  case MESSAGE_NODE_LIST: {
+    break;
+  }
 
-    case MESSAGE_NODE_LIST_DIFF: {
-      break;
-    }
+  case MESSAGE_NODE_LIST_DIFF: {
+    break;
+  }
 
-    case MESSAGE_PING: {
-      break;
-    }
+  case MESSAGE_PING: {
+    break;
+  }
 
-    case MESSAGE_PING_REPLY: {
-      break;
-    }
+  case MESSAGE_PING_REPLY: {
+    break;
+  }
 
   }
 

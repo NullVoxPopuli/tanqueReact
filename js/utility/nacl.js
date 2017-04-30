@@ -1,7 +1,5 @@
 import * as NaCl from 'tweetnacl';
-const secureRandom = require('secure-random');
-
-// import * as secureRandom from 'secure-random';
+import secureRandom from 'secure-random';
 
 import {
   convertUint8ArrayToBase64String,

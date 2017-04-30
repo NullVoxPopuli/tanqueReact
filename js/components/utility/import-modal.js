@@ -8,7 +8,7 @@ import { mutCreator } from 'components/state-helpers';
 import FileChooser from 'components/file-chooser';
 import SimpleModal from 'components/-components/simple-modal';
 
-import { toastSuccess, toastError } from 'utility/toast';
+import { toastSuccess } from 'utility/toast';
 
 import { data } from 'js/actions';
 import { isUserIdentityValid } from 'js/actions/data/users';
@@ -94,7 +94,7 @@ class ImportModal extends Component {
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = () => ({});
 const mapDispatchToProps = dispatch => ({
   importUser: bindActionCreators(data.users.importUser, dispatch)
 });

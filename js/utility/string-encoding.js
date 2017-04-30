@@ -1,7 +1,7 @@
-const naclUtil = require('tweetnacl-util');
+import naclUtil from 'tweetnacl-util';
 // this package offers a ton of encoding / decoding options.
 // We can probably slim this back down to UTF-*
-import { TextDecoder, TextEncoder } from 'text-encoding';
+import { TextDecoder } from 'text-encoding';
 
 const defaultEncoding = 'utf-8';
 const utf8Decoder = new TextDecoder(defaultEncoding);
@@ -55,9 +55,9 @@ export function base64ToHex(base64) {
   const raw = atob(base64);
   let hex = '';
 
-  for (let i = 0; i < raw.length; i++ ) {
-    let _hex = raw.charCodeAt(i).toString(16)
-    hex += (_hex.length === 2 ?_hex:'0'+_hex);
+  for (let i = 0; i < raw.length; i++) {
+    const hexChar = raw.charCodeAt(i).toString(16);
+    hex += (hexChar.length === 2 ? hexChar : `0${hexChar}`);
   }
 
   return hex.toUpperCase();

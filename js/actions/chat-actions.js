@@ -4,6 +4,6 @@ function chatSendMessage(msg, to) {
   return {
     type: CHAT_SEND_MESSAGE,
     message: msg,
-    to: to,
+    to
   };
 }

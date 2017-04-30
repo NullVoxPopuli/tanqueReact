@@ -1,13 +1,9 @@
 import { handleActions } from 'redux-actions';
 
 import {
-  ACTION_CABLE_CONNECT,
   ACTION_CABLE_CONNECTED,
-  ACTION_CABLE_DISCONNECT,
   ACTION_CABLE_DISCONNECTED,
-  ACTION_CABLE_REJECTED,
-  ACTION_CABLE_RECEIVED,
-  ACTION_CABLE_SEND_MESSAGE,
+  ACTION_CABLE_REJECTED
 } from 'js/actions/network/action-cable';
 
 const initialState = {
@@ -22,7 +18,7 @@ export default handleActions({
     status: ACTION_CABLE_CONNECTED,
     channel: action.payload.subscriptions.subscriptions[0]
   }),
-  [ACTION_CABLE_DISCONNECTED]: (state, action) => ({
+  [ACTION_CABLE_DISCONNECTED]: state => ({
     ...state,
     status: ACTION_CABLE_DISCONNECTED
   }),
