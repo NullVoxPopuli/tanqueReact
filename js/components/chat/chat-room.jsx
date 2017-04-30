@@ -16,32 +16,41 @@ class ChatRoom extends Component {
   }
 
   render() {
-    const { publicKey, messages: messageRecords } = this.props;
+    const { messages: messageRecords } = this.props;
 
-    let messageMarkup = 'There are no messages... yet.';
-
-    const messages = messageRecords.map(m => {
+    const messages = [];
+    const pastMessages = [];
+    const numberOfMessages = messageRecords.length;
+    for (let i = 0; i < numberOfMessages; i++) {
+      const m = messageRecords[i];
       const name = m.sender.name;
       const date = moment(m.time_sent).format('lll');
       const msg = m.decryptedMessage || 'could not be decrypted';
-      return <MessageRow
+      const sameMemberAsPrevious = (
+        m.sender.uid === (
+          ((pastMessages[i - 1] || {})
+            .sender || {})
+            .uid
+        )
+      );
+
+      pastMessages.push(m);
+      messages.push(
+        <MessageRow
+          sameMemberAsPrevious={sameMemberAsPrevious}
           time={date}
           name={name}
           message={msg}
-          />;
-    });
-
-    messageMarkup = (
-      <div className='messages'>
-        {messages}
-      </div>
-    );
+        />);
+    }
 
     return (
       <div
         style={{ flex: '1' }}
         className='flex-grow'>
-        {messageMarkup}
+        <div className='messages'>
+          {messages}
+        </div>
       </div>
     );
   }
