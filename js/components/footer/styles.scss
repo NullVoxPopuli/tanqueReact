@@ -1,0 +1,25 @@
+// structure
+// - body
+//   - #app
+//     - #app-wrapper
+//       - routes here
+//         - #app-container
+//       - Footer
+#app, #app-wrapper {
+  height: 100%;
+  height: 100vh;
+}
+
+#app-wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#app-container {
+  flex: 1
+}
+
+footer {
+  margin-top: 40px;
+}
