@@ -1,5 +1,5 @@
-import { IMPORT_USER, EXPORT_USER } from 'js/actions/data/users';
-import { initialState, hydrate, removeFromState } from './../helpers';
+import { IMPORT_USER, SET_WHISPER_TO_USER } from 'js/actions/data/users';
+import { initialState, hydrate } from './../helpers';
 
 export default (state = initialState, action) => {
   Object.freeze(state);
@@ -12,8 +12,11 @@ export default (state = initialState, action) => {
       ...state,
       records: hydrate(state.records, [action.json])
     };
-  case EXPORT_USER:
-    return state;
+  case SET_WHISPER_TO_USER:
+    return {
+      ...state,
+      whisperingToUser: action.uid
+    }
   default:
     return state;
   }

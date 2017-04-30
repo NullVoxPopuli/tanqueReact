@@ -1,39 +1,36 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Nav, NavItem, Row, Col } from 'reactstrap';
+import { Nav, NavItem, NavLink } from 'reactstrap';
+import _ from 'lodash';
 
 import UserListRow from './user-list-row';
 
-class UserList extends Component {
+export default class UserList extends Component {
   static propTypes = {
-    didCloseList: PropTypes.func.isRequired
-  }
-
-  constructor(props) {
-    super(props);
-  }
-
-  // set up whispering to the clicked user
-  onSelect(user) {
-    // TODO: write action which switches the app into whisper mode to this user
-    return null;
+    users: PropTypes.array.isRequired,
+    whisperingToUser: PropTypes.any.isRequired,
+    didCloseList: PropTypes.func.isRequired,
+    handleUserSelect: PropTypes.func.isRequired
   }
 
   handleUserSelect(user) {
-    // this.props.handleUserSelect(user);
+    this.props.handleUserSelect(user);
   }
 
   // maybbe use this
   // https://github.com/mango/slideout
   render() {
-    const { users, didCloseList } = this.props;
+    const { users, didCloseList, whisperingToUser } = this.props;
     const userList = users.map(user =>
       <NavItem key={user.uid}>
         <UserListRow
+          active={user.uid === whisperingToUser.uid}
           user={user}
           handleUserSelect={this.handleUserSelect.bind(this, user)} />
       </NavItem>);
+
+    // TODO: implement Channels
+    const isWhispering = !_.isEmpty(whisperingToUser);
 
     return (
       <div style={{
@@ -56,8 +53,20 @@ class UserList extends Component {
           }}>
           <i className='fa fa-times'></i>
         </a>
+
         <h5>Channels</h5>
-        All
+        <Nav>
+          <NavItem>
+            <NavLink
+              style={{
+                cusor: 'pointer',
+                fontWeight: isWhispering ? 'normal' : 'bold' }}
+              onClick={this.handleUserSelect.bind(this, '')}>
+              General
+            </NavLink>
+          </NavItem>
+        </Nav>
+
         <h5 className='mt-5'>Members</h5>
         <Nav vertical onSelect={this.onSelect}>
           {userList}
@@ -66,11 +75,3 @@ class UserList extends Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  users: state.data.users.records
-});
-
-export default connect(
-  mapStateToProps, {}
-)(UserList);

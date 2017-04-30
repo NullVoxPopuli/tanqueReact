@@ -10,6 +10,7 @@ import ChatRoom from './chat-room';
 
 import { actionCable } from 'js/actions/network';
 import { inputHandler } from 'js/actions/views';
+import { setWhisperToUser } from 'actions/data/users';
 
 import './off-canvas-styles.scss';
 
@@ -25,18 +26,17 @@ class ChatIndex extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { showUsers: false };
+    this.state = { showUsers: false, activeChannel: '' };
     this.props.connect();
     this.didEnterMessage = this.didEnterMessage.bind(this);
     this.didClickShowUsers = this.didClickShowUsers.bind(this);
+    this.handleUserSelect = this.handleUserSelect.bind(this);
   }
 
   handleUserSelect(user) {
-    // let id = (user === defaultChat ? user : user.id);
-    // this.currentRoomId = id;
-    // let path = `/chat/${id}`;
-    //
-    // this.props.router.push(path);
+    const { setWhisper } = this.props;
+
+    setWhisper(user);
   }
 
   didEnterMessage(message) {
@@ -50,7 +50,7 @@ class ChatIndex extends React.Component {
   }
 
   render() {
-    const { messages } = this.props;
+    const { messages, users, whisperingToUser } = this.props;
     const { showUsers } = this.state;
 
     return (
@@ -72,13 +72,14 @@ class ChatIndex extends React.Component {
           style={{
             display: 'flex',
             transition: 'max-width 0.1s ease-in-out',
-            maxWidth: showUsers ? '300px' : '40px'
+            maxWidth: showUsers ? '300px' : '50px'
           }}>
           {showUsers &&
             <UserList
+              whisperingToUser={whisperingToUser}
               didCloseList={this.didClickShowUsers}
-              users={this.users}
-              handleUserSelect={this.handleUserSelect.bind(this)}/>}
+              users={users}
+              handleUserSelect={this.handleUserSelect}/>}
         </Col>
         <Col className='d-flex h-100 flex-column pl-0'>
           <div
@@ -87,6 +88,7 @@ class ChatIndex extends React.Component {
             <ChatRoom
               messages={messages} />
             <TextEntry
+              whisperingToUser={whisperingToUser}
               onSendText={this.didEnterMessage}
               currentRoomId={this.currentRoomId}/>
           </div>
@@ -98,12 +100,15 @@ class ChatIndex extends React.Component {
 
 const mapStateToProps = state => ({
   config: state.identity.config,
-  messages: state.data.messages.records
+  messages: state.data.messages.records,
+  users: state.data.users.records,
+  whisperingToUser: state.data.users.whisperingToUser
 });
 
 const mapDispatchToProps = dispatch => ({
   handleInput: bindActionCreators(inputHandler.handleInput, dispatch),
-  connect: bindActionCreators(actionCable.connectToCable, dispatch)
+  connect: bindActionCreators(actionCable.connectToCable, dispatch),
+  setWhisper: bindActionCreators(setWhisperToUser, dispatch)
 });
 
 export default connect(

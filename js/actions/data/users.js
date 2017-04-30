@@ -2,9 +2,11 @@ import _ from 'lodash';
 
 export const IMPORT_USER = 'data/users/IMPORT_USER';
 export const EXPORT_USER = 'data/users/EXPORT_USER';
+export const SET_WHISPER_TO_USER = 'data/users/SET_WHISPER_TO_USER';
 
 export const importUser = json => ({ type: IMPORT_USER, json });
 export const exportUser = json => ({ type: EXPORT_USER, json });
+export const setWhisperToUser = uid => ({ type: SET_WHISPER_TO_USER, uid });
 
 export function getUserForUid(uid) {
   return (dispatch, getState) => {

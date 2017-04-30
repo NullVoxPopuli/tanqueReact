@@ -4,8 +4,9 @@ import { Row, Col } from 'reactstrap';
 
 export default class UserListRow extends Component {
   static propTypes = {
-    handleUserSelect: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired
+    active: PropTypes.bool.isRequired,
+    user: PropTypes.object.isRequired,
+    handleUserSelect: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -35,11 +36,11 @@ export default class UserListRow extends Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, active } = this.props;
     const status = this.onlineStatus();
     return (
       <Row
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: 'pointer', fontWeight: active ? 'bold' : 'normal' }}
         onClick={this.handleUserSelect}>
         <Col xs={2}> {status} </Col>
         <Col xs={10}>
