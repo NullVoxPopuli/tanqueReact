@@ -9,15 +9,18 @@
     min-height: 0px;
     align-items: flex-end;
     display: flex;
-    justify-content: space-between;
+    flex-shrink: 1;
 
+    .messages {
+      flex: 1 1 0%;
 
-    .message {
-
-      &:first-child {
-        flex-grow: 1;
+      .message {
+        &:first-child {
+          flex-grow: 1;
+        }
       }
     }
+
   }
 
 }
