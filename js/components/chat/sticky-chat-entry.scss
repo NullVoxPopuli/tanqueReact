@@ -5,14 +5,15 @@
 
   .message-list {
     flex: 1 1 0%;
-    overflow-y: auto;
-    min-height: 0px;
+    // overflow-y: auto;
+    // min-height: 0px;
     align-items: flex-end;
     display: flex;
     flex-shrink: 1;
-
     .messages {
-      flex: 1 1 0%;
+      flex: 1 1 auto;
+      overflow-y: auto;
+      min-height: auto;
 
       .message {
         &:first-child {
