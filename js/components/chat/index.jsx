@@ -14,6 +14,7 @@ import { setWhisperToUser } from 'actions/data/users';
 import { WHISPER } from 'actions/data/messages';
 
 import './off-canvas-styles.scss';
+import './sticky-chat-entry.scss';
 
 class ChatIndex extends React.Component {
   static propTypes = {

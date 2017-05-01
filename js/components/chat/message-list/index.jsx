@@ -38,9 +38,7 @@ export default class MessageList extends Component {
     }
 
     return (
-      <div
-        style={{ flex: '1' }}
-        className='flex-grow'>
+      <div className='message-list'>
         <div className='messages'>
           {messages}
         </div>
