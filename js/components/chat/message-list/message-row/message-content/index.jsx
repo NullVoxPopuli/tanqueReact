@@ -60,7 +60,8 @@ export default class MessageContent extends Component {
       .then(metadata => {
         const hasTags = !_.isEmpty(metadata);
         this.setState({ tags: metadata, hasTags });
-      });
+      })
+      .catch(console.info);
   }
 
   render() {
