@@ -37,6 +37,7 @@ function cableDisconnected(dispatch) {
 
 function cableRejected(dispatch) {
   return data => {
+    console.log('rejected', data);
     dispatch(rejected(data));
   };
 }
@@ -48,6 +49,7 @@ function cableReceived(dispatch) {
   //   message: actual message
   // }
   return data => {
+    console.log('received', data);
     const message = data.message;
     dispatch(received(message));
 
