@@ -13,6 +13,17 @@ export default class MessageList extends Component {
     this.state = { };
   }
 
+  componentDidUpdate() {
+    this.scrollMessagesContainer();
+  }
+
+  scrollMessagesContainer() {
+    const el = document.getElementById('messages');
+    const lastMessage = el.querySelector('.message:last-child');
+    el.scrollTop = lastMessage.offsetTop + lastMessage.offsetHeight;
+  }
+
+
   render() {
     const { messages: messageRecords } = this.props;
 
@@ -39,7 +50,7 @@ export default class MessageList extends Component {
 
     return (
       <div className='message-list'>
-        <div className='messages'>
+        <div id='messages' className='messages'>
           {messages}
         </div>
       </div>
