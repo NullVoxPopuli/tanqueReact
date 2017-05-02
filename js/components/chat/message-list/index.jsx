@@ -20,7 +20,9 @@ export default class MessageList extends Component {
   scrollMessagesContainer() {
     const el = document.getElementById('messages');
     const lastMessage = el.querySelector('.message:last-child');
-    el.scrollTop = lastMessage.offsetTop + lastMessage.offsetHeight;
+    if (lastMessage) {
+      el.scrollTop = lastMessage.offsetTop + lastMessage.offsetHeight;
+    }
   }
 
 
