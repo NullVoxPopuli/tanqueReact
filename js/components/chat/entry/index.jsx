@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import _ from 'lodash';
 import { Input, Button } from 'reactstrap';
 
-// import { mutCreator } from 'components/state-helpers';
 import { mutCreator } from 'react-state-helpers';
 
 export default class TextEntry extends React.Component {
   static propTypes = {
-    whisperingToUser: PropTypes.any
+    whisperingToUser: PropTypes.any,
+    onSendText: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -25,12 +25,20 @@ export default class TextEntry extends React.Component {
     // set up appropriate context bindings for actions
     this.onKeyPress = this.onKeyPress.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
+    this.isSendingDisabled = this.isSendingDisabled.bind(this);
   }
 
   onKeyPress(e) {
     if (e.key === 'Enter') {
+      if (this.isSendingDisabled()) return;
       this.sendMessage();
     }
+  }
+
+  isSendingDisabled() {
+    const { messageToSend } = this.state;
+
+    return _.isEmpty(messageToSend);
   }
 
   sendMessage() {
@@ -43,14 +51,18 @@ export default class TextEntry extends React.Component {
     this.setState({ messageToSend: '' });
 
     onSendText(messageToSend);
-    window.scrollTo(0, document.body.scrollHeight);
   }
 
   render() {
-    const { whisperingToUser: to } = this.props;
-    const mut = this.mut;
+    const {
+      state: { messageToSend },
+      props: { whisperingToUser: to },
+      mut, onKeyPress, sendMessage, isSendingDisabled
+    } = this;
 
-    const who = to && to.alias || 'everyone';
+    const who = (to && to.alias) || 'everyone';
+    const sendDisabled = isSendingDisabled();
+
     return (
       <div
         className='p-2 d-flex justify-content-starts'>
@@ -58,11 +70,14 @@ export default class TextEntry extends React.Component {
           placeholder={`Send a message to ${who}...`}
           className='p-3 full-width'
           type='text'
-          value={this.state.messageToSend}
-          onKeyPress={this.onKeyPress}
+          value={messageToSend}
+          onKeyPress={onKeyPress}
           onChange={mut('messageToSend')}/>
 
-        <Button onClick={this.sendMessage} color='success'>
+        <Button
+          disabled={sendDisabled}
+          onClick={sendMessage}
+          color='success'>
           Send
         </Button>
       </div>

@@ -10,7 +10,7 @@ import {
 
 import { base64ToHex } from 'utility';
 import { isStoredConfigValid } from 'actions/identity/config';
-import { mutCreator } from 'components/state-helpers';
+import { mutCreator } from 'react-state-helpers';
 import DangerModal from 'components/-components/danger-modal';
 import FileChooser from 'components/file-chooser';
 

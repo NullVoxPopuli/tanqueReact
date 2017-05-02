@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { FormGroup, Input } from 'reactstrap';
 import { connect } from 'react-redux';
 
-import { mutCreator } from 'components/state-helpers';
+import { mutCreator } from 'react-state-helpers';
 import FileChooser from 'components/file-chooser';
 import SimpleModal from 'components/-components/simple-modal';
 

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { toastSuccess, toastError } from 'utility/toast';
 
-import { mutCreator } from 'components/state-helpers';
+import { mutCreator } from 'react-state-helpers';
 import { objectToDataURL } from 'utility';
 import { identity } from 'actions';
 
