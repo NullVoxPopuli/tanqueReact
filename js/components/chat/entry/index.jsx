@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 import { Input, Button } from 'reactstrap';
 
-import { mutCreator } from 'components/state-helpers';
+// import { mutCreator } from 'components/state-helpers';
+import { mutCreator } from 'react-state-helpers';
 
 export default class TextEntry extends React.Component {
   static propTypes = {
