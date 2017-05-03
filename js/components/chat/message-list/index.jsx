@@ -34,12 +34,13 @@ export default class MessageList extends Component {
     const numberOfMessages = messageRecords.length;
     for (let i = 0; i < numberOfMessages; i++) {
       const m = messageRecords[i];
-      const previous = pastMessages[i - i] || {};
+      const previous = pastMessages[i - 1] || {};
       const previousSender = previous.sender || {};
 
       const sameMemberAsPrevious = (
         m.sender.uid === previousSender.uid &&
-        m.type === previous.type
+        m.type === previous.type &&
+        m.to === previous.to
       );
 
       pastMessages.push(m);
