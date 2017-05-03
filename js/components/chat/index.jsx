@@ -91,7 +91,8 @@ class ChatIndex extends React.Component {
           style={{
             display: 'flex',
             transition: 'max-width 0.1s ease-in-out',
-            maxWidth: showUsers ? '300px' : '50px'
+            maxWidth: showUsers ? '300px' : '64px',
+            background: 'rgb(40, 40, 40)'
           }}>
           {showUsers &&
             <UserList
