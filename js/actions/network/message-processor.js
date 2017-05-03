@@ -6,6 +6,8 @@ import { appendMessage } from 'js/actions/data/messages';
 import { ONLINE, OFFLINE, findUser, setOnlineStatus } from 'actions/data/users';
 import redux from 'js/redux-store';
 
+import notify from 'js/notifications';
+
 export const DECRYPTING_MESSAGE = 'message-processor/DECRYPTING_MESSAGE';
 export const DECRYPTION_COMPLETE = 'message-processor/DECRYPTION_COMPLETE';
 
@@ -44,6 +46,8 @@ function processChatMessage(messagePayload, state) {
   // because we received something from somebody,
   // mark them as online.
   redux.dispatch(setOnlineStatus(messagePayload.sender.uid, ONLINE));
+
+  notify(messagePayload);
 
   return decrypted;
 }
