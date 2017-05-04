@@ -1,0 +1,41 @@
+/* Position and sizing of burger button */
+.bm-burger-button {
+  .navbar-toggler {
+    font-size: 28px;
+  }
+
+  button {
+    display: none;
+  }
+}
+
+.bm-cross-button {
+  background: none;
+  font-size: 24px;
+
+  span {
+    background: none;
+  }
+
+  button {
+    display: none;
+  }
+}
+
+.bm-menu {
+  background: rgb(40, 40, 40);
+  box-shadow: 10px 0 15px rgba(0,0,0,0.25);
+  color: white;
+  padding: 0px;
+  overflow: hidden;
+
+  .bm-item-list {
+    color: white;
+  }
+}
+// flex: 1,
+// padding: '15px',
+// borderLeft: '1px solid black',
+// background: '#353535',
+// color: 'white',
+// boxShadow: '10px 0 15px rgba(0,0,0,0.25)'

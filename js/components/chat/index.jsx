@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
 
-import UserList from './user-list';
 import TextEntry from './entry';
 import MessageList from './message-list';
 
@@ -28,27 +27,14 @@ class ChatIndex extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { showUsers: false, activeChannel: '' };
     this.props.connect();
     this.didEnterMessage = this.didEnterMessage.bind(this);
-    this.didClickShowUsers = this.didClickShowUsers.bind(this);
-    this.handleUserSelect = this.handleUserSelect.bind(this);
-  }
-
-  handleUserSelect(user) {
-    const { setWhisper } = this.props;
-
-    setWhisper(user);
   }
 
   didEnterMessage(message) {
     const { handleInput } = this.props;
 
     handleInput(message);
-  }
-
-  didClickShowUsers() {
-    this.setState({ showUsers: !this.state.showUsers });
   }
 
   relevantMessages() {
@@ -68,8 +54,7 @@ class ChatIndex extends React.Component {
   }
 
   render() {
-    const { users, whisperingToUser } = this.props;
-    const { showUsers } = this.state;
+    const { whisperingToUser } = this.props;
     const messages = this.relevantMessages();
 
     return (
@@ -80,28 +65,7 @@ class ChatIndex extends React.Component {
         left: '0px',
         right: '0px'
       }}>
-        <a
-          style={{ display: showUsers ? 'none' : 'block' }}
-          onClick={this.didClickShowUsers}
-          className='off-canvas-open-button'>
-          <i className='fa fa-bars'></i>
-        </a>
-        <Col
-          className='h-100 pr-0'
-          style={{
-            display: 'flex',
-            transition: 'max-width 0.1s ease-in-out',
-            maxWidth: showUsers ? '300px' : '64px',
-            background: 'rgb(40, 40, 40)'
-          }}>
-          {showUsers &&
-            <UserList
-              whisperingToUser={whisperingToUser}
-              didCloseList={this.didClickShowUsers}
-              users={users}
-              handleUserSelect={this.handleUserSelect}/>}
-        </Col>
-        <Col className='d-flex h-100 flex-column pl-0'>
+        <Col className='d-flex h-100 flex-column'>
           <div
             id='chat-wrapper'
             className='h-100 d-flex flex-column'>
@@ -120,15 +84,12 @@ class ChatIndex extends React.Component {
 
 const mapStateToProps = state => ({
   config: state.identity.config,
-  messages: state.data.messages.records,
-  users: state.data.users.records,
-  whisperingToUser: state.data.users.whisperingToUser
+  messages: state.data.messages.records
 });
 
 const mapDispatchToProps = dispatch => ({
   handleInput: bindActionCreators(inputHandler.handleInput, dispatch),
-  connect: bindActionCreators(actionCable.connectToCable, dispatch),
-  setWhisper: bindActionCreators(setWhisperToUser, dispatch)
+  connect: bindActionCreators(actionCable.connectToCable, dispatch)
 });
 
 export default connect(

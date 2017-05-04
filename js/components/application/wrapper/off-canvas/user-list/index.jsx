@@ -20,7 +20,7 @@ export default class UserList extends Component {
   // maybbe use this
   // https://github.com/mango/slideout
   render() {
-    const { users, didCloseList, whisperingToUser: to } = this.props;
+    const { users, whisperingToUser: to } = this.props;
     const userList = users.map(user =>
       <NavItem key={user.uid}>
         <UserListRow
@@ -33,27 +33,7 @@ export default class UserList extends Component {
     const isWhispering = !_.isEmpty(to);
 
     return (
-      <div style={{
-        flex: 1,
-        padding: '15px',
-        borderLeft: '1px solid black',
-        background: '#353535',
-        color: 'white',
-        boxShadow: '10px 0 15px rgba(0,0,0,0.25)' }} >
-        <a
-          onClick={didCloseList}
-          style={{
-            color: 'white',
-            position: 'absolute',
-            top: '15px',
-            right: '15px',
-            height: '20px',
-            width: '20px',
-            cursor: 'pointer'
-          }}>
-          <i className='fa fa-times'></i>
-        </a>
-
+      <div >
         <h5>Channels</h5>
         <Nav>
           <NavItem>

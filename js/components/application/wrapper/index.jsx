@@ -12,6 +12,8 @@ import Footer from 'components/footer';
 
 import { isStoredConfigValid } from 'actions/identity/config';
 
+import OffCanvas from './off-canvas';
+
 const requireConfig = (Comp, props = {}) => () => {
   if (isStoredConfigValid()) return <Comp { ...props } />;
 
@@ -25,8 +27,13 @@ class Wrapper extends Component {
 
   render() {
     const { history } = this.props;
+    const path = window.location.pathname;
+    const isRootPath = path === '/';
+    const isChat = path === '/chat';
+
     return (
       <div id='app-wrapper'>
+        {isChat && <OffCanvas />}
         <div id='app-container'>
           <Navigation />
           <ToastContainer
@@ -51,7 +58,7 @@ class Wrapper extends Component {
           </div>
         </div>
 
-        {window.location.pathname === '/' && <Footer />}
+        {isRootPath && <Footer />}
       </div>
     );
   }
