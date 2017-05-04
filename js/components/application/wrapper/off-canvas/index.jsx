@@ -100,7 +100,9 @@ class OffCanvas extends Component {
         </div>
 
         {/* hidden-md-up  ? */}
-        <OffCanvasFooter navClasses='align-self-end w-100'/>
+        <OffCanvasFooter
+          closeOffCanvas={toggle('open')}
+          navClasses='align-self-end w-100'/>
       </Menu>
     );
   }
