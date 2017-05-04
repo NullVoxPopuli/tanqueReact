@@ -11,7 +11,6 @@ import { actionCable } from 'js/actions/network';
 import { inputHandler } from 'js/actions/views';
 import { WHISPER } from 'actions/data/messages';
 
-import './off-canvas-styles.scss';
 import './sticky-chat-entry.scss';
 
 class ChatIndex extends React.Component {
