@@ -14,7 +14,6 @@ export default class SettingsPresentation extends Component {
     importSettings: PropTypes.func.isRequired,
     onAliasChange: PropTypes.func.isRequired,
     saveSafeSettings: PropTypes.func.isRequired,
-    regenerateUid: PropTypes.func.isRequired,
     regenerateKeys: PropTypes.func.isRequired
   }
 
@@ -22,7 +21,7 @@ export default class SettingsPresentation extends Component {
     const {
       alias, onAliasChange, saveSafeSettings,
       url, onUrlChange,
-      uid, regenerateUid,
+      uid,
       publicKey, regenerateKeys,
       settingsDataUrl, importSettings
     } = this.props;
@@ -88,37 +87,16 @@ export default class SettingsPresentation extends Component {
 
             <br /><br /><br />
             <Card>
-              <CardHeader tag='h4'>Potentially Destructive Settings</CardHeader>
+              <CardHeader tag='h4'>Destructive Settings</CardHeader>
               <CardBlock>
-                <Row>
-                  <Col sm={4}><h4>UID</h4></Col>
-                  <Col sm={8}>
-                    <Button
-                      onClick={regenerateUid}
-                      className='float-right'>Re-Generate</Button>
-                  </Col>
-                </Row>
+                <h4>UID</h4>
                 <FormGroup>
                   <Label></Label>
                   <Input type='text' disabled value={uid} />
                 </FormGroup>
 
-                <div className='alert bg-danger'>
-                  Note that re-generating your UID will prevent people from being
-                  able to send you messages, and they will no longer be able to
-                  decrypt messages you send to them.
-                </div>
                 <br />
-                <br />
-
-                <Row>
-                  <Col sm={4}><h4>KEYS</h4></Col>
-                  <Col sm={8}>
-                    <Button
-                      onClick={regenerateKeys}
-                      className='float-right'>Re-Generate Keys</Button>
-                  </Col>
-                </Row>
+                <h4>KEYS</h4>
                 <FormGroup>
                   <Label>Public Key</Label>
                   <Input type='text' disabled value={publicKey} />
@@ -133,6 +111,10 @@ export default class SettingsPresentation extends Component {
                   You will not be able to decrypt any messages sent to you until
                   re-authorization.
                 </div>
+                <Button
+                  color='danger'
+                  onClick={regenerateKeys}
+                  className='float-right'>I understand, regenerate anyway</Button>
               </CardBlock>
             </Card>
             <br/>

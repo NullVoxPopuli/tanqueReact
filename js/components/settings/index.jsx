@@ -29,7 +29,6 @@ class Settings extends React.Component {
     this.saveSafeSettings = this.saveSafeSettings.bind(this);
     this.importSettings = this.importSettings.bind(this);
     this.regenerateKeys = this.regenerateKeys.bind(this);
-    this.regenerateUid = this.regenerateUid.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,13 +42,11 @@ class Settings extends React.Component {
   }
 
   regenerateKeys() {
-    this.props.regenerateKeys()
-      .then(() => toastSuccess('Keys have been regenerated. Please Re-Authorize to a network.'));
-  }
+    const { regenerateKeys, regenerateUid } = this.props;
 
-  regenerateUid() {
-    this.props.regenerateUid()
-      .then(() => toastSuccess('UID has been regenerated.'));
+    regenerateKeys()
+      .then(regenerateUid)
+      .then(() => toastSuccess('Keys and UID have been regenerated. Please Re-Authorize to a network.'));
   }
 
   saveSafeSettings() {
@@ -80,7 +77,6 @@ class Settings extends React.Component {
         url={url}
         onUrlChange={mut('config.url')}
         uid={uid}
-        regenerateUid={this.regenerateUid}
         publicKey={publicKey}
         regenerateKeys={this.regenerateKeys}
         settingsDataUrl={settingsDataUrl}
