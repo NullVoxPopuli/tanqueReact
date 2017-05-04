@@ -44,13 +44,13 @@ export default class UserList extends Component {
         <h5>Channels</h5>
         <Nav>
           <NavItem>
-            <NavLink
+            <div
               style={{
                 cusor: 'pointer',
                 fontWeight: isWhispering ? 'normal' : 'bold' }}
               onClick={this.handleUserSelect('')}>
               General
-            </NavLink>
+            </div>
           </NavItem>
         </Nav>
 
