@@ -3,7 +3,8 @@ engines:
   csslint:
     enabled: false
   duplication:
-    enabled: true
+    # Codeclimate thinks everything is duplication...
+    enabled: false
     config:
       languages:
       - javascript
