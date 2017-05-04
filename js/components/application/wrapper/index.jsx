@@ -33,7 +33,7 @@ class Wrapper extends Component {
 
     return (
       <div id='app-wrapper'>
-        {isChat && <OffCanvas />}
+        <OffCanvas showUserList={isChat} />
         <div id='app-container'>
           <Navigation />
           <ToastContainer

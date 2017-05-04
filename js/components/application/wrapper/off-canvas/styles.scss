@@ -89,6 +89,8 @@
 
   .bm-item-list {
     color: white;
+    display: flex;
+    flex-direction: column;
   }
 }
 // flex: 1,

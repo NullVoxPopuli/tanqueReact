@@ -9,6 +9,7 @@ import { toggleCreator } from 'react-state-helpers';
 import { setWhisperToUser } from 'actions/data/users';
 
 import UserList from './user-list';
+import OffCanvasFooter from './footer';
 
 import './styles.scss';
 
@@ -35,8 +36,10 @@ class OffCanvas extends Component {
     setWhisper(user);
   }
 
+  // needed to keep this component's open state
+  // in-sync with the Menu's open value
   updateOpen(state) {
-    this.setState({ open: state.isOpen })
+    this.setState({ open: state.isOpen });
   }
 
   render() {
@@ -44,12 +47,12 @@ class OffCanvas extends Component {
       toggle,
       updateOpen, handleUserSelect,
       state: { open },
-      props: { whisperingToUser, users }
+      props: { whisperingToUser, users, showUserList }
     } = this;
 
     const offCanvasStyles = {
       bmBurgerButton: {
-        zIndex: '2010',
+        zIndex: '1035',
         position: 'absolute',
         top: '13px',
         left: '17px',
@@ -57,10 +60,10 @@ class OffCanvas extends Component {
         margin: '0px'
       },
       bmMenuWrap: {
-        zIndex: '2020'
+        zIndex: '1036'
       },
       bmOverlay: {
-        zIndex: '2019'
+        zIndex: '1034'
       },
       bmMenu: {
         overflow: 'hidden'
@@ -89,10 +92,15 @@ class OffCanvas extends Component {
         styles={offCanvasStyles}
         pageWrapId={'app-container'}
         outerContainerId={'app-wrapper'}>
-        <UserList
-          whisperingToUser={whisperingToUser}
-          users={users}
-          handleUserSelect={handleUserSelect}/>
+        <div style={{ flexGrow: '1' }}>
+          {showUserList && <UserList
+            whisperingToUser={whisperingToUser}
+            users={users}
+            handleUserSelect={handleUserSelect}/>}
+        </div>
+
+        {/* hidden-md-up  ? */}
+        <OffCanvasFooter navClasses='align-self-end w-100'/>
       </Menu>
     );
   }

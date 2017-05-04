@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom';
 import {
   Collapse,
   Navbar,
-  NavbarToggler,
   Nav,
   NavItem
 } from 'reactstrap';
-import FontAwesome from 'react-fontawesome';
 
 import ImportModal from 'components/utility/import-modal';
 import ExportModal from 'components/utility/export-modal';
@@ -35,11 +33,6 @@ export default class Navigation extends Component {
     return (
       <Navbar inverse fixed='true' toggleable
         className='sticky-top navbar-dark navbar-toggleable-md bg-inverse'>
-        <FontAwesome
-          style={{ fontSize: '28px' }}
-          className='navbar-toggler navbar-toggler-right'
-          name='bars'
-          onClick={this.toggle} />
         <Link className='navbar-brand' to='/'>tanqueRéact</Link>
 
         <Collapse className='navbar-collapse' isOpen={isOpen}>
