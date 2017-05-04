@@ -1,4 +1,4 @@
-import update from 'immutability-helper';
+// import update from 'immutability-helper';
 
 export const initialAsyncState = {
   loading: false,

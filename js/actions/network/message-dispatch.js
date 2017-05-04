@@ -114,7 +114,7 @@ export function sendToUser(user, message, type) {
 }
 
 export function sendTo(user, payload, unencryptedString, config) {
-  const { uid: theirUid, publickey: theirPublicKey } = user
+  const { uid: theirUid, publickey: theirPublicKey } = user;
   redux.dispatch(messageDispatch({ theirUid, unencryptedString }));
 
   const { privateKey } = config;

@@ -22,17 +22,17 @@ export default (state = initialState, action) => {
     return {
       ...state,
       records: hydrate(state.records, action.users)
-    }
+    };
   case SET_WHISPER_TO_USER:
     return {
       ...state,
       whisperingToUser: action.uid
-    }
+    };
   case SET_ONLINE_STATUS:
     return {
       ...state,
       records: hydrate(state.records, [action.user])
-    }
+    };
   default:
     return state;
   }

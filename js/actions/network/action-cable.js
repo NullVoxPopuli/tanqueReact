@@ -84,7 +84,7 @@ export function connectToCable() {
     const path = `${url}?uid=${uid}`;
 
     const cable = ActionCable.createConsumer(path);
-    const channel = cable.subscriptions.create({ channel: RELAY_CHANNEL }, {
+    cable.subscriptions.create({ channel: RELAY_CHANNEL }, {
       connected: cableConnected(path, cable, dispatch),
       disconnected: cableDisconnected(dispatch),
       rejected: cableRejected(dispatch),
