@@ -19,7 +19,10 @@ reduxStore
 
     saveState({
       data: {
-        users: state.data.users
+        users: state.data.users,
+        messages: {
+          records: state.data.messages.records.slice(1).slice(-1000)
+        }
       },
       identity: state.identity
     });
