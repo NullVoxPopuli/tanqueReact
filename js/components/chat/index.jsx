@@ -9,7 +9,6 @@ import MessageList from './message-list';
 
 import { actionCable } from 'js/actions/network';
 import { inputHandler } from 'js/actions/views';
-import { setWhisperToUser } from 'actions/data/users';
 import { WHISPER } from 'actions/data/messages';
 
 import './off-canvas-styles.scss';
@@ -84,7 +83,8 @@ class ChatIndex extends React.Component {
 
 const mapStateToProps = state => ({
   config: state.identity.config,
-  messages: state.data.messages.records
+  messages: state.data.messages.records,
+  whisperingToUser: state.data.users.whisperingToUser
 });
 
 const mapDispatchToProps = dispatch => ({

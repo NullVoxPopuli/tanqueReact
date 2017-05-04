@@ -28,8 +28,8 @@ class Wrapper extends Component {
   render() {
     const { history } = this.props;
     const path = window.location.pathname;
-    const isRootPath = path === '/';
-    const isChat = path === '/chat';
+    const isRootPath = path.match('/$');
+    const isChat = path.match('/chat');
 
     return (
       <div id='app-wrapper'>

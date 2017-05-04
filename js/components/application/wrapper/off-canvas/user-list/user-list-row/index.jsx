@@ -1,20 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col } from 'reactstrap';
 
 export default class UserListRow extends Component {
   static propTypes = {
     active: PropTypes.bool.isRequired,
     user: PropTypes.object.isRequired,
     handleUserSelect: PropTypes.func.isRequired
-  }
-
-  constructor(props) {
-    super(props);
-
-    const { user } = props;
-
-    this.handleUserSelect = this.handleUserSelect.bind(this, user);
   }
 
   isOnline() {
@@ -31,22 +22,21 @@ export default class UserListRow extends Component {
     return <i className='fa fa-circle-o'></i>;
   }
 
-  handleUserSelect(user) {
-    this.props.handleUserSelect(user);
-  }
 
   render() {
-    const { user, active } = this.props;
+    const { user, active, handleUserSelect } = this.props;
     const status = this.onlineStatus();
+
     return (
-      <Row
+      <div
+        className='d-flex flex-rows'
         style={{ cursor: 'pointer', fontWeight: active ? 'bold' : 'normal' }}
-        onClick={this.handleUserSelect}>
-        <Col xs={2}> {status} </Col>
-        <Col xs={10}>
+        onClick={handleUserSelect}>
+        <div className='mr-2'> {status} </div>
+        <div>
           {user.alias}
-        </Col>
-      </Row>
+        </div>
+      </div>
     );
   }
 }

@@ -26,6 +26,7 @@ class OffCanvas extends Component {
 
     this.toggle = toggleCreator(this);
     this.handleUserSelect = this.handleUserSelect.bind(this);
+    this.updateOpen = this.updateOpen.bind(this);
   }
 
   handleUserSelect(user) {
@@ -34,9 +35,14 @@ class OffCanvas extends Component {
     setWhisper(user);
   }
 
+  updateOpen(state) {
+    this.setState({ open: state.isOpen })
+  }
+
   render() {
     const {
       toggle,
+      updateOpen, handleUserSelect,
       state: { open },
       props: { whisperingToUser, users }
     } = this;
@@ -52,6 +58,9 @@ class OffCanvas extends Component {
       },
       bmMenuWrap: {
         zIndex: '2020'
+      },
+      bmOverlay: {
+        zIndex: '2019'
       },
       bmMenu: {
         overflow: 'hidden'
@@ -74,6 +83,7 @@ class OffCanvas extends Component {
     return (
       <Menu
         isOpen={open}
+        onStateChange={updateOpen}
         customBurgerIcon={burger}
         customCrossIcon={cross}
         styles={offCanvasStyles}
@@ -81,9 +91,8 @@ class OffCanvas extends Component {
         outerContainerId={'app-wrapper'}>
         <UserList
           whisperingToUser={whisperingToUser}
-          didCloseList={() => {}}
           users={users}
-          handleUserSelect={this.handleUserSelect}/>
+          handleUserSelect={handleUserSelect}/>
       </Menu>
     );
   }

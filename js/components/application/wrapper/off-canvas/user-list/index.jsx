@@ -9,12 +9,19 @@ export default class UserList extends Component {
   static propTypes = {
     users: PropTypes.array.isRequired,
     whisperingToUser: PropTypes.any,
-    didCloseList: PropTypes.func.isRequired,
     handleUserSelect: PropTypes.func.isRequired
   }
 
+  constructor(props) {
+    super(props);
+
+    this.handleUserSelect = this.handleUserSelect.bind(this);
+  }
+
   handleUserSelect(user) {
-    this.props.handleUserSelect(user);
+    return () => {
+      this.props.handleUserSelect(user);
+    };
   }
 
   // maybbe use this
@@ -26,7 +33,7 @@ export default class UserList extends Component {
         <UserListRow
           active={user.uid === (to && to.uid)}
           user={user}
-          handleUserSelect={this.handleUserSelect.bind(this, user)} />
+          handleUserSelect={this.handleUserSelect(user)} />
       </NavItem>);
 
     // TODO: implement Channels
@@ -41,7 +48,7 @@ export default class UserList extends Component {
               style={{
                 cusor: 'pointer',
                 fontWeight: isWhispering ? 'normal' : 'bold' }}
-              onClick={this.handleUserSelect.bind(this, '')}>
+              onClick={this.handleUserSelect('')}>
               General
             </NavLink>
           </NavItem>
