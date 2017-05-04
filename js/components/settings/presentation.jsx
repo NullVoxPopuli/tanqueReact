@@ -45,7 +45,7 @@ export default class SettingsPresentation extends Component {
                 buttonClasses={'btn btn-default'}
                 buttonText={'Import Settings'} />
             </div>
-            <p className='padding-5'>
+            <p className='padding-5 mt-3'>
               Importing previously saved settings is
               the only way you can use the same account on multiple devices.
             </p>
