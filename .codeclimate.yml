@@ -12,6 +12,11 @@ engines:
     enabled: true
     ignore_warnings: true
     channel: "eslint-3"
+    config:
+      config: .eslintrc.js
+    checks:
+      import/extensions:
+        enabled: false
 
   fixme:
     enabled: true
