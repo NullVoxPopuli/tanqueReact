@@ -11,13 +11,18 @@ import SimpleModal from 'components/-components/simple-modal';
 
 class ExportModal extends React.Component {
   static propTypes = {
-    config: PropTypes.object
+    config: PropTypes.object,
+    tagName: PropTypes.string
   }
 
   constructor(props) {
     super(props);
 
-    this.state = { showModal: false, copied: false };
+    this.state = {
+      showModal: false,
+      copied: false,
+      Tag: props.tagName || 'li'
+    };
     this.didClickDownload = this.didClickDownload.bind(this);
     this.didCopy = this.didCopy.bind(this);
   }
@@ -42,7 +47,7 @@ class ExportModal extends React.Component {
 
   render() {
     const { config } = this.props;
-    const { copied } = this.state;
+    const { copied, Tag } = this.state;
 
     // don't show the export functionality when
     // we haven't set ourselves up yet.
@@ -55,7 +60,7 @@ class ExportModal extends React.Component {
     const tooltipId = 'export-tooltip-copy';
 
     return (
-      <li>
+      <Tag>
         <a
           style={{ display: 'none' }}
           ref='downloadIdentity'
@@ -89,7 +94,7 @@ class ExportModal extends React.Component {
               {formattedJson}
             </pre>
           </SimpleModal>
-      </li>
+      </Tag>
     );
   }
 }

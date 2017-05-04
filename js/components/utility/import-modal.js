@@ -21,13 +21,18 @@ const placeholder = `{
 
 class ImportModal extends Component {
   static propTypes = {
-    importUser: PropTypes.func.isRequired
+    importUser: PropTypes.func.isRequired,
+    tagName: PropTypes.string
   }
 
   constructor(props) {
     super(props);
 
-    this.state = { identity: null, importDisabled: true };
+    this.state = {
+      identity: null,
+      importDisabled: true,
+      Tag: props.tagName || 'li'
+    };
     this.mut = mutCreator(this);
 
     this.didClickImport = this.didClickImport.bind(this);
@@ -66,11 +71,11 @@ class ImportModal extends Component {
 
   // TODO: add validation
   render() {
-    const { identity, importDisabled } = this.state;
+    const { identity, importDisabled, Tag } = this.state;
     const { didClickImport, didSelectFile, identityChanged } = this;
 
     return (
-      <li>
+      <Tag>
         <SimpleModal
           title='Import Identity'
           buttonText='Import Identity'
@@ -100,7 +105,7 @@ class ImportModal extends Component {
           </p>
 
         </SimpleModal>
-      </li>
+      </Tag>
     );
   }
 }

@@ -36,8 +36,8 @@ class OffCanvasFooter extends Component {
     return (
       <Nav vertical className={navClasses}>
         <NavItem className='d-flex flex-row justify-content-between'>
-          <ImportModal />&nbsp;
-          <ExportModal />
+          <ImportModal tagName='div'/>&nbsp;
+          <ExportModal tagName='div'/>
         </NavItem>
         <NavItem>
           <Button
