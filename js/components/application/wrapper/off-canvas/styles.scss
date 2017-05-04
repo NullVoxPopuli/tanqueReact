@@ -22,9 +22,12 @@
   }
 }
 
+.bm-menu-wrap:not([style*='translate3d']) {
+  box-shadow: 10px 0 15px rgba(0,0,0,0.25);
+}
+
 .bm-menu {
   background: rgb(40, 40, 40);
-  box-shadow: 10px 0 15px rgba(0,0,0,0.25);
   color: white;
   padding: 0px;
   overflow: hidden;
