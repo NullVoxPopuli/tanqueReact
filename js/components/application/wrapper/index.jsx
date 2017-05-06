@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { Route, Redirect, withRouter } from 'react-router';
 import { ToastContainer } from 'react-toastify';
 
@@ -13,6 +15,7 @@ import Footer from 'components/footer';
 import { isStoredConfigValid } from 'actions/identity/config';
 
 import OffCanvas from './off-canvas';
+import { processMessage } from 'actions/network/message-processor';
 
 const requireConfig = (Comp, props = {}) => () => {
   if (isStoredConfigValid()) return <Comp { ...props } />;
@@ -39,8 +42,8 @@ class Wrapper extends Component {
           <ToastContainer
             className='toast-container'
             autoClose={4000}
-            position='top-center'
-          />
+            position='top-center' />
+
           <Route
             exact={true}
             path="/"
@@ -64,4 +67,15 @@ class Wrapper extends Component {
   }
 }
 
-export default withRouter(Wrapper);
+
+const mapStateToProps = state => ({});
+const mapDispatchToProps = dispatch => ({
+  receivedMessage: bindActionCreators(processMessage, dispatch)
+});
+
+const connectedWrapper = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Wrapper);
+
+export default withRouter(connectedWrapper);

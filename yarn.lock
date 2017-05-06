@@ -5441,6 +5441,10 @@ performance-now@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-0.2.0.tgz#33ef30c5c77d4ea21c5a53869d91b56d8f2555e5"
 
+phoenix-socket@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/phoenix-socket/-/phoenix-socket-1.2.3.tgz#90d4d96e39961d82f72c255f9150e9afd623d41f"
+
 pify@^2.0.0, pify@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"

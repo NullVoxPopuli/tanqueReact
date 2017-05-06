@@ -16,7 +16,7 @@ export default handleActions({
   [ACTION_CABLE_CONNECTED]: (state, action) => ({
     ...state,
     status: ACTION_CABLE_CONNECTED,
-    channel: action.payload.subscriptions.subscriptions[0]
+    channel: action.payload
   }),
   [ACTION_CABLE_DISCONNECTED]: state => ({
     ...state,
