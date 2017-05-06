@@ -49,11 +49,8 @@ function cableReceived(dispatch) {
   //   message: actual message
   // }
   return data => {
-    console.log('received', data);
-    const message = data.message;
-    dispatch(received(message));
-
-    dispatch(processMessage(message));
+    dispatch(received({ data }));
+    dispatch(processMessage(data));
   };
 }
 

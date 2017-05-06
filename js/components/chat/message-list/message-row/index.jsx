@@ -31,12 +31,12 @@ export default class MessageRow extends Component {
   }
 
   render() {
-    const { message, sameMemberAsPrevious, toUser } = this.props;
-    const { to, toName, type, time_sent: timeSent, sender, decryptedMessage } = message;
+    const { message: payload, sameMemberAsPrevious } = this.props;
+    const { to, toName, type, time_sent: timeSent, sender, message } = payload;
     const name = sender.name;
-    const toSomeoneElse = (to !== undefined && to /*&& to !== sender.uid*/);
+    const toSomeoneElse = (to !== undefined && to /* && to !== sender.uid*/);
     const time = moment(timeSent).format('lll');
-    const msg = decryptedMessage || 'could not be decrypted';
+    const msg = message || 'could not be decrypted';
 
     let messageHeader = '';
 

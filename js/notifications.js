@@ -1,7 +1,7 @@
 export default function notify(msg) {
   const title = `${msg.sender.name} sent you a message!`;
   const options = {
-    body: msg.decryptedMessage,
+    body: msg.message,
     icon: ''
   };
 

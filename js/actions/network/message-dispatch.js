@@ -55,11 +55,11 @@ export function sendToAll(unencryptedString, type = 'chat') {
     const users = state.data.users.records;
     const config = state.identity.config;
 
-    const payload = buildPayload(config, type);
-    sendToSelf(payload, unencryptedString, dispatch);
+    const payload = buildPayload(config, unencryptedString, type);
+    sendToSelf(payload, dispatch);
 
     users.forEach(user => {
-      sendTo(user, payload, unencryptedString, config);
+      sendTo(user, payload, config);
     });
   };
 }
@@ -67,16 +67,15 @@ export function sendToAll(unencryptedString, type = 'chat') {
 // the to field is for filtering whispers later.
 // we need to know what whispers _we_ send in order to group them
 // in to the appropriate whisper channel chat.
-function sendToSelf(payload, unencryptedString, dispatch, toUser = '') {
+function sendToSelf(payload, dispatch, toUser = '') {
   dispatch(appendMessage({
     ...payload,
     to: toUser && toUser.uid,
-    toName: toUser.alias,
-    decryptedMessage: unencryptedString
+    toName: toUser.alias
   }));
 }
 
-function buildPayload(config, type = 'chat') {
+function buildPayload(config, unencryptedString = '', type = 'chat') {
   const { alias, uid, publicKey } = config;
 
   const payload = {
@@ -84,7 +83,7 @@ function buildPayload(config, type = 'chat') {
     client: APP_NAME,
     client_version: APP_VERSION,
     time_sent: new Date(),
-    message: null,
+    message: unencryptedString,
     sender: {
       name: alias,
       location: 'web',
@@ -104,28 +103,27 @@ export function sendToUser(user, message, type) {
   return (dispatch, getState) => {
     const state = getState();
     const config = state.identity.config;
-    const payload = buildPayload(config, type);
+    const payload = buildPayload(config, message, type);
 
     // send to ourselves, so we know what we whispered
-    sendToSelf(payload, message, dispatch, user);
+    sendToSelf(payload, dispatch, user);
     // actually send to the other person
-    sendTo(user, payload, message, config);
+    sendTo(user, payload, config);
   };
 }
 
-export function sendTo(user, payload, unencryptedString, config) {
+export function sendTo(user, payload, config) {
   const { uid: theirUid, publickey: theirPublicKey } = user;
-  redux.dispatch(messageDispatch({ theirUid, unencryptedString }));
+  redux.dispatch(messageDispatch({ theirUid, payload }));
 
   const { privateKey } = config;
+  const payloadString = JSON.stringify(payload);
 
-  redux.dispatch(encryptingMessage({ preMessage: payload }));
+  redux.dispatch(encryptingMessage({ preMessage: payloadString }));
 
-  // change to be for the target
-  const encryptedMessage = encryptFor(unencryptedString, theirPublicKey, privateKey);
-  payload.message = encryptedMessage;
+  const encryptedMessage = encryptFor(payloadString, theirPublicKey, privateKey);
 
-  redux.dispatch(encryptionComplete({ encryptedMessage: payload }));
+  redux.dispatch(encryptionComplete({ encryptedMessage }));
 
-  redux.dispatch(send(theirUid, payload));
+  redux.dispatch(send(theirUid, encryptedMessage));
 }

@@ -17,15 +17,21 @@ export const decryptionComplete = createAction(DECRYPTION_COMPLETE);
 export const APP_NAME = 'tanqueRéact';
 export const APP_VERSION = '0.1';
 
-export function processMessage(messagePayload) {
+export function processMessage(socketPayload) {
   return (dispatch, getState) => {
-    if (_.isEmpty(messagePayload)) return;
+    const {
+      status,
+      uid: from,
+      message: encryptedPayload
+    } = socketPayload;
 
-    if (messagePayload.status === 404) return process404(messagePayload);
+    if (_.isEmpty(socketPayload)) return;
+
+    if (status === 404) return process404(socketPayload);
 
     const state = getState();
 
-    return processChatMessage(messagePayload, state);
+    return processChatMessage(encryptedPayload, from, state);
   };
 }
 
@@ -35,42 +41,36 @@ function process404(messagePayload) {
   redux.dispatch(setOnlineStatus(uid, OFFLINE));
 }
 
-function processChatMessage(messagePayload, state) {
+function processChatMessage(messagePayload, fromUid, state) {
   const users = state.data.users.records;
   const { privateKey } = state.identity.config;
-  const decrypted = decrypt(messagePayload, users, privateKey);
+  const decrypted = decrypt(messagePayload, fromUid, users, privateKey);
 
   // tell the UI that a message has been received
   redux.dispatch(appendMessage(decrypted));
 
   // because we received something from somebody,
   // mark them as online.
-  redux.dispatch(setOnlineStatus(messagePayload.sender.uid, ONLINE));
+  redux.dispatch(setOnlineStatus(decrypted.sender.uid, ONLINE));
 
-  notify(messagePayload);
+  notify(decrypted);
 
   return decrypted;
 }
 
-function decrypt(messagePayload, users, privateKey) {
-  redux.dispatch(decryptingMessage(messagePayload));
+function decrypt(encryptedPayload, fromUid, users, privateKey) {
+  redux.dispatch(decryptingMessage({ encryptedPayload }));
+  const publicKey = findUser(fromUid, users).publickey;
 
-  const sender = messagePayload.sender;
-  const encryptedMessage = messagePayload.message;
-  const publicKey = sender.public_key || findUser(sender.uid, users).publickey;
-
-  const decryptedMessage = decryptFrom(
-    encryptedMessage,
+  const decryptedPayloadJson = decryptFrom(
+    encryptedPayload,
     publicKey,
     privateKey
   );
 
-  const decrypted = {
-    ...messagePayload,
-    decryptedMessage
-  };
+  const decryptedPayload = JSON.parse(decryptedPayloadJson);
 
-  redux.dispatch(decryptionComplete(decrypted));
+  redux.dispatch(decryptionComplete({ decryptedPayload }));
 
-  return decrypted;
+  return decryptedPayload;
 }
