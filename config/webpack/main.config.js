@@ -130,13 +130,21 @@ module.exports = {
       //       - this would be required for vendor.js to even
       //         be capable of providing an advantage
       'babel-polyfill',
+      'phoenix-socket',
       'react-dom',
       'react-redux',
       'react-router',
       'react',
+      'react-state-helpers',
       'redux-thunk',
       'redux',
-      'actioncable'
+      'prop-types',
+      'reactstrap',
+      'secure-random',
+      'text-encoding',
+      'tweetnacl',
+      'tweetnacl-util',
+      'url-parse'
     ],
   },
   output: {
