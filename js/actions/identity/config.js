@@ -87,8 +87,10 @@ export function updateUrl(url) {
 
 export function updateSafeSettings(settings) {
   return dispatch => {
-    dispatch(setAlias(settings.alias));
-    dispatch(setUrl(settings.url));
+    const { alias, url } = settings;
+
+    if (!_.isEmpty(alias)) dispatch(setAlias(settings.alias));
+    if (!_.isEmpty(url)) dispatch(setUrl(settings.url));
 
     return Promise.resolve();
   };

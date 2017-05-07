@@ -8,6 +8,7 @@ export default class SettingsPresentation extends Component {
   static propTypes = {
     alias: PropTypes.string,
     uid: PropTypes.string,
+    url: PropTypes.string,
     publicKey: PropTypes.string,
     settingsDataUrl: PropTypes.string,
 
