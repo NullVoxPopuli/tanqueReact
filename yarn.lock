@@ -57,10 +57,6 @@ acorn@^5.0.0, acorn@^5.0.1:
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.0.3.tgz#c460df08491463f028ccb82eab3730bf01087b3d"
 
-actioncable@^5.0.2:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/actioncable/-/actioncable-5.0.2.tgz#84dbc39b51aee4e7aeb1a66a5409f28d4e98eeb3"
-
 adjust-sourcemap-loader@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/adjust-sourcemap-loader/-/adjust-sourcemap-loader-1.1.0.tgz#412d92404eb61e4113635012cba53a33d008e0e2"
@@ -1384,6 +1380,10 @@ center-align@^0.1.1:
     align-text "^0.1.3"
     lazy-cache "^1.0.3"
 
+chain-function@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/chain-function/-/chain-function-1.0.0.tgz#0d4ab37e7e18ead0bdc47b920764118ce58733dc"
+
 chalk@^1.0.0, chalk@^1.1.0, chalk@^1.1.1, chalk@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-1.1.3.tgz#a8115c55e4a702fe4d150abd3872822a7e09fc98"
@@ -2197,6 +2197,10 @@ dom-converter@~0.1:
   resolved "https://registry.yarnpkg.com/dom-converter/-/dom-converter-0.1.4.tgz#a45ef5727b890c9bffe6d7c876e7b19cb0e17f3b"
   dependencies:
     utila "~0.3"
+
+dom-helpers@^3.2.0:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-3.2.1.tgz#3203e07fed217bd1f424b019735582fc37b2825a"
 
 dom-serializer@0, dom-serializer@~0.1.0:
   version "0.1.0"
@@ -6371,7 +6375,7 @@ react-addons-test-utils@^15.5.1:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
-react-addons-transition-group@^15.3.2, react-addons-transition-group@^15.5.2:
+react-addons-transition-group@^15.5.2:
   version "15.5.2"
   resolved "https://registry.yarnpkg.com/react-addons-transition-group/-/react-addons-transition-group-15.5.2.tgz#da6989d9cffe27dffacaedc862000ffb09ae2206"
   dependencies:
@@ -6506,14 +6510,22 @@ react-state-helpers@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-state-helpers/-/react-state-helpers-1.0.2.tgz#5c84e0c2cbe4dfca4971c1ece73776e5a76b8a43"
 
-react-toastify@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-1.3.0.tgz#7a8535c98a0eeb2a448cb68b14d9c7051bfb2a20"
+react-toastify@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-1.4.0.tgz#ebbb11ed7c72db44d1b9ca3f837545530a8ba481"
   dependencies:
-    object.values "^1.0.3"
+    prop-types "^15.5.8"
+    react "^15.5.4"
+    react-transition-group "^1.1.2"
+
+react-transition-group@^1.1.2:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-1.1.3.tgz#5e02cf6e44a863314ff3c68a0c826c2d9d70b221"
+  dependencies:
+    chain-function "^1.0.0"
+    dom-helpers "^3.2.0"
     prop-types "^15.5.6"
-    react "^15.3.2"
-    react-addons-transition-group "^15.3.2"
+    warning "^3.0.0"
 
 react-truncate@^2.1.1:
   version "2.1.1"
@@ -6521,7 +6533,7 @@ react-truncate@^2.1.1:
   dependencies:
     prop-types "^15.5.6"
 
-react@^15.3.2, react@^15.5.4:
+react@^15.5.4:
   version "15.5.4"
   resolved "https://registry.yarnpkg.com/react/-/react-15.5.4.tgz#fa83eb01506ab237cdc1c8c3b1cea8de012bf047"
   dependencies:

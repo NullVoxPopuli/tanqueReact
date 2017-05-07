@@ -25,10 +25,19 @@ $toast-error-text: darken($brand-danger, 50%);
       border-color: $toast-success-border;
     }
 
+
     &.toastify-content--error {
       color: $toast-error-text;
       background: $toast-error-bg;
       border-color: $toast-error-border;
+    }
+
+    .toastify__progress--success {
+      background: $toast-success-text;
+    }
+
+    .toastify__progress--error {
+      background: $toast-error-text;
     }
 
     .toastify__body {
