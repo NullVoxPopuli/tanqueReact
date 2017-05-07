@@ -5,8 +5,8 @@ import { decryptFrom } from 'utility/nacl';
 import { appendMessage } from 'js/actions/data/messages';
 import { ONLINE, OFFLINE, findUser, setOnlineStatus } from 'actions/data/users';
 import redux from 'js/redux-store';
-
 import notify from 'js/notifications';
+import { toastError } from 'utility/toast';
 
 export const DECRYPTING_MESSAGE = 'message-processor/DECRYPTING_MESSAGE';
 export const DECRYPTION_COMPLETE = 'message-processor/DECRYPTION_COMPLETE';
@@ -59,8 +59,15 @@ function processChatMessage(messagePayload, fromUid, state) {
 }
 
 function decrypt(encryptedPayload, fromUid, users, privateKey) {
-  redux.dispatch(decryptingMessage({ encryptedPayload }));
-  const publicKey = findUser(fromUid, users).publickey;
+  redux.dispatch(decryptingMessage({ from: fromUid, encryptedPayload }));
+  const user = findUser(fromUid, users);
+
+  if (user === undefined) {
+    console.error('user for ', fromUid, ' not found...');
+    return;
+  }
+
+  const publicKey = user.publickey;
 
   const decryptedPayloadJson = decryptFrom(
     encryptedPayload,
