@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { toastSuccess, toastError } from 'utility/toast';
 
-import { mutCreator } from 'react-state-helpers';
+import { mutCreator, findValue } from 'react-state-helpers';
 import { objectToDataURL } from 'utility';
 import { identity } from 'actions';
 
@@ -13,7 +13,6 @@ import SettingsPresentation from './presentation';
 class Settings extends React.Component {
   static propTypes = {
     config: PropTypes.object.isRequired,
-    updateSafeSettings: PropTypes.func.isRequired,
 
     regenerateUid: PropTypes.func.isRequired,
     regenerateKeys: PropTypes.func.isRequired,
@@ -23,16 +22,24 @@ class Settings extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { config: props.config };
     this.mut = mutCreator(this);
 
-    this.saveSafeSettings = this.saveSafeSettings.bind(this);
+    this.updateRelay = this.updateRelay.bind(this);
     this.importSettings = this.importSettings.bind(this);
     this.regenerateKeys = this.regenerateKeys.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ config: nextProps.config });
+  }
+
+  updateRelay(relayPosition) {
+    const { setUrlForRelay } = this.props;
+    return e => {
+      const value = findValue(e);
+
+      setUrlForRelay({ value, relayPosition });
+    };
   }
 
   importSettings(data) {
@@ -49,17 +56,12 @@ class Settings extends React.Component {
       .then(() => toastSuccess('Keys and UID have been regenerated. Please Re-Authorize to a network.'));
   }
 
-  saveSafeSettings() {
-    const { updateSafeSettings } = this.props;
-    const { alias, url } = this.state.config;
-
-    updateSafeSettings({ alias, url })
-      .then(() => toastSuccess('Settings have been saved!'));
-  }
-
   render() {
-    const { config, users } = this.props;
-    const { alias, url, uid, publicKey } = this.state.config;
+    const {
+      config,
+      users, setAlias,
+      config: { relays, alias, uid, publicKey }
+    } = this.props;
 
     const settingsForDownload = {
       config,
@@ -72,10 +74,9 @@ class Settings extends React.Component {
     return (
       <SettingsPresentation
         alias={alias}
-        onAliasChange={mut('config.alias')}
-        saveSafeSettings={this.saveSafeSettings}
-        url={url}
-        onUrlChange={mut('config.url')}
+        onAliasChange={mut('_alias', setAlias)}
+        relays={relays}
+        onRelayUpdate={this.updateRelay}
         uid={uid}
         publicKey={publicKey}
         regenerateKeys={this.regenerateKeys}
@@ -95,8 +96,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   regenerateUid: bindActionCreators(identity.config.regenerateUid, dispatch),
   regenerateKeys: bindActionCreators(identity.config.regenerateKeys, dispatch),
-  updateSafeSettings: bindActionCreators(identity.config.updateSafeSettings, dispatch),
-  importSettings: bindActionCreators(identity.config.importSettings, dispatch)
+  setAlias: bindActionCreators(identity.config.setAlias, dispatch),
+  importSettings: bindActionCreators(identity.config.importSettings, dispatch),
+  setUrlForRelay: bindActionCreators(identity.config.setUrlForRelay, dispatch)
 });
 
 export default connect(

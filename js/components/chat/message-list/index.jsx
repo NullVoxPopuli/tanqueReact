@@ -46,6 +46,7 @@ export default class MessageList extends Component {
       pastMessages.push(m);
       messages.push(
         <MessageRow
+          key={m.id}
           sameMemberAsPrevious={sameMemberAsPrevious}
           message={m}
         />);

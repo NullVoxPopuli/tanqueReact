@@ -53,7 +53,6 @@ class OffCanvas extends Component {
     const offCanvasStyles = {
       bmBurgerButton: {
         zIndex: '1035',
-        position: 'absolute',
         top: '13px',
         left: '17px',
         padding: '0px',

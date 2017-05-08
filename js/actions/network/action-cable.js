@@ -62,7 +62,10 @@ export function send(to, data) {
 export function connectToCable() {
   return (dispatch, getState) => {
     const state = getState();
-    const { uid, url } = state.identity.config;
+    const { config } = state.identity;
+    const { uid, relays } = config;
+    const firstRelay = relays[0];
+    const url = firstRelay.url;
 
     if (state.network.actionCable.status === ACTION_CABLE_CONNECTED) {
       return;

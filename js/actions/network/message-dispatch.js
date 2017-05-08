@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 import { toastError } from 'utility/toast';
 import _ from 'lodash';
+import cuid from 'cuid';
 
 import redux from 'js/redux-store';
 import { encryptFor } from 'utility/nacl';
@@ -13,6 +14,8 @@ import {
 } from 'actions/data/messages';
 
 import { send } from './action-cable';
+
+const makeUUID = cuid;
 
 export const MESSAGE_DISPATCH = 'message-dispatch/MESSAGE_DISPATCH';
 export const ENCRYPTING_MESSAGE = 'message-dispatch/ENCRYPTING_MESSAGE';
@@ -80,6 +83,7 @@ function buildPayload(config, unencryptedString = '', type = 'chat') {
 
   const payload = {
     type,
+    id: makeUUID(),
     client: APP_NAME,
     client_version: APP_VERSION,
     time_sent: new Date(),

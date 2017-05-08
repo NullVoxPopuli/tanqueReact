@@ -8,20 +8,20 @@ export default class SettingsPresentation extends Component {
   static propTypes = {
     alias: PropTypes.string,
     uid: PropTypes.string,
-    url: PropTypes.string,
+    relays: PropTypes.object,
     publicKey: PropTypes.string,
     settingsDataUrl: PropTypes.string,
 
     importSettings: PropTypes.func.isRequired,
+    onRelayUpdate: PropTypes.func.isRequired,
     onAliasChange: PropTypes.func.isRequired,
-    saveSafeSettings: PropTypes.func.isRequired,
     regenerateKeys: PropTypes.func.isRequired
   }
 
   render() {
     const {
-      alias, onAliasChange, saveSafeSettings,
-      url, onUrlChange,
+      alias, onAliasChange,
+      relays, onRelayUpdate,
       uid,
       publicKey, regenerateKeys,
       settingsDataUrl, importSettings
@@ -56,7 +56,7 @@ export default class SettingsPresentation extends Component {
         <Row className='justify-content-center'>
           <Col sm={12} umd={8}>
             <Card>
-              <CardHeader tag='h4'>Safe Settings </CardHeader>
+              <CardHeader tag='h4'>General</CardHeader>
               <CardBlock>
                 <Row>
                   <Col sm={12}>
@@ -69,18 +69,55 @@ export default class SettingsPresentation extends Component {
                         value={alias} />
                     </FormGroup>
 
+                    TODO: notifications
+
+                  </Col>
+                </Row>
+              </CardBlock>
+            </Card>
+
+
+            <br /><br /><br />
+            <Card>
+              <CardHeader tag='h4'>Relays</CardHeader>
+              <CardBlock>
+                <Row>
+                  <Col sm={12}>
                     <FormGroup>
-                      <Label className='control-label'>Preferred Relay</Label>
+                      <Label className='control-label'>#1 Preferred Relay</Label>
                       <Input
                         className='form-control'
                         type='text'
-                        onChange={onUrlChange}
-                        value={url} />
+                        onChange={onRelayUpdate(0)}
+                        value={relays[0].url} />
                     </FormGroup>
 
-                    <Button
-                      onClick={saveSafeSettings}
-                      className='float-right'>Save</Button>
+                    <FormGroup>
+                      <Label className='control-label'>#2 Preferred Relay</Label>
+                      <Input
+                        className='form-control'
+                        type='text'
+                        onChange={onRelayUpdate(1)}
+                        value={relays[1].url} />
+                    </FormGroup>
+
+                    <FormGroup>
+                      <Label className='control-label'>#2 Preferred Relay</Label>
+                      <Input
+                        className='form-control'
+                        type='text'
+                        onChange={onRelayUpdate(2)}
+                        value={relays[2].url} />
+                    </FormGroup>
+
+                    <FormGroup>
+                      <Label className='control-label'>#2 Preferred Relay</Label>
+                      <Input
+                        className='form-control'
+                        type='text'
+                        onChange={onRelayUpdate(3)}
+                        value={relays[3].url} />
+                    </FormGroup>
                   </Col>
                 </Row>
               </CardBlock>
