@@ -60,7 +60,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setUid: uid => dispatch(identity.config.setUid(uid)),
   regenerateKeys: bindActionCreators(identity.config.regenerateKeys, dispatch),
-  updateAlias: bindActionCreators(identity.config.updateAlias, dispatch),
+  updateAlias: bindActionCreators(identity.config.setAlias, dispatch),
   importSettings: bindActionCreators(identity.config.importSettings, dispatch)
 });
 

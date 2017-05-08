@@ -12,7 +12,7 @@ export default class AutomaticStuff extends Component {
   static propTypes = {
     publicKey: PropTypes.string.isRequired,
     uid: PropTypes.string.isRequired,
-    relays: PropTypes.array.isRequired,
+    relays: PropTypes.object.isRequired,
 
     next: PropTypes.func.isRequired
   }
