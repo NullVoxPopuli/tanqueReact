@@ -34,6 +34,7 @@ class OffCanvas extends Component {
     const { setWhisper } = this.props;
 
     setWhisper(user);
+    this.setState({ open: false });
   }
 
   // needed to keep this component's open state
