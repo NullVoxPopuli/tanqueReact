@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import { Socket } from 'phoenix-socket';
+import redux from 'js/redux-store';
 
 import { processMessage } from './message-processor';
 
@@ -50,13 +51,11 @@ let channel = null;
 
 // data should already be encrypted
 export function send(to, data) {
-  return dispatch => {
-    dispatch(sendMessage({ to, data }));
+  redux.dispatch(sendMessage({ to, data }));
 
-    channel.push('chat', {
-      to, message: data, action: 'chat'
-    });
-  };
+  const payload = { to, message: data };
+
+  return channel.push('chat', payload);
 }
 
 export function connectToCable() {

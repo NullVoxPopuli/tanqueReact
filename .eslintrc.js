@@ -46,6 +46,8 @@ module.exports = {
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "no-use-before-define": ["error", { "functions": false, "classes": true }],
 
+    "no-underscore-dangle": ["error", { "allow": ["__meta__"] }],
+
     // treat undefined as valid in function
     // http://eslint.org/docs/rules/consistent-return#treatundefinedasunspecified
     "consistent-return": ["warn", { "treatUndefinedAsUnspecified": true }],

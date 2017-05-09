@@ -1,4 +1,6 @@
 .message {
+  opacity: 0.85;
+
   .message-header {
     display: block;
 
@@ -27,5 +29,15 @@
     .message-content {
       color: gray;
     }
+  }
+
+  &.error {
+    opacity: 1;
+    background: #422;
+  }
+
+  &.success {
+    opacity: 1;
+    // background: #222;
   }
 }

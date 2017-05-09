@@ -10,7 +10,9 @@ import { findUser } from 'actions/data/users';
 import {
   WHISPER,
   PING,
-  appendMessage
+  appendMessage,
+  setMessageAsSent,
+  setMessageAsErrored
 } from 'actions/data/messages';
 
 import { send } from './action-cable';
@@ -129,5 +131,7 @@ export function sendTo(user, payload, config) {
 
   redux.dispatch(encryptionComplete({ encryptedMessage }));
 
-  redux.dispatch(send(theirUid, encryptedMessage));
+  send(theirUid, encryptedMessage)
+    .receive('ok', () => redux.dispatch(setMessageAsSent({ id: payload.id })))
+    .receive('error', error => redux.dispatch(setMessageAsErrored({ id: payload.id, error })));
 }

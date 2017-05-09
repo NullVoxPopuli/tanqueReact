@@ -1,17 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { Tooltip } from 'reactstrap';
 import FontAwesome from 'react-fontawesome';
+import { toggleCreator } from 'react-state-helpers';
+
+import { WHISPER } from 'actions/data/messages';
 
 import MessageContent from './message-content';
-import { WHISPER} from 'actions/data/messages';
-
 import './style.scss';
 
 export default class MessageRow extends Component {
   static propTypes = {
     message: PropTypes.object.isRequired,
     sameMemberAsPrevious: PropTypes.bool
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = { showTooltip: false };
+    this.toggle = toggleCreator(this);
   }
 
   whisperNames(name, toName, toSomeoneElse) {
@@ -31,12 +40,21 @@ export default class MessageRow extends Component {
   }
 
   render() {
+    const {
+      toggle
+    } = this;
+
     const { message: payload, sameMemberAsPrevious } = this.props;
     const { to, toName, type, time_sent: timeSent, sender, message } = payload;
     const name = sender.name;
     const toSomeoneElse = (to !== undefined && to /* && to !== sender.uid*/);
     const time = moment(timeSent).format('lll');
     const msg = message || 'could not be decrypted';
+    const transmissionStatus = (payload.__meta__ || {}).transmissionStatus || {};
+    const { status, to_uid: toUid, reason } = transmissionStatus;
+    const messageId = `message-${payload.id}`;
+    const { showTooltip } = this.state;
+
 
     let messageHeader = '';
 
@@ -54,13 +72,25 @@ export default class MessageRow extends Component {
     }
 
     return (
-      <div className={`message clearfix ${type}`}>
+      <div id={messageId} className={`message clearfix ${type} ${status}`}>
         <div className={'p-2'}>
           {messageHeader}
 
           <MessageContent
             message={msg}
             className='message-content' />
+
+          <Tooltip
+            style={{ maxidth: 'inherit' }}
+            className='text-left'
+            target={messageId}
+            isOpen={showTooltip}
+            toggle={toggle('showTooltip')}
+            autohide={false}>
+            Message to {toUid} could not be sent.<br />
+            <strong>Reason</strong><br />
+            {reason}
+          </Tooltip>
         </div>
       </div>
     );
