@@ -54,6 +54,7 @@ export default class MessageRow extends Component {
     const { status, to_uid: toUid, reason } = transmissionStatus;
     const messageId = `message-${payload.id}`;
     const { showTooltip } = this.state;
+    const isError = (status === 'error');
 
 
     let messageHeader = '';
@@ -80,7 +81,7 @@ export default class MessageRow extends Component {
             message={msg}
             className='message-content' />
 
-          <Tooltip
+          {isError && <Tooltip
             style={{ maxidth: 'inherit' }}
             className='text-left'
             target={messageId}
@@ -90,7 +91,7 @@ export default class MessageRow extends Component {
             Message to {toUid} could not be sent.<br />
             <strong>Reason</strong><br />
             {reason}
-          </Tooltip>
+          </Tooltip>}
         </div>
       </div>
     );

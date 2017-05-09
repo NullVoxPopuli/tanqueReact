@@ -133,5 +133,9 @@ export function sendTo(user, payload, config) {
 
   send(theirUid, encryptedMessage)
     .receive('ok', () => redux.dispatch(setMessageAsSent({ id: payload.id })))
-    .receive('error', error => redux.dispatch(setMessageAsErrored({ id: payload.id, error })));
+    .receive('error', error => {
+      if (payload.type === WHISPER) {
+        redux.dispatch(setMessageAsErrored({ id: payload.id, error }));
+      }
+    });
 }
