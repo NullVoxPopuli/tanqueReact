@@ -28,7 +28,7 @@ export default class SettingsPresentation extends Component {
     } = this.props;
 
     return (
-      <div>
+      <Row className='justify-content-center'><Col lg={8}>
         <Row className='justify-content-between align-items-start'>
           <Col sm={2}>
             <h2 className='mt-0'>Settings</h2>
@@ -54,7 +54,7 @@ export default class SettingsPresentation extends Component {
         </Row>
 
         <Row className='justify-content-center'>
-          <Col sm={12} umd={8}>
+          <Col>
             <Card>
               <CardHeader tag='h4'>General</CardHeader>
               <CardBlock>
@@ -84,37 +84,37 @@ export default class SettingsPresentation extends Component {
                 <Row>
                   <Col sm={12}>
                     <FormGroup>
-                      <Label className='control-label'>#1 Preferred Relay</Label>
                       <Input
                         className='form-control'
                         type='text'
+                        placeholder='1st Preferred Relay'
                         onChange={onRelayUpdate(0)}
                         value={relays[0].url} />
                     </FormGroup>
 
                     <FormGroup>
-                      <Label className='control-label'>#2 Preferred Relay</Label>
                       <Input
                         className='form-control'
                         type='text'
+                        placeholder='2nd Preferred Relay'
                         onChange={onRelayUpdate(1)}
                         value={relays[1].url} />
                     </FormGroup>
 
                     <FormGroup>
-                      <Label className='control-label'>#2 Preferred Relay</Label>
                       <Input
                         className='form-control'
                         type='text'
+                        placeholder='3rd Preferred Relay'
                         onChange={onRelayUpdate(2)}
                         value={relays[2].url} />
                     </FormGroup>
 
                     <FormGroup>
-                      <Label className='control-label'>#2 Preferred Relay</Label>
                       <Input
                         className='form-control'
                         type='text'
+                        placeholder='4th Preferred Relay'
                         onChange={onRelayUpdate(3)}
                         value={relays[3].url} />
                     </FormGroup>
@@ -160,7 +160,7 @@ export default class SettingsPresentation extends Component {
             <br/>
           </Col>
         </Row>
-      </div>
+      </Col></Row>
     );
   }
 }
