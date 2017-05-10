@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { slide as Menu } from 'react-burger-menu';
+import { push as Menu } from 'react-burger-menu';
 import FontAwesome from 'react-fontawesome';
 import { toggleCreator } from 'react-state-helpers';
 
 import { setWhisperToUser } from 'actions/data/users';
+import { app } from 'actions/views';
 
 import UserList from './user-list';
 import OffCanvasFooter from './footer';
@@ -17,7 +18,8 @@ class OffCanvas extends Component {
   static propTypes = {
     users: PropTypes.array,
     whisperingToUser: PropTypes.any,
-    setWhisper: PropTypes.func
+    setWhisper: PropTypes.func,
+    toggleLeftBar: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -47,47 +49,31 @@ class OffCanvas extends Component {
     const {
       toggle,
       updateOpen, handleUserSelect,
-      state: { open },
-      props: { whisperingToUser, users, showUserList }
+      props: {
+        whisperingToUser, users, showUserList,
+        isLeftBarShown, toggleLeftBar
+      }
     } = this;
 
     const offCanvasStyles = {
-      bmBurgerButton: {
-        zIndex: '1035',
-        top: '13px',
-        left: '17px',
-        padding: '0px',
-        margin: '0px'
-      },
-      bmMenuWrap: {
-        zIndex: '1036'
-      },
-      bmOverlay: {
-        zIndex: '1034'
-      },
-      bmMenu: {
-        overflow: 'hidden'
-      }
+      bmBurgerButton: { zIndex: '-1' },
+      bmMenuWrap: { zIndex: '1036' },
+      bmOverlay: { zIndex: '1034' },
+      bmMenu: { overflow: 'hidden' }
     };
-
-    const burger = (
-      <FontAwesome
-        className='navbar-toggler'
-        name='bars'
-        onClick={toggle('open')} />
-    );
 
     const cross = (
       <FontAwesome
         name='times'
-        onClick={toggle('open')} />
+        onClick={toggleLeftBar} />
     );
 
     return (
       <Menu
-        isOpen={open}
+        noOverlay
+        isOpen={isLeftBarShown}
         onStateChange={updateOpen}
-        customBurgerIcon={burger}
+        customBurgerIcon={null}
         customCrossIcon={cross}
         styles={offCanvasStyles}
         pageWrapId={'app-container'}
@@ -101,7 +87,7 @@ class OffCanvas extends Component {
 
         {/* hidden-md-up  ? */}
         <OffCanvasFooter
-          closeOffCanvas={toggle('open')}
+          closeOffCanvas={toggleLeftBar}
           navClasses='align-self-end w-100'/>
       </Menu>
     );
@@ -114,7 +100,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setWhisper: bindActionCreators(setWhisperToUser, dispatch)
+  setWhisper: bindActionCreators(setWhisperToUser, dispatch),
+  toggleLeftBar: bindActionCreators(app.toggleLeftBar, dispatch)
 });
 
 export default connect(

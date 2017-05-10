@@ -24,6 +24,9 @@ reduxStore
           records: state.data.messages.records.slice(1).slice(-1000)
         }
       },
+      views: {
+        app: state.views.app
+      },
       identity: state.identity
     });
   });

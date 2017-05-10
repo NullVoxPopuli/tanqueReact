@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import FontAwesome from 'react-fontawesome';
+import { toggleCreator } from 'react-state-helpers';
+
 import {
   Collapse,
   Navbar,
@@ -13,26 +17,38 @@ import ExportModal from 'components/utility/export-modal';
 import './styles.scss';
 
 export default class Navigation extends Component {
+  static propTypes = {
+    toggleLeftBar: PropTypes.func.isRequired
+  }
+
   constructor(props) {
     super(props);
 
-    this.toggle = this.toggle.bind(this);
+    this.toggle = toggleCreator(this);
     this.state = {
       isOpen: false
     };
   }
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
+
   render() {
-    const { isOpen } = this.state;
+    const {
+      toggle,
+      state: { isOpen },
+      props: { toggleLeftBar }
+    } = this;
 
     const navStyle = isOpen ? { display: 'block' } : {};
     return (
       <Navbar inverse fixed='true' toggleable
         className='sticky-top navbar-dark navbar-toggleable-md bg-inverse'>
+        {/* className='navbar-toggler'
+          this causes the icon to hide on larger screens.
+          in order to use this, the sidebar would need to be present
+          on larger screens as well...
+          */}
+        <FontAwesome
+          name='bars'
+          onClick={toggleLeftBar} />
         <Link className='navbar-brand' to='/'>tanqueRéact</Link>
 
         <Collapse className='navbar-collapse' isOpen={isOpen}>

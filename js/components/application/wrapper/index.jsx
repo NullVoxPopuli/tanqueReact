@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Route, Redirect, withRouter } from 'react-router';
 import { ToastContainer } from 'react-toastify';
+import { Row, Col } from 'reactstrap';
 
 import Navigation from 'components/application/navigation';
 import Chat from 'components/chat/index';
@@ -13,6 +14,7 @@ import Setup from 'components/setup';
 import Footer from 'components/footer';
 
 import { isStoredConfigValid } from 'actions/identity/config';
+import { app } from 'actions/views';
 
 import OffCanvas from './off-canvas';
 import { processMessage } from 'actions/network/message-processor';
@@ -25,20 +27,22 @@ const requireConfig = (Comp, props = {}) => () => {
 
 class Wrapper extends Component {
   static propTypes = {
-    history: PropTypes.any.isRequired
+    history: PropTypes.any.isRequired,
+    toggleLeftBar: PropTypes.func.isRequired
   }
 
   render() {
-    const { history } = this.props;
+    const { history, toggleLeftBar, isLeftBarShown } = this.props;
     const path = window.location.pathname;
     const isRootPath = path.match('/$');
     const isChat = path.match('/chat');
 
     return (
       <div id='app-wrapper'>
-        <OffCanvas showUserList={isChat} />
+        <OffCanvas showUserList={isChat} isLeftBarShown={isLeftBarShown} />
         <div id='app-container'>
-          <Navigation />
+          <Navigation toggleLeftBar={toggleLeftBar} />
+
           <ToastContainer
             className='toast-container'
             autoClose={4000}
@@ -68,9 +72,12 @@ class Wrapper extends Component {
 }
 
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  isLeftBarShown: state.views.app.isLeftBarShown
+});
 const mapDispatchToProps = dispatch => ({
-  receivedMessage: bindActionCreators(processMessage, dispatch)
+  receivedMessage: bindActionCreators(processMessage, dispatch),
+  toggleLeftBar: bindActionCreators(app.toggleLeftBar, dispatch)
 });
 
 const connectedWrapper = connect(
