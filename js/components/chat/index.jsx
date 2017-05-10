@@ -3,15 +3,27 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
+import hotkey from 'react-shortcut-key'
+
+import { actionCable } from 'actions/network';
+import { inputHandler } from 'actions/views';
+import { WHISPER } from 'actions/data/messages';
 
 import TextEntry from './entry';
 import MessageList from './message-list';
 
-import { actionCable } from 'js/actions/network';
-import { inputHandler } from 'js/actions/views';
-import { WHISPER } from 'actions/data/messages';
-
 import './sticky-chat-entry.scss';
+
+const keymap = {
+  'ctrl+k': e => {
+    e.preventDefault();
+    console.log(e)
+  },
+  'ctrl+p': e => {
+    e.preventDefault();
+    console.log(e);
+  }
+};
 
 class ChatIndex extends React.Component {
   static propTypes = {
@@ -91,7 +103,7 @@ const mapDispatchToProps = dispatch => ({
   connect: bindActionCreators(actionCable.connectToCable, dispatch)
 });
 
-export default connect(
+export default hotkey(keymap)(connect(
   mapStateToProps,
   mapDispatchToProps
-)(ChatIndex);
+)(ChatIndex));
