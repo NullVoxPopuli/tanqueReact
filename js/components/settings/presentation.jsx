@@ -73,7 +73,7 @@ export default class SettingsPresentation extends Component {
                         value={alias} />
                     </FormGroup>
 
-                    <FormGroup>
+                    <FormGroup className='ml-4'>
                       <Input
                         type='checkbox'
                         onChange={onToggleAllowNotifications}
