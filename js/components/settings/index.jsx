@@ -6,7 +6,7 @@ import { toastSuccess, toastError } from 'utility/toast';
 
 import { mutCreator, findValue } from 'react-state-helpers';
 import { objectToDataURL } from 'utility';
-import { identity } from 'actions';
+import { identity, views } from 'actions';
 
 import SettingsPresentation from './presentation';
 
@@ -60,6 +60,7 @@ class Settings extends React.Component {
     const {
       config,
       users, setAlias,
+      allowNotifications, toggleAllowNotifications,
       config: { relays, alias, uid, publicKey }
     } = this.props;
 
@@ -80,6 +81,10 @@ class Settings extends React.Component {
         uid={uid}
         publicKey={publicKey}
         regenerateKeys={this.regenerateKeys}
+
+        allowNotifications={allowNotifications}
+        onToggleAllowNotifications={toggleAllowNotifications}
+
         settingsDataUrl={settingsDataUrl}
         importSettings={this.importSettings} />
     );
@@ -87,6 +92,7 @@ class Settings extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  allowNotifications: state.views.app.allowNotifications,
   users: state.data.users.records,
   config: state.identity.config,
   importFailure: state.identity.config.importSettingsFailure,
@@ -94,6 +100,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  toggleAllowNotifications: bindActionCreators(views.app.toggleAllowNotifications, dispatch),
   regenerateUid: bindActionCreators(identity.config.regenerateUid, dispatch),
   regenerateKeys: bindActionCreators(identity.config.regenerateKeys, dispatch),
   setAlias: bindActionCreators(identity.config.setAlias, dispatch),

@@ -1,17 +1,22 @@
 import { handleActions } from 'redux-actions';
 
 import {
-  TOGGLE_LEFT_BAR
+  TOGGLE_LEFT_BAR,
+  TOGGLE_ALLOW_NOTIFICATIONS
 } from 'actions/views/app';
 
-const initialState = { isLeftBarShown: false };
+const initialState = {
+  isLeftBarShown: false,
+  allowNotifications: true
+};
 
 export default handleActions({
-  [TOGGLE_LEFT_BAR]: (state, action) => {
-    console.log('------------------------------------')
-    console.log(action);
-
-    return {...state,
-    isLeftBarShown: !state.isLeftBarShown}
-  }
+  [TOGGLE_LEFT_BAR]: state => ({
+    ...state,
+    isLeftBarShown: !state.isLeftBarShown
+  }),
+  [TOGGLE_ALLOW_NOTIFICATIONS]: state => ({
+    ...state,
+    allowNotifications: !state.allowNotifications
+  })
 }, initialState);

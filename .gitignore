@@ -1,3 +1,4 @@
+*.vim
 codeclimate.html
 ./node_modules/
 node_modules/

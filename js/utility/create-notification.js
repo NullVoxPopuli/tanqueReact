@@ -1,10 +1,4 @@
-export default function notify(msg) {
-  const title = `${msg.sender.name} sent you a message!`;
-  const options = {
-    body: msg.message,
-    icon: ''
-  };
-
+export default function createNotification(title, options) {
   let notification = null;
 
   // Let's check if the browser supports notifications

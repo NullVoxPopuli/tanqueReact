@@ -12,6 +12,9 @@ export default class SettingsPresentation extends Component {
     publicKey: PropTypes.string,
     settingsDataUrl: PropTypes.string,
 
+    allowNotifications: PropTypes.bool,
+    onToggleAllowNotifications: PropTypes.func.isRequired,
+
     importSettings: PropTypes.func.isRequired,
     onRelayUpdate: PropTypes.func.isRequired,
     onAliasChange: PropTypes.func.isRequired,
@@ -24,7 +27,8 @@ export default class SettingsPresentation extends Component {
       relays, onRelayUpdate,
       uid,
       publicKey, regenerateKeys,
-      settingsDataUrl, importSettings
+      settingsDataUrl, importSettings,
+      allowNotifications, onToggleAllowNotifications
     } = this.props;
 
     return (
@@ -53,13 +57,13 @@ export default class SettingsPresentation extends Component {
           </Col>
         </Row>
 
-        <Row className='justify-content-center'>
+        <Row>
           <Col>
             <Card>
               <CardHeader tag='h4'>General</CardHeader>
               <CardBlock>
                 <Row>
-                  <Col sm={12}>
+                  <Col sm={12} className='text-left'>
                     <FormGroup>
                       <Label className='control-label'>Alias</Label>
                       <Input
@@ -69,7 +73,13 @@ export default class SettingsPresentation extends Component {
                         value={alias} />
                     </FormGroup>
 
-                    TODO: notifications
+                    <FormGroup>
+                      <Input
+                        type='checkbox'
+                        onChange={onToggleAllowNotifications}
+                        checked={allowNotifications} />
+                      <Label className='control-label'>Allow Notifications</Label>
+                    </FormGroup>
 
                   </Col>
                 </Row>

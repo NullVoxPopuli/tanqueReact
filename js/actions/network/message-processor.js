@@ -5,7 +5,7 @@ import { decryptFrom } from 'utility/nacl';
 import { appendMessage } from 'js/actions/data/messages';
 import { ONLINE, OFFLINE, findUser, setOnlineStatus } from 'actions/data/users';
 import redux from 'js/redux-store';
-import notify from 'js/notifications';
+import { notify } from 'actions/views/app';
 import { toastError } from 'utility/toast';
 
 export const DECRYPTING_MESSAGE = 'message-processor/DECRYPTING_MESSAGE';
@@ -53,7 +53,7 @@ function processChatMessage(messagePayload, fromUid, state) {
   // mark them as online.
   redux.dispatch(setOnlineStatus(decrypted.sender.uid, ONLINE));
 
-  notify(decrypted);
+  redux.dispatch(notify(decrypted));
 
   return decrypted;
 }
