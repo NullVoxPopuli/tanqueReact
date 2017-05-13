@@ -1,9 +1,19 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { Nav, NavItem } from 'reactstrap';
 
-class OffCanvasNavigation extends Component {
+interface Props {
+  history: any,
+  closeOffCanvas(): void
+}
+
+interface State {
+  didClickLink(path: string): void
+}
+
+class OffCanvasNavigation extends Component<Props, State> {
   static propTypes = {
     history: PropTypes.any.isRequired,
     closeOffCanvas: PropTypes.func.isRequired

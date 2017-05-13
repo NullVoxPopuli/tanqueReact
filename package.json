@@ -14,7 +14,8 @@
     "test:watch": "./scripts/test-watch",
     "test:watch:coverage": "npm run test -- --watch",
     "build": "./scripts/build",
-    "dev": "./scripts/dev-server"
+    "dev": "./scripts/dev-server",
+    "typings": "./scripts/typings"
   },
   "author": "NullVoxPopuli",
   "browser": {
@@ -86,6 +87,9 @@
     "source-map-support": "^0.4.14",
     "style-loader": "^0.16.1",
     "tether": "^1.4.0",
+    "ts-loader": "^2.0.3",
+    "typescript": "^2.3.2",
+    "typings": "^2.1.1",
     "uglify-js": "^2.8.21",
     "uglifyjs-webpack-plugin": "^0.4.1",
     "url-loader": "^0.5.8",

@@ -84,17 +84,26 @@ const plugins = [
 
 // Common rules
 const rules = [
+  // typescript
+  {
+    test: /\.tsx?$/,
+    loader: "ts-loader",
+    exclude: /node_modules/
+  },
+  // javascript
   {
     // http://www.rubular.com/r/uoNoTK116U
     test: /^\.?[a-zA-z0-9\/_-]*(?!\.spec)\.jsx?$/,
     exclude: /node_modules/,
     loader: 'babel-loader?' + JSON.stringify(babelSettings)
   },
+  // other
   {
     test: /\.(png|gif|jpg|svg|html)$/,
     include: imgPath,
     use: 'url-loader?limit=20480&name=assets/[name]-[hash].[ext]',
   },
+  // styles
   {
     test: /\.scss$/,
     exclude: /node_modules/,
@@ -106,6 +115,7 @@ const rules = [
       ]
     })
   },
+  // more styles?
   {
     test: /\.css$/,
     use: ['css-loader']
@@ -167,7 +177,7 @@ module.exports = {
     rules,
   },
   resolve: {
-    extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx', '.css', '.scss'],
+    extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js',  ".ts", ".tsx", '.js', '.jsx', '.css', '.scss'],
     modules: [
       path.resolve(sourcePath, 'node_modules'),
       jsSourcePath,
