@@ -46,10 +46,14 @@ export default class Navigation extends Component {
           in order to use this, the sidebar would need to be present
           on larger screens as well...
           */}
-        <FontAwesome
-          name='bars'
-          onClick={toggleLeftBar} />
-        <Link className='navbar-brand' to='/'>tanqueRéact</Link>
+        <div className='d-flex flex-row flex-nowrap'>
+          <FontAwesome
+            className='mr-2 d-flex align-items-center'
+            name='bars'
+            onClick={toggleLeftBar} />
+          <Link className='navbar-brand m-0' to='/'>tanqueRéact</Link>
+        </div>
+
 
         <Collapse className='navbar-collapse' isOpen={isOpen}>
           <Nav style={navStyle} className='mr-auto'>

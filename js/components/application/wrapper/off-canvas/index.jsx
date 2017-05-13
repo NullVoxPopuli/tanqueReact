@@ -11,6 +11,7 @@ import { app } from 'actions/views';
 
 import UserList from './user-list';
 import OffCanvasFooter from './footer';
+import OffCanvasNavigation from './navigation';
 
 import './styles.scss';
 
@@ -79,10 +80,15 @@ class OffCanvas extends Component {
         pageWrapId={'app-container'}
         outerContainerId={'app-wrapper'}>
         <div style={{ flexGrow: '1' }}>
-          {showUserList && <UserList
-            whisperingToUser={whisperingToUser}
-            users={users}
-            handleUserSelect={handleUserSelect}/>}
+          {showUserList &&
+            <UserList
+              whisperingToUser={whisperingToUser}
+              users={users}
+              handleUserSelect={handleUserSelect} />}
+
+            {!showUserList &&
+              <OffCanvasNavigation
+                closeOffCanvas={toggleLeftBar} />}
         </div>
 
         {/* hidden-md-up  ? */}
