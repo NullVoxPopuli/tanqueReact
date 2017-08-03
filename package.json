@@ -102,7 +102,7 @@
     "font-awesome": "^4.7.0",
     "metascraper": "^1.0.6",
     "phoenix-socket": "^1.2.3",
-    "prop-types": "^15.5.8",
+    "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-addons-css-transition-group": "^15.5.2",
     "react-addons-test-utils": "^15.5.1",
