@@ -105,7 +105,7 @@
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-addons-css-transition-group": "^15.5.2",
-    "react-addons-test-utils": "^15.5.1",
+    "react-addons-test-utils": "^15.6.0",
     "react-addons-transition-group": "^15.5.2",
     "react-binding": "^0.9.1",
     "react-burger-menu": "^2.0.1",
