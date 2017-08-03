@@ -103,7 +103,7 @@
     "metascraper": "^1.0.7",
     "phoenix-socket": "^1.2.3",
     "prop-types": "^15.5.10",
-    "react": "^15.5.4",
+    "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.5.2",
     "react-addons-test-utils": "^15.6.0",
     "react-addons-transition-group": "^15.5.2",
