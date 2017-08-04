@@ -110,7 +110,7 @@
     "react-binding": "^0.9.1",
     "react-burger-menu": "^2.0.1",
     "react-copy-to-clipboard": "^5.0.0",
-    "react-dom": "^15.5.4",
+    "react-dom": "^15.6.1",
     "react-file-input": "^0.2.5",
     "react-fontawesome": "^1.6.1",
     "react-hot-loader": "^1.3.1",
