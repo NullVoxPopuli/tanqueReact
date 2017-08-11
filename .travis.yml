@@ -27,6 +27,8 @@ before_install:
 script:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
       ./scripts/ci/deploy.sh;
+    else
+      ./scripts/ci/transpile.sh;
     fi
 
 notifications:

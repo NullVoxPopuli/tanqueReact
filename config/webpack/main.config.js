@@ -102,7 +102,7 @@ const rules = [
       fallback: 'style-loader',
       use: [
         'css-loader',
-        'sass-loader'
+        'sass-loader',
       ]
     })
   },
