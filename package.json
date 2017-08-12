@@ -68,7 +68,7 @@
     "jest-enzyme": "^3.0.0",
     "jest-junit": "^1.4.0",
     "jestpack": "^0.2.0",
-    "json-loader": "^0.5.4",
+    "json-loader": "^0.5.7",
     "lodash": "^4.17.4",
     "moment": "^2.14.1",
     "moment-timezone": "^0.5.11",
