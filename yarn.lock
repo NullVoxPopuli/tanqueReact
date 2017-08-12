@@ -4022,11 +4022,12 @@ jest-jasmine2@^20.0.4:
     once "^1.4.0"
     p-map "^1.1.1"
 
-jest-junit@^1.4.0:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/jest-junit/-/jest-junit-1.5.1.tgz#f6e48203e691f827530f21fb509f8c0da75ca15b"
+jest-junit@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/jest-junit/-/jest-junit-2.1.0.tgz#364194f6529fbf5a900ff02fa6744cb624f4bb54"
   dependencies:
     mkdirp "^0.5.1"
+    strip-ansi "^4.0.0"
     xml "^1.0.1"
 
 jest-matcher-utils@^19.0.0:
