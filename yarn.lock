@@ -7058,9 +7058,9 @@ ripemd160@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/ripemd160/-/ripemd160-1.0.1.tgz#93a4bbd4942bc574b69a8fa57c71de10ecca7d6e"
 
-rollbar-sourcemap-webpack-plugin@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/rollbar-sourcemap-webpack-plugin/-/rollbar-sourcemap-webpack-plugin-2.0.1.tgz#5ba1972c40732eef519bc77d5cd0c0dc8da0949b"
+rollbar-sourcemap-webpack-plugin@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/rollbar-sourcemap-webpack-plugin/-/rollbar-sourcemap-webpack-plugin-2.2.0.tgz#37fc39e79a410efc3aa7095b0cde084452a789a6"
   dependencies:
     async "^2.1.4"
     babel-runtime "^6.20.0"
