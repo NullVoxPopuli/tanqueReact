@@ -88,7 +88,7 @@
     "tether": "^1.4.0",
     "uglify-js": "^2.8.21",
     "uglifyjs-webpack-plugin": "^0.4.1",
-    "url-loader": "^0.5.8",
+    "url-loader": "^0.5.9",
     "webpack": "^2.7.0",
     "webpack-config-helper": "^2.0.16",
     "webpack-dev-middleware": "^1.10.1",
