@@ -2430,6 +2430,12 @@ enzyme-matchers@^3.7.0:
   dependencies:
     deep-equal-ident "^1.1.1"
 
+enzyme-matchers@^3.8.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/enzyme-matchers/-/enzyme-matchers-3.8.0.tgz#e2e0a3e0b9d76d9ef31acbf5ff6602c9d56ed03b"
+  dependencies:
+    deep-equal-ident "^1.1.1"
+
 enzyme-redux@^0.1.6:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/enzyme-redux/-/enzyme-redux-0.1.6.tgz#60c48687b9fddb71d85de647a1991de1e54eaf4f"
