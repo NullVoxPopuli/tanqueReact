@@ -42,7 +42,7 @@
     "bluebird": "^3.4.1",
     "copy-webpack-plugin": "3.0.1",
     "css-entry-webpack-plugin": "^1.0.0-beta.4",
-    "css-loader": "^0.28.0",
+    "css-loader": "^0.28.5",
     "enzyme": "^2.9.1",
     "enzyme-matchers": "^3.8.0",
     "enzyme-redux": "^0.1.6",
