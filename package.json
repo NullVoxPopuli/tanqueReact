@@ -65,7 +65,7 @@
     "inject-loader": "^3.0.1",
     "jest": "^19.0.2",
     "jest-cli": "^20.0.4",
-    "jest-enzyme": "^3.7.0",
+    "jest-enzyme": "^3.8.0",
     "jest-junit": "^2.1.0",
     "jestpack": "^0.2.0",
     "json-loader": "^0.5.7",
