@@ -81,7 +81,7 @@
     "resolve-url-loader": "^2.1.0",
     "rollbar-sourcemap-webpack-plugin": "^2.2.0",
     "sass-loader": "^6.0.6",
-    "sinon": "^3.2.0",
+    "sinon": "^3.2.1",
     "source-map-loader": "^0.2.1",
     "source-map-support": "^0.4.16",
     "style-loader": "^0.18.2",
