@@ -6700,9 +6700,9 @@ react-input-autosize@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-1.1.0.tgz#3fe1ac832387d8abab85f6051ceab1c9e5570853"
 
-react-keydown@^1.9.2:
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/react-keydown/-/react-keydown-1.9.2.tgz#4c860b5af0e66d7a2fd3d0ff0ad10bcb8fa03196"
+react-keydown@^1.9.3:
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/react-keydown/-/react-keydown-1.9.3.tgz#932bf9807323484e245df7824c6280d76db9588b"
 
 react-redux@^5.0.6:
   version "5.0.6"
