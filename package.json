@@ -86,7 +86,7 @@
     "source-map-support": "^0.4.16",
     "style-loader": "^0.18.2",
     "tether": "^1.4.0",
-    "uglify-js": "^2.8.21",
+    "uglify-js": "^3.0.28",
     "uglifyjs-webpack-plugin": "^0.4.6",
     "url-loader": "^0.5.9",
     "webpack": "^2.7.0",
