@@ -6764,9 +6764,9 @@ react-binding@^0.9.1:
   version "0.9.1"
   resolved "https://registry.yarnpkg.com/react-binding/-/react-binding-0.9.1.tgz#4cd30077c2955ca5eb00dc6455b0c0381b42f2a3"
 
-react-burger-menu@^2.1.4:
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/react-burger-menu/-/react-burger-menu-2.1.4.tgz#7a7d31c96c32c0c329d0bd5bbd78a844662708dd"
+react-burger-menu@^2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/react-burger-menu/-/react-burger-menu-2.1.5.tgz#55a3f554c27144ad4263998692905f7b27516130"
   dependencies:
     browserify-optional "^1.0.0"
     classnames "^2.1.1"
