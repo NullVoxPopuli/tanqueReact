@@ -83,7 +83,7 @@
     "sass-loader": "^6.0.6",
     "sinon": "^3.2.1",
     "source-map-loader": "^0.2.1",
-    "source-map-support": "^0.4.16",
+    "source-map-support": "^0.4.17",
     "style-loader": "^0.18.2",
     "tether": "^1.4.0",
     "uglify-js": "^2.8.21",
