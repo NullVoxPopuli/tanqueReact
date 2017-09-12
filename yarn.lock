@@ -2416,6 +2416,12 @@ enzyme-matchers@^3.8.0:
   dependencies:
     deep-equal-ident "^1.1.1"
 
+enzyme-matchers@^3.8.2:
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/enzyme-matchers/-/enzyme-matchers-3.8.2.tgz#bf3c8d2dfea3d372e4895cf22dda3f5154614833"
+  dependencies:
+    deep-equal-ident "^1.1.1"
+
 enzyme-redux@^0.1.6:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/enzyme-redux/-/enzyme-redux-0.1.6.tgz#60c48687b9fddb71d85de647a1991de1e54eaf4f"
@@ -4075,12 +4081,12 @@ jest-environment-node@^20.0.3:
     jest-mock "^20.0.3"
     jest-util "^20.0.3"
 
-jest-enzyme@^3.8.0:
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/jest-enzyme/-/jest-enzyme-3.8.0.tgz#94d46346fb10eea245cc10fd3e0d3034e353bcdd"
+jest-enzyme@^3.8.2:
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/jest-enzyme/-/jest-enzyme-3.8.2.tgz#b0352ca90193b4acc15509206ec68ddc41d98b6d"
   dependencies:
     "@types/react" "^15.0.22"
-    enzyme-matchers "^3.8.0"
+    enzyme-matchers "^3.8.2"
     enzyme-to-json "^1.5.0"
 
 jest-file-exists@^19.0.0:
