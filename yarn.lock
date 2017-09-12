@@ -1202,10 +1202,6 @@ boom@2.x.x:
   dependencies:
     hoek "2.x.x"
 
-bootstrap@^4.0.0-alpha.6:
-  version "4.0.0-beta"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.0.0-beta.tgz#dc5928175d2e71310bc668cf9e05a907211b72a6"
-
 brace-expansion@^1.1.7:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-1.1.7.tgz#3effc3c50e000531fb720eaff80f0ae8ef23cf59"
@@ -6582,9 +6578,9 @@ react-binding@^0.9.1:
   version "0.9.1"
   resolved "https://registry.yarnpkg.com/react-binding/-/react-binding-0.9.1.tgz#4cd30077c2955ca5eb00dc6455b0c0381b42f2a3"
 
-react-burger-menu@^2.1.4:
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/react-burger-menu/-/react-burger-menu-2.1.4.tgz#7a7d31c96c32c0c329d0bd5bbd78a844662708dd"
+react-burger-menu@^2.1.6:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/react-burger-menu/-/react-burger-menu-2.1.6.tgz#2e62a858f605efecea0ba8f014eab7cb24868351"
   dependencies:
     browserify-optional "^1.0.0"
     classnames "^2.1.1"
