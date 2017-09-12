@@ -3,9 +3,13 @@
   box-shadow: 0 15px 15px 0px rgba(0,0,0,0.25);
 }
 
+.card-block {
+  padding: 1.5em;
+}
+
 // make square
 .input, .card, .btn, .form-control, .alert, .modal-content {
-  border-radius: 0;
+  border-radius: 0 !important;
 }
 
 .nav-link {
