@@ -25,7 +25,7 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 script:
-  - if [ "$TRAVIS_BRANCH" == "master" ] && [ TRAVIS_PULL_REQUEST == "false" ]; then
+  - if [ "$TRAVIS_BRANCH" == "master" ] && [ $TRAVIS_PULL_REQUEST == "false" ]; then
       echo "Deploying the 'master' branch..."
       ./scripts/ci/deploy.sh;
     else
