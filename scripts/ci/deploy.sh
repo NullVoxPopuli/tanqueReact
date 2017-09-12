@@ -30,6 +30,7 @@ echo "Finished deploying..."
 echo $(git remote -v)
 echo $(git branch)
 echo $(ls)
+echo $(git status)
 echo "Finished with git debug output."
 
 echo "delpoy.sh done."
