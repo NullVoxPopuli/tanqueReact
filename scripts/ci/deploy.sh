@@ -25,3 +25,11 @@ cp index.html 404.html
 git add . \
   && git commit -m"update gh-pages" \
   && git push github gh-pages -f
+
+echo "Finished deploying..."
+echo $(git remote -v)
+echo $(git branch)
+echo $(ls)
+echo "Finished with git debug output."
+
+echo "delpoy.sh done."
