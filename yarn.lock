@@ -2410,15 +2410,15 @@ entities@^1.1.1, entities@~1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.1.tgz#6e5c2d0a5621b5dadaecef80b90edfb5cd7772f0"
 
-enzyme-matchers@^3.8.0:
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/enzyme-matchers/-/enzyme-matchers-3.8.0.tgz#e2e0a3e0b9d76d9ef31acbf5ff6602c9d56ed03b"
-  dependencies:
-    deep-equal-ident "^1.1.1"
-
 enzyme-matchers@^3.8.2:
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/enzyme-matchers/-/enzyme-matchers-3.8.2.tgz#bf3c8d2dfea3d372e4895cf22dda3f5154614833"
+  dependencies:
+    deep-equal-ident "^1.1.1"
+
+enzyme-matchers@^3.8.3:
+  version "3.8.3"
+  resolved "https://registry.yarnpkg.com/enzyme-matchers/-/enzyme-matchers-3.8.3.tgz#6269d47b0d81d5222745da503f27ac003ba208d2"
   dependencies:
     deep-equal-ident "^1.1.1"
 
