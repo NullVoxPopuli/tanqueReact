@@ -37,6 +37,10 @@ export default class ImportModal extends Component {
 
     this.state = {
       scanning: false,
+      scanner: null,
+      cameras: [],
+      singleCamera: false,
+
       identity: null,
       importDisabled: true,
       Tag: props.tagName || 'li'
@@ -47,32 +51,8 @@ export default class ImportModal extends Component {
     this.didSelectFile = this.didSelectFile.bind(this);
     this.identityChanged = this.identityChanged.bind(this);
     this.didClickScanQRCode = this.didClickScanQRCode.bind(this);
+    this.didSelectCamera = this.didSelectCamera.bind(this);
   }
-  //
-  // componentDidMount() {
-  //   let scanner = new Instascan.Scanner({
-  //     video: document.getElementById('preview'),
-  //     mirror: false,
-  //     continuous: true
-  //   });
-  //
-  //   scanner.addListener('scan', content => {
-  //     alert(content);
-  //   });
-  //
-  //   Instascan.Camera.getCameras()
-  //     .then(cameras => {
-  //       if (cameras.length > 0) {
-  //         scanner.start(cameras[0]);
-  //       } else {
-  //         toastError('No Cameras Found');
-  //       }
-  //     }).catch(e => {
-  //       toastError(e);
-  //     });
-  //
-  // }
-
 
   didClickImport() {
     const identityToImport = this.state.identity;
@@ -106,25 +86,26 @@ export default class ImportModal extends Component {
   async didClickScanQRCode() {
     this.setState({ scanning: true });
 
-    const scanner = new Instascan.Scanner({
-      video: document.getElementById('preview'),
-      mirror: false,
-      continuous: true
-    });
-
-    scanner.addListener('scan', content => {
-      this.setState({ identity: content });
-    });
-
-
     try {
+      const scanner = new Instascan.Scanner({
+        video: document.getElementById('preview'),
+        mirror: false,
+        continuous: true
+      });
+
+
+      this.setState({ scanner });
+
       const cameras = await Instascan.Camera.getCameras();
 
-      if (cameras.length > 0) {
-        await scanner.start(cameras[0]);
-      } else {
+      this.setState({ cameras });
+
+      if (cameras.length === 0) {
         toastError('No Cameras Found');
         this.setState({ scanning: false });
+      } else {
+        const firstCamera = cameras[0];
+        await scanner.start(firstCamera);
       }
     } catch (e) {
       toastError(e.message);
@@ -132,10 +113,32 @@ export default class ImportModal extends Component {
     }
   }
 
+  didSelectCamera(camera) {
+    return async _e => {
+      const { scanner } = this.state;
+
+      await scanner.stop();
+      await scanner.start(camera);
+
+      scanner.addListener('scan', content => {
+        console.log('content', content);
+        this.setState({ identity: content });
+      });
+
+    }
+  }
+
   // TODO: add validation
   render() {
-    const { identity, importDisabled, Tag, scanning } = this.state;
-    const { didClickImport, didSelectFile, identityChanged, didClickScanQRCode } = this;
+    const {
+      identity, importDisabled, Tag,
+      scanning, cameras
+    } = this.state;
+    const {
+      didClickImport, didSelectFile,
+      identityChanged,
+      didClickScanQRCode, didSelectCamera
+    } = this;
 
     return (
       <Tag>
@@ -157,7 +160,14 @@ export default class ImportModal extends Component {
 
           }>
 
-          { scanning && <video id="preview" autoPlay="autoplay"></video> }
+          <div style={{ width: '100%', height: '200px', overflow: 'hidden', hidden: !scanning }}>
+            <video id="preview" style={{ width: '100%' }} autoPlay="autoplay"></video>
+          </div>
+
+          { scanning &&
+            <span>
+              { cameras.map(c => <Button key={c.id} onClick={didSelectCamera(c)}>{c.name}</Button>) }
+            </span> }
           { !scanning && <span>
             <h4>Paste Identity File Here</h4>
 
