@@ -38,7 +38,6 @@ module.exports = {
     "jest/globals": true,
     "browser": true
   },
-  "maxWarnings": 1,
   "rules": {
     // -------------------------------
     // general rules

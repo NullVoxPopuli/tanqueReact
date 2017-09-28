@@ -4,12 +4,19 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Button, Tooltip } from 'reactstrap';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import * as QRCode from 'qrcode-js';
 
 import { objectToDataURL } from 'utility';
 
 import SimpleModal from 'components/-components/simple-modal';
 
-class ExportModal extends React.Component {
+
+const mapStateToProps = state => ({
+  config: state.identity.config
+});
+
+@connect(mapStateToProps, {})
+export default class ExportModal extends React.Component {
   static propTypes = {
     config: PropTypes.object,
     tagName: PropTypes.string
@@ -58,6 +65,7 @@ class ExportModal extends React.Component {
     const dataUrl = objectToDataURL(identity);
     const filename = `${config.alias}.json`;
     const tooltipId = 'export-tooltip-copy';
+    const qrCode = QRCode.toDataURL(identity, 4);
 
     return (
       <Tag>
@@ -90,18 +98,15 @@ class ExportModal extends React.Component {
             </CopyToClipboard>
           }
           onConfirm={this.didClickDownload}>
-            <pre>
+          <div className="d-flex flex-row align-items-stretch">
+            <img src={qrCode} />
+
+            <pre style={{ marginBottom: 0 }}>
               {formattedJson}
             </pre>
-          </SimpleModal>
+          </div>
+        </SimpleModal>
       </Tag>
     );
   }
 }
-
-
-const mapStateToProps = state => ({
-  config: state.identity.config
-});
-
-export default connect(mapStateToProps, {})(ExportModal);

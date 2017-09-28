@@ -119,6 +119,9 @@ const rules = [
 module.exports = {
   devtool: isProduction ? 'eval' : 'source-map',
   context: sourcePath,
+  node: {
+    fs: "empty"
+  },
   entry: {
     main: './js/main.js',
     // styles: './css/application.scss',
@@ -130,6 +133,8 @@ module.exports = {
       //       - this would be required for vendor.js to even
       //         be capable of providing an advantage
       'babel-polyfill',
+      'cuid',
+      'deepmerge',
       'phoenix-socket',
       "metascraper",
       "react-addons-css-transition-group",
@@ -153,7 +158,9 @@ module.exports = {
       'text-encoding',
       'tweetnacl',
       'tweetnacl-util',
-      'url-parse'
+      'url-parse',
+      'instascan',
+      'qrcode-js'
     ],
   },
   output: {
