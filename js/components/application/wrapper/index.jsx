@@ -39,14 +39,14 @@ class Wrapper extends Component {
 
     return (
       <div id='app-wrapper'>
+        <ToastContainer
+          className='toast-container'
+          autoClose={4000}
+          position='top-center' />
+
         <OffCanvas showUserList={isChat} isLeftBarShown={isLeftBarShown} />
         <div id='app-container'>
           <Navigation toggleLeftBar={toggleLeftBar} />
-
-          <ToastContainer
-            className='toast-container'
-            autoClose={4000}
-            position='top-center' />
 
           <Route
             exact={true}

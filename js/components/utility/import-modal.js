@@ -84,18 +84,35 @@ export default class ImportModal extends Component {
   }
 
   async didClickScanQRCode() {
+    // const { scanner } = this.state;
+
+    const scanner = new Instascan.Scanner({
+      video: document.getElementById('preview'),
+      mirror: false,
+      continuous: true
+    });
+
+
+    scanner.addListener('scan', content => {
+      scanner.stop();
+      this.didSelectFile(content);
+      this.setState({ scanning: false  });
+    });
+
+    // scanner.addListener('active', (content, image) => {
+    //   console.log('active', content, image);
+    // });
+    //
+    // scanner.addListener('inactive', (content, image) => {
+    //   console.log('inactive', content, image);
+    // });
+
+
+    this.setState({ scanner });
+
     this.setState({ scanning: true });
 
     try {
-      const scanner = new Instascan.Scanner({
-        video: document.getElementById('preview'),
-        mirror: false,
-        continuous: true
-      });
-
-
-      this.setState({ scanner });
-
       const cameras = await Instascan.Camera.getCameras();
 
       this.setState({ cameras });
@@ -108,7 +125,12 @@ export default class ImportModal extends Component {
         await scanner.start(firstCamera);
       }
     } catch (e) {
-      toastError(e.message);
+      if (e.name === 'TrackStartError') {
+        toastError('Camera might be in use. (TrackStartError)');
+        return;
+      }
+      toastError(e.message || e.name);
+      console.error(e)
       this.setState({ scanning: false });
     }
   }
@@ -119,12 +141,6 @@ export default class ImportModal extends Component {
 
       await scanner.stop();
       await scanner.start(camera);
-
-      scanner.addListener('scan', content => {
-        console.log('content', content);
-        this.setState({ identity: content });
-      });
-
     }
   }
 
@@ -160,7 +176,7 @@ export default class ImportModal extends Component {
 
           }>
 
-          <div style={{ width: '100%', height: '200px', overflow: 'hidden', hidden: !scanning }}>
+          <div style={{ width: '100%', height: '200px', overflow: 'hidden', display: scanning ? 'block' : 'none' }}>
             <video id="preview" style={{ width: '100%' }} autoPlay="autoplay"></video>
           </div>
 

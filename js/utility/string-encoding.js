@@ -1,9 +1,14 @@
+import Promise from 'bluebird';
 import naclUtil from 'tweetnacl-util';
+import * as QRCode from 'qrcode';
+
 // this package offers a ton of encoding / decoding options.
 // We can probably slim this back down to UTF-*
 import { TextDecoder } from 'text-encoding';
 
+const toQRDataURL = Promise.promisify(QRCode.toDataURL);
 const defaultEncoding = 'utf-8';
+const defaultErrorHandler = () => {};
 const utf8Decoder = new TextDecoder(defaultEncoding);
 
 export function convertUint8ArrayToBase64String(array) {
@@ -26,6 +31,19 @@ export function convertUint8ArrayToString(array) {
   const trimmed = string.replace(/^\0+/, '').replace(/\0+$/, '');
 
   return trimmed;
+}
+
+export async function convertObjectToQRCodeDataURL(object, errorHandler = defaultErrorHandler) {
+  const string = JSON.stringify(object);
+  const bytes = convertStringToUint8Array(string);
+  const data = [
+    {
+      data: bytes,
+      mode: 'byte'
+    }
+  ];
+
+  return await toQRDataURL(data);
 }
 
 export function convertObjectToBase64String(object) {

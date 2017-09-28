@@ -159,8 +159,7 @@ module.exports = {
       'tweetnacl',
       'tweetnacl-util',
       'url-parse',
-      'instascan',
-      'qrcode-js'
+      'instascan'
     ],
   },
   output: {
