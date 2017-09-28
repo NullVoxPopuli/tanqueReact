@@ -9,10 +9,10 @@ import {
 } from 'actions/identity/config';
 
 const DEFAULT_RELAYS = {
-  [0]: { url: 'wss://mesh-relay-in-us-1.herokuapp.com/socket' },
-  [1]: { url: 'wss://mesh-relay-in-us-2.herokuapp.com/socket' },
-  [2]: { url: 'ws://localhost:4301/socket' },
-  [3]: { url: '' }
+  0: { url: 'wss://mesh-relay-in-us-1.herokuapp.com/socket' },
+  1: { url: 'wss://mesh-relay-in-us-2.herokuapp.com/socket' },
+  2: { url: 'ws://localhost:4301/socket' },
+  3: { url: '' }
 };
 
 const defaultConfig = {

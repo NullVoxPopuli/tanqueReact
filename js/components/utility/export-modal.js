@@ -98,14 +98,14 @@ export default class ExportModal extends React.Component {
             </CopyToClipboard>
           }
           onConfirm={this.didClickDownload}>
-            <div className="d-flex flex-row align-items-stretch">
-              <img src={qrCode} />
+          <div className="d-flex flex-row align-items-stretch">
+            <img src={qrCode} />
 
-              <pre style={{ marginBottom: 0 }}>
-                {formattedJson}
-              </pre>
-            </div>
-          </SimpleModal>
+            <pre style={{ marginBottom: 0 }}>
+              {formattedJson}
+            </pre>
+          </div>
+        </SimpleModal>
       </Tag>
     );
   }

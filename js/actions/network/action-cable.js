@@ -73,18 +73,18 @@ export function connectToCable() {
     dispatch(connect());
 
     socket = new Socket(url, { params: { uid } });
-    socket.onError( () => console.log("socket: there was an error with the connection!") )
-    socket.onClose( () => console.log("socket: the connection dropped") )
+    socket.onError(() => console.log('socket: there was an error with the connection!'));
+    socket.onClose(() => console.log('socket: the connection dropped'));
     socket.connect();
     channel = socket.channel(`user:${uid}`, {});
-    channel.onError( () => {
-      console.log("channel: there was an error!");
+    channel.onError(() => {
+      console.log('channel: there was an error!');
       socket.disconnect();
-    } )
-    channel.onClose( () => {
-      console.log("channel: the channel has gone away gracefully")
-      socket.disconnect()
-    } )
+    });
+    channel.onClose(() => {
+      console.log('channel: the channel has gone away gracefully');
+      socket.disconnect();
+    });
     channel
       .on('chat', cableReceived(dispatch));
     channel

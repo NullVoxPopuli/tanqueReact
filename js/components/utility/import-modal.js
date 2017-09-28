@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { FormGroup, Input, Button } from 'reactstrap';
 import { connect } from 'react-redux';
-// import * as Instascan from 'instascan';
-const Instascan = require('instascan');
-
+import * as Instascan from 'instascan';
 
 import { mutCreator } from 'react-state-helpers';
 import FileChooser from 'components/file-chooser';
@@ -108,7 +106,7 @@ export default class ImportModal extends Component {
   async didClickScanQRCode() {
     this.setState({ scanning: true });
 
-    let scanner = new Instascan.Scanner({
+    const scanner = new Instascan.Scanner({
       video: document.getElementById('preview'),
       mirror: false,
       continuous: true
@@ -126,11 +124,11 @@ export default class ImportModal extends Component {
         await scanner.start(cameras[0]);
       } else {
         toastError('No Cameras Found');
-        this.setState({ scanning: false })
+        this.setState({ scanning: false });
       }
-    } catch(e) {
+    } catch (e) {
       toastError(e.message);
-      this.setState({ scanning: false })
+      this.setState({ scanning: false });
     }
   }
 
@@ -157,7 +155,7 @@ export default class ImportModal extends Component {
               </Button>
             </span>
 
-            }>
+          }>
 
           { scanning && <video id="preview" autoPlay="autoplay"></video> }
           { !scanning && <span>
