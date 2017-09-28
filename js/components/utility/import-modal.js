@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { FormGroup, Input, Button } from 'reactstrap';
 import { connect } from 'react-redux';
-import * as Instascan from 'instascan';
 
-import { mutCreator } from 'react-state-helpers';
+import wrapState from 'react-state-helpers';
 import FileChooser from 'components/file-chooser';
 import SimpleModal from 'components/-components/simple-modal';
+import QRScanner from 'components/qr-scanner';
 
 import { toastSuccess, toastError } from 'utility/toast';
 
@@ -25,6 +25,7 @@ const mapDispatchToProps = dispatch => ({
   importUser: bindActionCreators(data.users.importUser, dispatch)
 });
 
+@wrapState
 @connect(mapStateToProps, mapDispatchToProps)
 export default class ImportModal extends Component {
   static propTypes = {
@@ -36,22 +37,16 @@ export default class ImportModal extends Component {
     super(props);
 
     this.state = {
-      scanning: false,
-      scanner: null,
-      cameras: [],
-      singleCamera: false,
-
       identity: null,
       importDisabled: true,
       Tag: props.tagName || 'li'
     };
-    this.mut = mutCreator(this);
 
     this.didClickImport = this.didClickImport.bind(this);
     this.didSelectFile = this.didSelectFile.bind(this);
     this.identityChanged = this.identityChanged.bind(this);
-    this.didClickScanQRCode = this.didClickScanQRCode.bind(this);
-    this.didSelectCamera = this.didSelectCamera.bind(this);
+    this.onScan = this.onScan.bind(this);
+    this.onScannerError = this.onScannerError.bind(this);
   }
 
   didClickImport() {
@@ -83,77 +78,47 @@ export default class ImportModal extends Component {
     this.setState({ identity: prettyJson, importDisabled });
   }
 
-  async didClickScanQRCode() {
-    // const { scanner } = this.state;
 
-    const scanner = new Instascan.Scanner({
-      video: document.getElementById('preview'),
-      mirror: false,
-      continuous: true
-    });
+  onScan(content) {
+    const { toggle } = this.props;
 
+    this.didSelectFile(content);
 
-    scanner.addListener('scan', content => {
-      scanner.stop();
-      this.didSelectFile(content);
-      this.setState({ scanning: false  });
-    });
-
-    // scanner.addListener('active', (content, image) => {
-    //   console.log('active', content, image);
-    // });
-    //
-    // scanner.addListener('inactive', (content, image) => {
-    //   console.log('inactive', content, image);
-    // });
-
-
-    this.setState({ scanner });
-
-    this.setState({ scanning: true });
-
-    try {
-      const cameras = await Instascan.Camera.getCameras();
-
-      this.setState({ cameras });
-
-      if (cameras.length === 0) {
-        toastError('No Cameras Found');
-        this.setState({ scanning: false });
-      } else {
-        const firstCamera = cameras[0];
-        await scanner.start(firstCamera);
-      }
-    } catch (e) {
-      if (e.name === 'TrackStartError') {
-        toastError('Camera might be in use. (TrackStartError)');
-        return;
-      }
-      toastError(e.message || e.name);
-      console.error(e)
-      this.setState({ scanning: false });
-    }
+    toggle('scanning')();
   }
 
-  didSelectCamera(camera) {
-    return async _e => {
-      const { scanner } = this.state;
+  onScannerError(error) {
+    const { toggle } = this.props;
+    const { name, message } = error;
 
-      await scanner.stop();
-      await scanner.start(camera);
+    console.error(error);
+
+    switch(name) {
+      case 'TrackStartError':
+        toastError(`Camera might be in use. ${name}`);
+        break;
+      case 'NoCameras':
+        toastError('No Cameras Found');
+        break;
+      default:
+        toastError(name ? `${name}: ${message}` : message);
     }
+
+
+    toggle('scanning')();
   }
 
   // TODO: add validation
   render() {
     const {
       identity, importDisabled, Tag,
-      scanning, cameras
+      cameras,
     } = this.state;
+    const { toggle, values: { scanning } } = this.props;
     const {
       didClickImport, didSelectFile,
       identityChanged,
-      didClickScanQRCode, didSelectCamera
+      onScan, didClickScanQRCode, onScannerError
     } = this;
 
     return (
@@ -169,21 +134,16 @@ export default class ImportModal extends Component {
               <FileChooser
                 onChange={didSelectFile}
                 buttonText={'Select File'} />
-              <Button onClick={didClickScanQRCode}>
+
+              <Button onClick={toggle('scanning')}>
                 <i className='fa fa-qrcode'></i>
               </Button>
             </span>
 
           }>
 
-          <div style={{ width: '100%', height: '200px', overflow: 'hidden', display: scanning ? 'block' : 'none' }}>
-            <video id="preview" style={{ width: '100%' }} autoPlay="autoplay"></video>
-          </div>
+          { scanning && <QRScanner onScan={onScan} onError={onScannerError} /> }
 
-          { scanning &&
-            <span>
-              { cameras.map(c => <Button key={c.id} onClick={didSelectCamera(c)}>{c.name}</Button>) }
-            </span> }
           { !scanning && <span>
             <h4>Paste Identity File Here</h4>
 
