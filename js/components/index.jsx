@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 
-import './footer/styles.scss';
-
 export default class Index extends Component {
   static propTypes = {
     toChat: PropTypes.func.isRequired

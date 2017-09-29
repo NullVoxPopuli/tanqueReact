@@ -5,9 +5,9 @@ import { FormGroup, Input, Button } from 'reactstrap';
 import { connect } from 'react-redux';
 
 import wrapState from 'react-state-helpers';
-import FileChooser from 'components/file-chooser';
+import FileChooser from 'components/-components/file-chooser';
 import SimpleModal from 'components/-components/simple-modal';
-import QRScanner from 'components/qr-scanner';
+import QRScanner from 'components/-components/qr-scanner';
 
 import { toastSuccess, toastError } from 'utility/toast';
 
@@ -98,7 +98,7 @@ export default class ImportModal extends Component {
     case 'TrackStartError':
       toastError(`Camera might be in use. ${name}`);
       break;
-    case 'NoCameras':
+    case 'NoCameraError':
       toastError('No Cameras Found');
       break;
     default:

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormGroup, Card, CardBlock, CardTitle, CardHeader, CardText, Input, Label, Row, Col, Button } from 'reactstrap';
 
-import FileChooser from 'components/file-chooser';
+import FileChooser from 'components/-components/file-chooser';
 
 export default class SettingsPresentation extends Component {
   static propTypes = {

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 import * as Instascan from 'instascan';
 
+import { NoCameraError } from './errors';
+
 export default class QRScanner extends Component {
   static propTypes = {
     onScan: PropTypes.func.isRequired,
@@ -61,7 +63,7 @@ export default class QRScanner extends Component {
   async getCameras() {
     const cameras = await Instascan.Camera.getCameras();
 
-    if (cameras.length === 0) throw new Error({ name: 'NoCameras' });
+    if (cameras.length === 0) throw new NoCameraError();
 
     this.setState({ cameras });
   }

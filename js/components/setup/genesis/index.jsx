@@ -12,7 +12,7 @@ import { base64ToHex } from 'utility';
 import { isStoredConfigValid } from 'actions/identity/config';
 import { mutCreator } from 'react-state-helpers';
 import DangerModal from 'components/-components/danger-modal';
-import FileChooser from 'components/file-chooser';
+import FileChooser from 'components/-components/file-chooser';
 
 import { toastSuccess, toastError } from 'utility/toast';
 
