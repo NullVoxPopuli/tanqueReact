@@ -30,7 +30,8 @@ const mapDispatchToProps = dispatch => ({
 export default class ImportModal extends Component {
   static propTypes = {
     importUser: PropTypes.func.isRequired,
-    tagName: PropTypes.string
+    tagName: PropTypes.string,
+    values: PropTypes.object
   }
 
   constructor(props) {
@@ -93,15 +94,15 @@ export default class ImportModal extends Component {
 
     console.error(error);
 
-    switch(name) {
-      case 'TrackStartError':
-        toastError(`Camera might be in use. ${name}`);
-        break;
-      case 'NoCameras':
-        toastError('No Cameras Found');
-        break;
-      default:
-        toastError(name ? `${name}: ${message}` : message);
+    switch (name) {
+    case 'TrackStartError':
+      toastError(`Camera might be in use. ${name}`);
+      break;
+    case 'NoCameras':
+      toastError('No Cameras Found');
+      break;
+    default:
+      toastError(name ? `${name}: ${message}` : message);
     }
 
 
@@ -111,14 +112,11 @@ export default class ImportModal extends Component {
   // TODO: add validation
   render() {
     const {
-      identity, importDisabled, Tag,
-      cameras,
-    } = this.state;
-    const { toggle, values: { scanning } } = this.props;
-    const {
       didClickImport, didSelectFile,
       identityChanged,
-      onScan, didClickScanQRCode, onScannerError
+      onScan, onScannerError,
+      state: { identity, importDisabled, Tag },
+      props: { toggle, values: { scanning } }
     } = this;
 
     return (

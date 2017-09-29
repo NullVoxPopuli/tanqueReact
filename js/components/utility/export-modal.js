@@ -6,7 +6,6 @@ import { Button, Tooltip } from 'reactstrap';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
 import { objectToDataURL, convertObjectToQRCodeDataURL } from 'utility';
-import { toastSuccess, toastError } from 'utility/toast';
 
 import SimpleModal from 'components/-components/simple-modal';
 

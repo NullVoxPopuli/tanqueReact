@@ -8,7 +8,6 @@ import { TextDecoder } from 'text-encoding';
 
 const toQRDataURL = Promise.promisify(QRCode.toDataURL);
 const defaultEncoding = 'utf-8';
-const defaultErrorHandler = () => {};
 const utf8Decoder = new TextDecoder(defaultEncoding);
 
 export function convertUint8ArrayToBase64String(array) {
@@ -33,7 +32,7 @@ export function convertUint8ArrayToString(array) {
   return trimmed;
 }
 
-export async function convertObjectToQRCodeDataURL(object, errorHandler = defaultErrorHandler) {
+export async function convertObjectToQRCodeDataURL(object) {
   const string = JSON.stringify(object);
   const bytes = convertStringToUint8Array(string);
   const data = [
