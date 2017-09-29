@@ -12,67 +12,99 @@ export default class QRScanner extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {};
     this.didSelectCamera = this.didSelectCamera.bind(this);
   }
 
   componentDidMount() {
     this.mountScanner();
   }
-    async mountScanner() {
-      const { onError, onScan } = this.props;
 
-      this.scanner = new Instascan.Scanner({
-        video: document.getElementById('preview'),
-        mirror: false,
-        continuous: true
-      });
+  mountScanner() {
+    const { onError } = this.props;
+    const scanner = this.newScanner();
 
-
-      this.scanner.addListener('scan', content => {
-        this.scanner.stop();
-
-        onScan(content);
-      });
+    this.setState({ scanner }, async () => {
+      this.addListeners();
 
       try {
+        await this.getCameras();
         await this.startDefaultCamera();
       } catch(e) {
         onError(e);
       }
+    });
+
+  }
+
+  newScanner() {
+    const scanner = new Instascan.Scanner({
+      video: document.getElementById('preview'),
+      mirror: false,
+      continuous: true
+    });
+
+    return scanner;
+  }
+
+  addListeners() {
+    const { onScan } = this.props;
+    const { scanner } = this.state;
+
+    scanner.addListener('scan', content => {
+      scanner.stop();
+
+      onScan(content);
+    });
+  }
+
+  async getCameras() {
+    const cameras = await Instascan.Camera.getCameras();
+
+    if (cameras.length === 0) throw new Error({ name: 'NoCameras' });
+
+    this.setState({ cameras });
+  }
+
+  async startDefaultCamera() {
+    const { cameras, scanner } = this.state;
+
+    const backCamera = cameras.find(c => c.name.toLowerCase().includes('back'));
+    const defaultCamera = backCamera || cameras[0];
+
+    this.setState({ activeCamera: defaultCamera.name });
+
+    await scanner.stop();
+    await scanner.start(defaultCamera);
+  }
+
+  didSelectCamera(camera) {
+    const { scanner } = this.state;
+
+    return async _e => {
+      this.setState({ activeCamera: camera.name });
+
+      await scanner.stop();
+      await scanner.start(camera);
     }
+  }
 
-    async startDefaultCamera() {
-      this.cameras = await Instascan.Camera.getCameras();
+  nameForCamera(cameraName) {
+    const name = cameraName.toLowerCase();
+    const isFront = name.includes('front');
+    const isBack = name.includes('back');
 
-      if (this.cameras.length === 0) throw new Error({ name: 'NoCameras' });
+    if (isFront) return 'Front';
+    if (isBack) return 'Back';
 
-      const backCamera = this.cameras.find(c => c.name.toLowerCase().includes('back'));
-      const defaultCamera = backCamera || this.cameras[0];
-
-      await this.scanner.stop();
-      await this.scanner.start(defaultCamera);
-    }
-
-    didSelectCamera(camera) {
-      return async _e => {
-        await this.scanner.stop();
-        await this.scanner.start(camera);
-      }
-    }
-
-    nameForCamera(cameraName) {
-      const name = cameraName.toLowerCase();
-      const isFront = name.includes('front');
-      const isBack = name.includes('back');
-
-      if (isFront) return 'Front';
-      if (isBack) return 'Back';
-
-      return cameraName;
-    }
+    return cameraName;
+  }
 
   render() {
-    const { didSelectCamera, nameForCamera, cameras } = this;
+    const {
+      didSelectCamera, nameForCamera,
+      state: { cameras, activeCamera }
+    } = this;
 
     return (
       <div>
@@ -80,10 +112,12 @@ export default class QRScanner extends Component {
           <video id="preview" style={{ width: '100%' }} autoPlay="autoplay"></video>
         </div>
 
-        <span>
-          { cameras && cameras.map(c => <Button key={c.id} onClick={didSelectCamera(c)}>
-            {nameForCamera(c.name)}
-          </Button>) }
+        <span className='d-flex justify-content-between'>
+          { cameras && cameras.map(c => (
+            <Button key={c.id} active={activeCamera === c.name} onClick={didSelectCamera(c)}>
+              {nameForCamera(c.name)}
+            </Button>
+          )) }
         </span>
       </div>
     );
