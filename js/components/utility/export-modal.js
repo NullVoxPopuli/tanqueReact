@@ -4,9 +4,8 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { Button, Tooltip } from 'reactstrap';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import * as QRCode from 'qrcode-js';
 
-import { objectToDataURL } from 'utility';
+import { objectToDataURL, convertObjectToQRCodeDataURL } from 'utility';
 
 import SimpleModal from 'components/-components/simple-modal';
 
@@ -34,6 +33,10 @@ export default class ExportModal extends React.Component {
     this.didCopy = this.didCopy.bind(this);
   }
 
+  componentWillMount() {
+    this.renderQrCode();
+  }
+
   identity() {
     const { config } = this.props;
     const { alias, publicKey: publickey, uid } = (config || {});
@@ -52,9 +55,16 @@ export default class ExportModal extends React.Component {
     }, 1000);
   }
 
+  async renderQrCode() {
+    const identity = this.identity();
+    const dataUrl = await convertObjectToQRCodeDataURL(identity);
+
+    this.setState({ qrCode: dataUrl });
+  }
+
   render() {
     const { config } = this.props;
-    const { copied, Tag } = this.state;
+    const { copied, Tag, qrCode } = this.state;
 
     // don't show the export functionality when
     // we haven't set ourselves up yet.
@@ -65,7 +75,6 @@ export default class ExportModal extends React.Component {
     const dataUrl = objectToDataURL(identity);
     const filename = `${config.alias}.json`;
     const tooltipId = 'export-tooltip-copy';
-    const qrCode = QRCode.toDataURL(identity, 4);
 
     return (
       <Tag>

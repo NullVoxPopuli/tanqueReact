@@ -53,6 +53,7 @@ config.devServer = {
     version: true
   },
   hot: true,
+  https: true,
   host: '0.0.0.0',
   port: 4201,
   // opens browser
