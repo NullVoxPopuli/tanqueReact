@@ -48,7 +48,7 @@
     "enzyme-matchers": "^3.8.2",
     "enzyme-redux": "^0.1.7",
     "eslint": "^4.5.0",
-    "eslint-config-airbnb-base": "^11.3.2",
+    "eslint-config-airbnb-base": "^12.0.1",
     "eslint-import-resolver-webpack": "^0.8.3",
     "eslint-loader": "^1.9.0",
     "eslint-plugin-babel": "^4.1.2",
