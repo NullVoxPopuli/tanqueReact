@@ -11,7 +11,7 @@ import Chat from 'components/chat/index';
 import Settings from 'components/settings';
 import Index from 'components/index';
 import Setup from 'components/setup';
-import Footer from './footer';
+import Footer from '../footer';
 
 import { isStoredConfigValid } from 'actions/identity/config';
 import { app } from 'actions/views';
