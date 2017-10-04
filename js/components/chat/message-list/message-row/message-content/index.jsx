@@ -83,7 +83,7 @@ export default class MessageContent extends Component {
 
   render() {
     const { message, className } = this.props;
-    const hasExtraContent = this.hasExtraContent()
+    const hasExtraContent = this.hasExtraContent();
 
     return (
       <span className={className}>
