@@ -64,28 +64,32 @@ export default class MessageContent extends Component {
       .catch(console.info);
   }
 
-  render() {
-    const { message, className } = this.props;
+  hasExtraContent() {
+    const { firstUrl } = this.state;
+    return !_.isEmpty(firstUrl);
+  }
+
+  extraContent() {
     const { firstUrl, isVideo, isImage, tags, hasTags } = this.state;
 
-    const hasExtraContent = !_.isEmpty(firstUrl);
-
-    let extraContent = '';
-
-    if (hasExtraContent) {
+    if (this.hasExtraContent()) {
       if (isVideo) {
-        extraContent = <VideoContent url={firstUrl} />;
+        return <VideoContent url={firstUrl} />;
       } else if (isImage) {
-        extraContent = <ImageContent url={firstUrl} />;
+        return <ImageContent url={firstUrl} />;
       } else if (hasTags) {
-        extraContent = <UrlContent tags={tags} />;
+        return <UrlContent tags={tags} />;
       }
     }
+  }
+
+  render() {
+    const { message, className } = this.props;
 
     return (
       <span className={className}>
-        {message}
-        {extraContent}
+        {!this.hasExtraContent() && message}
+        {this.extraContent()}
       </span>
     );
   }
