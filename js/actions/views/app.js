@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-import { createNotification } from 'utility/create-notification';
+import { default as createNotification } from 'utility/create-notification';
 
 export const TOGGLE_LEFT_BAR = 'views/app/TOGGLE_LEFT_BAR';
 export const TOGGLE_ALLOW_NOTIFICATIONS = 'views/app/TOGGLE_ALLOW_NOTIFICATIONS';

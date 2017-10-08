@@ -90,6 +90,12 @@ const rules = [
     exclude: /node_modules/,
     loader: 'babel-loader?' + JSON.stringify(babelSettings)
   },
+  { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+  {
+    test: /^\.?[a-zA-z0-9\/_-]*(?!\.spec)\.tsx?$/,
+    exclude: /node_modules/,
+    use: ['ts-loader']
+  },
   {
     test: /\.(png|gif|jpg|svg|html)$/,
     include: imgPath,
@@ -170,7 +176,7 @@ module.exports = {
     rules,
   },
   resolve: {
-    extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx', '.css', '.scss'],
+    extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx', '.ts', '.tsx', '.css', '.scss'],
     modules: [
       path.resolve(sourcePath, 'node_modules'),
       jsSourcePath,

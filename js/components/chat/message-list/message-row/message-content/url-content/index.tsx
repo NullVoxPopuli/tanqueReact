@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import ContentWrapper from '../content-wrapper';
 
-export default class ImageContent extends Component {
-  static propTypes = {
-    tags: PropTypes.object.isRequired
-  }
+export default class ImageContent
+  extends React.Component<{ tags: IMetadataTag }, any> {
 
   render() {
     const { tags } = this.props;

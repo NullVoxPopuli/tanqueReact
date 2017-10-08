@@ -1,33 +1,26 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
+import stateHelpers from 'react-state-helpers';
 
 import { Card, CardBlock, Collapse, Button } from 'reactstrap';
 
-export default class ContentWrapper extends Component {
-  static propTypes = {
-    children: PropTypes.any.isRequired
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.state = { show: true };
-    this.toggle = this.toggle.bind(this);
-  }
-
-  toggle() {
-    this.setState({ show: !this.state.show });
-  }
+@stateHelpers
+export default class ContentWrapper
+  extends React.Component<{
+    closedText?: string|JSX.Element, toggle?: any, values?: any }, any> {
 
   render() {
-    const { children, closedText } = this.props;
-    const { show } = this.state;
+    const {
+      children, closedText,
+      toggle, values: { show }
+    } = this.props;
 
     const caretDirection = show ? 'down' : 'right';
     const buttonIconClass = `fa fa-caret-${caretDirection}`;
+
     return (
       <div className='d-flex justify-content-start'>
-        <Button onClick={this.toggle}>
+        <Button onClick={toggle('show')}>
           <i className={buttonIconClass}></i>
         </Button>
         <Collapse isOpen={!show}>

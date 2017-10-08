@@ -20,6 +20,7 @@ services:
       - ./js:/src/app/js
       - ./test:/src/app/test
       - ./dist:/src/app/dist
+      - ./types:/src/app/types
 
       - ./package.json:/src/app/package.json
 
@@ -27,6 +28,7 @@ services:
       - ./.bootstraprc:/src/app/.bootstraprc
       - ./.eslintrc.js:/src/app/.eslintrc.js
       - ./.eslintignore:/src/app/.eslintignore
+      - ./tsconfig.json:/src/app/tsconfig.json
 
       - ./index.ejs:/src/app/index.ejs
     environment:

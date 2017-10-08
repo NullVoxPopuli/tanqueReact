@@ -8,4 +8,7 @@ const _ = require('lodash');
 
 let config = require('./main.config.js');
 
-module.exports = config;
+module.exports = {
+  ...config,
+  devtool: "source-map"
+};

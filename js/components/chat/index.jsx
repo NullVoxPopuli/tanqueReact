@@ -13,7 +13,19 @@ import MessageList from './message-list';
 
 import './sticky-chat-entry.scss';
 
-class ChatIndex extends React.Component {
+const mapStateToProps = state => ({
+  config: state.identity.config,
+  messages: state.data.messages.records,
+  whisperingToUser: state.data.users.whisperingToUser
+});
+
+const mapDispatchToProps = dispatch => ({
+  handleInput: bindActionCreators(inputHandler.handleInput, dispatch),
+  connect: bindActionCreators(actionCable.connectToCable, dispatch)
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
+export default class ChatIndex extends React.Component {
   static propTypes = {
     config: PropTypes.object.isRequired,
     messages: PropTypes.array.isRequired,
@@ -26,13 +38,6 @@ class ChatIndex extends React.Component {
     super(props);
 
     this.props.connect();
-    this.didEnterMessage = this.didEnterMessage.bind(this);
-  }
-
-  didEnterMessage(message) {
-    const { handleInput } = this.props;
-
-    handleInput(message);
   }
 
   relevantMessages() {
@@ -52,7 +57,7 @@ class ChatIndex extends React.Component {
   }
 
   render() {
-    const { whisperingToUser } = this.props;
+    const { whisperingToUser, handleInput } = this.props;
     const messages = this.relevantMessages();
 
     return (
@@ -71,7 +76,7 @@ class ChatIndex extends React.Component {
               messages={messages} />
             <TextEntry
               whisperingToUser={whisperingToUser}
-              onSendText={this.didEnterMessage}
+              onSendText={handleInput}
               currentRoomId={this.currentRoomId}/>
           </div>
         </Col>
@@ -79,19 +84,3 @@ class ChatIndex extends React.Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  config: state.identity.config,
-  messages: state.data.messages.records,
-  whisperingToUser: state.data.users.whisperingToUser
-});
-
-const mapDispatchToProps = dispatch => ({
-  handleInput: bindActionCreators(inputHandler.handleInput, dispatch),
-  connect: bindActionCreators(actionCable.connectToCable, dispatch)
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ChatIndex);

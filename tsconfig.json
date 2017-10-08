@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "target": "es2017",
+    "allowJs": true,
+    "jsx": "react",
+    "target": "es5",
+    "experimentalDecorators": true,
+  },
+  "files": [
+    "types/index.d.ts"
+  ],
+  "include": [
+    "./js/"
+  ]
+}

@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
-import ContentWrapper from '../content-wrapper';
-import parseUrl from 'url-parse';
+import * as parseUrl from 'url-parse';
 import { parse as parseQuery } from 'query-string';
 
-export default class ImageContent extends Component {
-  static propTypes = {
-    url: PropTypes.string.isRequired
-  }
+import ContentWrapper from '../content-wrapper';
 
-  emberUrlFor(url) {
+export default class ImageContent
+  extends React.Component<{ url: string }, any> {
+
+  embedUrlFor(url: string): string {
     // for youtube, the pattern is:
     // https://www.youtube.com/watch?v=BIvezCVcsYs
     //   to
@@ -25,15 +24,18 @@ export default class ImageContent extends Component {
   render() {
     const { url } = this.props;
 
-    const emberUrl = this.emberUrlFor(url);
+    const embedUrl = this.embedUrlFor(url);
+
+    const iframeProps = {
+      allowFullscreen: true,
+      width: '560',
+      height:'315',
+      frameBorder: '0',
+      src: embedUrl
+    };
 
     return <ContentWrapper>
-      <iframe
-        allowFullscreen
-        width='560' height='315'
-        frameBorder='0'
-        src={emberUrl}>
-      </iframe>
+      <iframe { ...iframeProps }/>
     </ContentWrapper>;
   }
 }
