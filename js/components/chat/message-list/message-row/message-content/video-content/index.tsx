@@ -27,7 +27,7 @@ export default class ImageContent
     const embedUrl = this.embedUrlFor(url);
 
     const iframeProps = {
-      allowFullscreen: true,
+      allowFullScreen: true,
       width: '560',
       height:'315',
       frameBorder: '0',

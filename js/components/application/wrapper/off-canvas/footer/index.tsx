@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { withRouter } from 'react-router';
 import {
   Nav,
@@ -10,13 +9,9 @@ import {
 import ImportModal from 'components/utility/import-modal';
 import ExportModal from 'components/utility/export-modal';
 
-class OffCanvasFooter extends Component {
-  static propTypes = {
-    navClasses: PropTypes.string,
-    closeOffCanvas: PropTypes.func.isRequired,
-    history: PropTypes.any.isRequired
-  }
-
+@withRouter
+export default class OffCanvasFooter
+  extends Component<{ avClasses: string, closeOffCanvas: Function, history: any }, any> {
 
   constructor(props) {
     super(props);
@@ -24,11 +19,12 @@ class OffCanvasFooter extends Component {
     this.didClickSettings = this.didClickSettings.bind(this);
   }
 
-  didClickSettings() {
+  didClickSettings(): void {
     const { closeOffCanvas, history } = this.props;
 
     closeOffCanvas();
-    return history.push('/settings');
+
+    history.push('/settings');
   }
 
   render() {
@@ -50,5 +46,3 @@ class OffCanvasFooter extends Component {
     );
   }
 }
-
-export default withRouter(OffCanvasFooter);
