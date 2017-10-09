@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 import { toastError } from 'utility/toast';
-import _ from 'lodash';
+import * as _ from 'lodash';
 import cuid from 'cuid';
 
 import redux from 'js/redux-store';

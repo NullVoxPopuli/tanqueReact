@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import * as _ from 'lodash';
 // why is this so tempting all the time...
 import redux from 'js/redux-store';
 

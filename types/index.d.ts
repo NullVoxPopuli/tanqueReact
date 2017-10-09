@@ -4,3 +4,9 @@ declare interface IMetadataTag {
   url: string,
   title: string
 }
+
+declare interface Identity {
+  alias: string,
+  publicKey: string,
+  uid: string
+}

@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 // https://github.com/airbnb/enzyme/issues/586#issue-175851483
 export function stubMethod(wrapper, method, returnValue) {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Nav, NavItem, NavLink } from 'reactstrap';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 import UserListRow from './user-list-row';
 

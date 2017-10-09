@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { FormGroup, Input, Button } from 'reactstrap';
 import { connect } from 'react-redux';
@@ -9,7 +8,7 @@ import FileChooser from 'components/-components/file-chooser';
 import SimpleModal from 'components/-components/simple-modal';
 import QRScanner from 'components/-components/qr-scanner';
 
-import { toastSuccess, toastError } from 'utility/toast';
+import { toastSuccess, toastError } from 'js/utility/toast';
 
 import { data } from 'js/actions';
 import { isUserIdentityValid } from 'js/actions/data/users';
@@ -27,12 +26,18 @@ const mapDispatchToProps = dispatch => ({
 
 @wrapState
 @connect(mapStateToProps, mapDispatchToProps)
-export default class ImportModal extends Component {
-  static propTypes = {
-    importUser: PropTypes.func.isRequired,
-    tagName: PropTypes.string,
-    values: PropTypes.object
-  }
+export default class ImportModal
+  extends React.Component<{
+    importUser: Function,
+    tagName: string,
+    toggle: Function,
+    mut: Function,
+    values: any
+  }, {
+    identity?: string|null,
+    importDisabled: boolean,
+    Tag: string
+  }> {
 
   constructor(props) {
     super(props);
@@ -61,7 +66,7 @@ export default class ImportModal extends Component {
 
   identityChanged(e) {
     try {
-      const json = this.mut('identity')(e);
+      const json = this.props.mut('identity')(e);
       const object = JSON.parse(json);
       const importDisabled = !isUserIdentityValid(object);
 

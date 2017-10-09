@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { createAction } from 'redux-actions';
-import _ from 'lodash';
+import * as _ from 'lodash';
 import Promise from 'bluebird';
 
 import { generateNewKeys } from 'utility';

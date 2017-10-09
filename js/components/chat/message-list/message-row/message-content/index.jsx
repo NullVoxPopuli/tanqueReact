@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Metascraper from 'metascraper';
 
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 import ImageContent from './image-content';
 import UrlContent from './url-content';

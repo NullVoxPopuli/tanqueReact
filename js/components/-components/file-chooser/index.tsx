@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 
-export default class FileChooser extends Component {
-  static propTypes = {
-    buttonText: PropTypes.string.isRequired,
-    buttonClasses: PropTypes.string,
-    buttonTag: PropTypes.string,
-    onChange: PropTypes.func.isRequired
-  }
+export default class FileChooser
+  extends React.Component<{
+    buttonText: string,
+    buttonClasses?: string,
+    buttonTag?: string,
+    onChange: Function
+  }, any> {
 
   constructor(props) {
     super(props);

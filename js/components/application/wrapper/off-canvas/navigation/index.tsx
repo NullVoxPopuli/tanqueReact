@@ -1,13 +1,9 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { withRouter } from 'react-router';
 import { Nav, NavItem } from 'reactstrap';
 
-class OffCanvasNavigation extends Component {
-  static propTypes = {
-    history: PropTypes.any.isRequired,
-    closeOffCanvas: PropTypes.func.isRequired
-  }
+class OffCanvasNavigation
+  extends React.Component<{ history: any, closeOffCanvas: Function }, any> {
 
   constructor(props) {
     super(props);

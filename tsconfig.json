@@ -8,11 +8,23 @@
     "jsx": "react",
     "target": "es5",
     "experimentalDecorators": true,
+    "baseUrl": ".",
+    "paths": {
+      "components/*": ["js/components/*"],
+      "actions/*": ["js/actions/*"],
+      "reducers/*": ["js/reducers/*"],
+      "utility/*": ["js/utility/*"],
+      "js": ["js/*"]
+    }
   },
   "files": [
     "types/index.d.ts"
   ],
   "include": [
     "./js/"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
   ]
 }

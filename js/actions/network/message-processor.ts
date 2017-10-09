@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 import { decryptFrom } from 'utility/nacl';
 import { appendMessage } from 'js/actions/data/messages';

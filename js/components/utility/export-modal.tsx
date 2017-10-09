@@ -1,11 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
+import * as React from 'react';
+import * as _ from 'lodash';
 import { connect } from 'react-redux';
 import { Button, Tooltip } from 'reactstrap';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
-import { objectToDataURL, convertObjectToQRCodeDataURL } from 'utility';
+import { objectToDataURL, convertObjectToQRCodeDataURL } from 'js/utility';
 
 import SimpleModal from 'components/-components/simple-modal';
 
@@ -15,11 +14,15 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps, {})
-export default class ExportModal extends React.Component {
-  static propTypes = {
-    config: PropTypes.object,
-    tagName: PropTypes.string
-  }
+export default class ExportModal
+  extends React.Component<{
+    config?: Identity,
+    tagName: string
+  }, {
+    showModal: boolean,
+    copied: boolean,
+    Tag: string
+  }> {
 
   constructor(props) {
     super(props);

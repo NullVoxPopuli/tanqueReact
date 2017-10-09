@@ -11,7 +11,11 @@ import ExportModal from 'components/utility/export-modal';
 
 @withRouter
 export default class OffCanvasFooter
-  extends Component<{ avClasses: string, closeOffCanvas: Function, history: any }, any> {
+  extends React.Component<{
+    navClasses: string,
+    closeOffCanvas: Function,
+    history: any
+  }, any> {
 
   constructor(props) {
     super(props);

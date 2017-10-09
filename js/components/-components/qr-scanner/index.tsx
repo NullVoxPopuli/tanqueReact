@@ -1,15 +1,11 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { Button } from 'reactstrap';
 import * as Instascan from 'instascan';
 
 import { NoCameraError } from './errors';
 
-export default class QRScanner extends Component {
-  static propTypes = {
-    onScan: PropTypes.func.isRequired,
-    onError: PropTypes.func
-  }
+export default class QRScanner
+  extends React.Component<{ onScan: Function, onError?: Function}, any> {
 
   constructor(props) {
     super(props);
