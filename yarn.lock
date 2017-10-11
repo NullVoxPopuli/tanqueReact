@@ -2644,9 +2644,9 @@ etag@~1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.0.tgz#6f631aef336d6c46362b51764044ce216be3c051"
 
-eve@~0.4.2:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/eve/-/eve-0.4.2.tgz#7eea0afc0e4efb7c9365615315a3576833ead2ae"
+eve@~0.5.1:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/eve/-/eve-0.5.4.tgz#67d080b9725291d7e389e34c26860dd97f1debaa"
 
 eventemitter3@1.x.x:
   version "1.2.0"
@@ -6578,15 +6578,15 @@ react-binding@^0.9.1:
   version "0.9.1"
   resolved "https://registry.yarnpkg.com/react-binding/-/react-binding-0.9.1.tgz#4cd30077c2955ca5eb00dc6455b0c0381b42f2a3"
 
-react-burger-menu@^2.1.6:
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/react-burger-menu/-/react-burger-menu-2.1.6.tgz#2e62a858f605efecea0ba8f014eab7cb24868351"
+react-burger-menu@^2.1.9:
+  version "2.1.9"
+  resolved "https://registry.yarnpkg.com/react-burger-menu/-/react-burger-menu-2.1.9.tgz#f323d371ed4cdfbede59ddb1b0fafc7437e9cc76"
   dependencies:
     browserify-optional "^1.0.0"
     classnames "^2.1.1"
-    eve "~0.4.2"
+    eve "~0.5.1"
     prop-types "^15.5.8"
-    snapsvg-cjs "0.0.4"
+    snapsvg-cjs "0.0.6"
 
 react-copy-to-clipboard@^5.0.0:
   version "5.0.0"
@@ -7332,17 +7332,17 @@ slice-ansi@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/slice-ansi/-/slice-ansi-0.0.4.tgz#edbf8903f66f7ce2f8eafd6ceed65e264c831b35"
 
-snapsvg-cjs@0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/snapsvg-cjs/-/snapsvg-cjs-0.0.4.tgz#106ca5b82a79824101f06c568e1a2563659c451d"
+snapsvg-cjs@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/snapsvg-cjs/-/snapsvg-cjs-0.0.6.tgz#3b2f56af2573d3d364c3ed5bf8885745f4d2dde1"
   dependencies:
-    snapsvg "0.4.0"
+    snapsvg "0.5.1"
 
-snapsvg@0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/snapsvg/-/snapsvg-0.4.0.tgz#e0767014167825957de7e125c29b0fa89796ea03"
+snapsvg@0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/snapsvg/-/snapsvg-0.5.1.tgz#0caf52c79189a290746fc446cc5e863f6bdddfe3"
   dependencies:
-    eve "~0.4.2"
+    eve "~0.5.1"
 
 sntp@1.x.x:
   version "1.0.9"
