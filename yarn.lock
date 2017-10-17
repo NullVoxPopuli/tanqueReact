@@ -6790,9 +6790,9 @@ react-burger-menu@^2.1.9:
     prop-types "^15.5.8"
     snapsvg-cjs "0.0.6"
 
-react-copy-to-clipboard@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/react-copy-to-clipboard/-/react-copy-to-clipboard-5.0.0.tgz#23ccdd7c4d9ec2cc763839e2a55b1220aeb4f33d"
+react-copy-to-clipboard@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/react-copy-to-clipboard/-/react-copy-to-clipboard-5.0.1.tgz#8eae107bb400be73132ed3b6a7b4fb156090208e"
   dependencies:
     copy-to-clipboard "^3"
     prop-types "^15.5.8"
