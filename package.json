@@ -111,7 +111,7 @@
     "react-addons-transition-group": "^15.6.0",
     "react-binding": "^0.9.1",
     "react-burger-menu": "^2.1.9",
-    "react-copy-to-clipboard": "^5.0.0",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.0.0",
     "react-file-input": "^0.2.5",
     "react-fontawesome": "^1.6.1",
