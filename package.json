@@ -108,7 +108,7 @@
     "react": "^16.0.0",
     "react-addons-css-transition-group": "^15.6.2",
     "react-addons-test-utils": "^15.6.0",
-    "react-addons-transition-group": "^15.6.0",
+    "react-addons-transition-group": "^15.6.2",
     "react-binding": "^0.9.1",
     "react-burger-menu": "^2.1.9",
     "react-copy-to-clipboard": "^5.0.1",
