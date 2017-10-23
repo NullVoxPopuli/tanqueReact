@@ -8150,9 +8150,9 @@ uglify-js@^2.6, uglify-js@^2.8.27, uglify-js@^2.8.29, uglify-js@~2.8.22:
   optionalDependencies:
     uglify-to-browserify "~1.0.0"
 
-uglify-js@^3.1.4:
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.1.4.tgz#8e1efa1244b207588e525c9c1835a33458b90aee"
+uglify-js@^3.1.5:
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.1.5.tgz#4c1a6d53b2fe77e4710dd94631853effd3ff5143"
   dependencies:
     commander "~2.11.0"
     source-map "~0.6.1"
