@@ -7055,9 +7055,9 @@ react-state-helpers@^1.5.16:
   version "1.5.16"
   resolved "https://registry.yarnpkg.com/react-state-helpers/-/react-state-helpers-1.5.16.tgz#93e2fba3934b4ce6e521978700ad29a0224796ee"
 
-react-toastify@^2.1.5:
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-2.1.5.tgz#b2f31c851c796b822268ca178f30b846ba0dec1c"
+react-toastify@^2.1.6:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-2.1.6.tgz#1a487fad27a48d9eaef456835e955ebe79b1a790"
   dependencies:
     prop-types "^15.6.0"
     react-transition-group "^2.2.1"
