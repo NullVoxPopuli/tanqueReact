@@ -6986,9 +6986,9 @@ react-input-autosize@^2.0.1:
     create-react-class "^15.5.2"
     prop-types "^15.5.8"
 
-react-keydown@^1.9.4:
-  version "1.9.4"
-  resolved "https://registry.yarnpkg.com/react-keydown/-/react-keydown-1.9.4.tgz#22718ac95edb64dd840dfc4350abf7e693ea0b7f"
+react-keydown@^1.9.5:
+  version "1.9.5"
+  resolved "https://registry.yarnpkg.com/react-keydown/-/react-keydown-1.9.5.tgz#5119c7f332f80b298e82eb82e021282cd71a9840"
   dependencies:
     core-js "^2.5.0"
 
