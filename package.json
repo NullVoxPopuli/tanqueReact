@@ -73,7 +73,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.19.1",
     "moment-timezone": "^0.5.11",
-    "node-sass": "^4.5.3",
+    "node-sass": "^4.7.1",
     "on-build-webpack": "^0.1.0",
     "postcss-cssnext": "^3.0.2",
     "postcss-import": "^11.0.0",
