@@ -67,7 +67,7 @@
     "jest": "^21.2.1",
     "jest-cli": "^20.0.4",
     "jest-enzyme": "^4.0.1",
-    "jest-junit": "^2.1.0",
+    "jest-junit": "^3.4.0",
     "jestpack": "^0.2.0",
     "json-loader": "^0.5.7",
     "lodash": "^4.17.4",
