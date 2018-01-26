@@ -119,7 +119,7 @@
     "react-router-redux": "^4.0.8",
     "react-select": "^1.0.0-rc.10",
     "react-state-helpers": "^1.5.16",
-    "react-toastify": "^2.1.5",
+    "react-toastify": "^3.3.1",
     "react-truncate": "^2.2.2",
     "reactstrap": "^5.0.0-alpha.3",
     "redux": "^3.7.2",
