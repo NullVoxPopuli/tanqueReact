@@ -85,7 +85,7 @@
     "sinon": "^4.0.1",
     "source-map-loader": "^0.2.3",
     "source-map-support": "^0.5.0",
-    "style-loader": "^0.19.0",
+    "style-loader": "^0.20.1",
     "tether": "^1.4.0",
     "uglify-js": "^3.1.6",
     "uglifyjs-webpack-plugin": "^1.0.1",
