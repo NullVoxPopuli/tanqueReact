@@ -70,7 +70,7 @@
     "jest-junit": "^2.1.0",
     "jestpack": "^0.2.0",
     "json-loader": "^0.5.7",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.5",
     "moment": "^2.19.1",
     "moment-timezone": "^0.5.11",
     "node-sass": "^4.5.3",
