@@ -103,7 +103,7 @@
     "instascan": "^1.0.0",
     "metascraper": "^1.0.7",
     "phoenix-socket": "^1.2.3",
-    "prop-types": "^15.6.0",
+    "prop-types": "^15.6.1",
     "qrcode": "^0.9.0",
     "react": "^16.0.0",
     "react-binding": "^0.9.1",
