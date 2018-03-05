@@ -79,7 +79,7 @@
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
     "query-string": "^5.0.0",
-    "resolve-url-loader": "^2.2.0",
+    "resolve-url-loader": "^2.3.0",
     "rollbar-sourcemap-webpack-plugin": "^2.2.0",
     "sass-loader": "^6.0.6",
     "sinon": "^4.0.1",
