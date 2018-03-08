@@ -45,7 +45,7 @@
     "css-entry-webpack-plugin": "^1.0.0-beta.4",
     "css-loader": "^0.28.7",
     "enzyme": "^3.1.0",
-    "enzyme-matchers": "^4.0.1",
+    "enzyme-matchers": "^5.0.2",
     "enzyme-redux": "^0.1.7",
     "eslint": "^4.10.0",
     "eslint-config-airbnb-base": "^12.1.0",
