@@ -2462,9 +2462,9 @@ enzyme-matchers@^4.0.1:
   dependencies:
     deep-equal-ident "^1.1.1"
 
-enzyme-redux@^0.1.7:
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/enzyme-redux/-/enzyme-redux-0.1.7.tgz#1d2b40ad4d17a3508476424281463f89ef4012a2"
+enzyme-redux@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/enzyme-redux/-/enzyme-redux-0.2.0.tgz#672c20188f41386b0eeeb16ff7286ee19c3556d4"
 
 enzyme-to-json@^3.0.0:
   version "3.1.2"
