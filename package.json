@@ -101,7 +101,7 @@
     "deepmerge": "^2.0.0",
     "font-awesome": "^4.7.0",
     "instascan": "^1.0.0",
-    "metascraper": "^1.0.7",
+    "metascraper": "^3.10.0",
     "phoenix-socket": "^1.2.3",
     "prop-types": "^15.6.0",
     "qrcode": "^0.9.0",
