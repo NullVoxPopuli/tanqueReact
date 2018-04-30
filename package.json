@@ -107,7 +107,7 @@
     "qrcode": "^0.9.0",
     "react": "^16.0.0",
     "react-binding": "^0.9.1",
-    "react-burger-menu": "^2.1.10",
+    "react-burger-menu": "^2.4.4",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.0.0",
     "react-fontawesome": "^1.6.1",
